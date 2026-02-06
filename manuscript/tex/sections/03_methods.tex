@@ -1,0 +1,36 @@
+\section{Methods}
+\label{sec:methods}
+
+This section summarizes a concrete procedure for determining whether the HMF
+can be represented within a local operator class and for constructing it when
+closure holds.
+
+\paragraph{Step 1: Adjoint chain.}
+Compute the adjoint sequence
+$\{\mathrm{ad}_{H_Q}^n(f)\}_{n\ge 0}$ until linear dependence is observed.
+If the span stabilizes after $N$ steps, record a basis
+$\{O_1,\ldots,O_N\}$ for $\mathcal{A}_f$.
+
+\paragraph{Step 2: Algebraic closure.}
+Check whether the associative products $O_i O_j$ can be expressed within the
+same finite basis (together with the identity). If so, the generated operator
+algebra is finite dimensional and closed under multiplication. This is the
+exact closure criterion of Sec.~\ref{sec:theory}. Lie-algebraic closure of
+$\{O_i\}$ implies that the Magnus/BCH series for the ordered exponential closes
+within the finite enveloping algebra
+\cite{weiLieAlgebraicSolution1963,magnusExponentialSolutionDifferential1954a,blanesMagnusExpansionIts2009}.
+
+\paragraph{Step 3: Kernel moments.}
+Compute the kernel moments $\mu_{nm}$ from Eq.~\eqref{eq:kernel_moments} using the
+bath correlation function $K(\tau-\tau')$. For harmonic baths, $K$ is determined
+by the spectral density and temperature
+\cite{grabertQuantumBrownianMotion1988,tanimuraReducedHierarchicalEquations2014}.
+
+\paragraph{Step 4: Construct $H_{\mathrm{MF}}$.}
+With the basis and moments in hand, assemble the bilocal exponent via
+Eq.~\eqref{eq:bilocal_expansion}, write the ordered exponential as
+$\exp(\Omega)$ using the Magnus expansion, and combine with $e^{-\beta H_Q}$
+using BCH. When the algebra closes, $H_{\mathrm{MF}}$ is a finite operator
+polynomial. When it does not, any truncation or projection is the sole source
+of approximation.
+

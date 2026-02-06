@@ -1,0 +1,203 @@
+\section{Theoretical Derivation}
+\label{sec:theory}
+
+This section derives an exact operator expression for the reduced equilibrium
+object and provides a systematic criterion for when it admits a local
+Hamiltonian representation. We impose no weak-coupling or Markovian
+assumptions. The only structural assumption is a Gaussian bath with linear
+coupling, which makes the influence functional bilocal and exact.
+
+\subsection{Definitions and reduced equilibrium operator}
+We consider a composite Hilbert space $\mathcal{H} = \mathcal{H}_S \otimes
+\mathcal{H}_B$ and total Hamiltonian
+\begin{equation}
+    H_{\mathrm{tot}} = H_Q + H_B + H_I, \qquad H_I = f \otimes B,
+    \label{eq:Htot_def}
+\end{equation}
+where $H_Q$ acts on the system, $H_B$ on the bath, and the interaction is
+bilinear for clarity. The unnormalized reduced equilibrium operator is
+\begin{equation}
+    \bar{\rho}_S(\beta) = \mathrm{Tr}_B\, e^{-\beta H_{\mathrm{tot}}},
+    \label{eq:rho_unnorm}
+\end{equation}
+with normalized state
+\begin{equation}
+    \rho_S = \frac{\bar{\rho}_S}{\mathrm{Tr}_S \bar{\rho}_S}.
+    \label{eq:rho_norm}
+\end{equation}
+The Hamiltonian of mean force is defined by
+\begin{align}
+    e^{-\beta H_{\mathrm{MF}}(\beta)}
+    &= \frac{\mathrm{Tr}_B\, e^{-\beta(H_Q+H_B+H_I)}}{Z_B(\beta)},
+    \label{eq:HMF_def} \\
+    Z_B(\beta) &= \mathrm{Tr}_B e^{-\beta H_B}.
+    \nonumber
+\end{align}
+up to an additive scalar fixed by $\mathrm{Tr}_S e^{-\beta H_{\mathrm{MF}}}$. This
+operator definition is standard in strong-coupling thermodynamics and is exact
+\cite{campisiFluctuationTheoremArbitrary2009,talknerColloquiumStatisticalMechanics2020,trushechkinOpenQuantumSystem2022,seifertFirstSecondLaw2016}.
+
+\subsection{Imaginary-time interaction picture and exact Dyson identity}
+Split the Hamiltonian as $H_{\mathrm{tot}} = H_0 + H_I$ with $H_0 = H_Q + H_B$.
+For any operator $\mathcal{O}$ define the imaginary-time interaction picture
+\begin{equation}
+    \tilde{\mathcal{O}}(\tau) = e^{\tau H_0}\, \mathcal{O}\, e^{-\tau H_0},
+    \qquad \tau \in [0,\beta].
+    \label{eq:imag_time_def}
+\end{equation}
+The exact operator identity
+\begin{equation}
+    \begin{split}
+        e^{-\beta(H_0+H_I)} &= e^{-\beta H_0}\, \mathcal{T}_\tau \\
+        &\quad \times \exp\!\left(-\int_0^\beta d\tau\, \tilde{H}_I(\tau)\right)
+    \end{split}
+    \label{eq:dyson_imag}
+\end{equation}
+follows from the standard imaginary-time Dyson expansion
+\cite{feynmanTheoryGeneralQuantum1963a,caldeiraQuantumTunnellingDissipative1983a,grabertQuantumBrownianMotion1988}.
+Since $H_I = f \otimes B$ and $H_0$ is a sum of commuting system and bath
+Hamiltonians, $\tilde{H}_I(\tau) = \tilde{f}(\tau) \otimes \tilde{B}(\tau)$ with
+\begin{align}
+    \tilde{f}(\tau) &= e^{\tau H_Q} f e^{-\tau H_Q}, \label{eq:ftilde_Btilde} \\
+    \tilde{B}(\tau) &= e^{\tau H_B} B e^{-\tau H_B}.
+    \nonumber
+\end{align}
+
+\subsection{Gaussian bath trace and bilocal influence functional}
+Tracing Eq.~\eqref{eq:dyson_imag} over the bath gives
+\begin{equation}
+    \begin{split}
+        \bar{\rho}_S &= e^{-\beta H_Q}\,
+        \left\langle \mathcal{T}_\tau
+        \exp\!\left(-\int_0^\beta d\tau\, \tilde{f}(\tau)\tilde{B}(\tau)\right)
+        \right\rangle_B.
+    \end{split}
+    \label{eq:trace_bath_first}
+\end{equation}
+Assume the bath is Gaussian with respect to $B$ (all cumulants beyond second
+order vanish). The cumulant expansion for ordered exponentials then yields
+\begin{multline}
+    \left\langle \mathcal{T}_\tau
+    \exp\!\left(-\int d\tau\, \tilde{f}(\tau)\tilde{B}(\tau)\right)\right\rangle_B \\
+    = \exp\!\Bigg(\sum_{n=1}^\infty \frac{(-1)^n}{n!}
+    \int d\tau_1\cdots d\tau_n\, \\
+    C_n(\tau_1,\ldots,\tau_n)
+    \prod_{j=1}^n \tilde{f}(\tau_j)\Bigg).
+    \label{eq:cumulant_expansion}
+\end{multline}
+where the $n$-point cumulant is
+\begin{equation}
+    C_n(\tau_1,\ldots,\tau_n) \equiv
+    \langle \mathcal{T}_\tau \tilde{B}(\tau_1)\cdots \tilde{B}(\tau_n)\rangle_c.
+    \label{eq:cumulant_def}
+\end{equation}
+and for a Gaussian bath only the $n=2$ term survives. This yields the exact
+bilocal influence functional
+\begin{multline}
+    \bar{\rho}_S
+    = e^{-\beta H_Q}\, \mathcal{T}_\tau
+    \exp\!\Bigg(-\frac{1}{2}\int_0^\beta d\tau \int_0^\beta d\tau'\, \\
+    \tilde{f}(\tau)\,K(\tau-\tau')\,\tilde{f}(\tau')\Bigg).
+    \label{eq:influence_functional}
+\end{multline}
+with the thermal bath kernel
+\begin{align}
+    K(\tau-\tau') &\equiv
+    \langle \mathcal{T}_\tau\, \tilde{B}(\tau)\tilde{B}(\tau')\rangle_B,
+    \label{eq:kernel_def} \\
+    \langle \cdot \rangle_B &\equiv \mathrm{Tr}_B(\cdot\, \rho_B),
+    \qquad \rho_B = Z_B^{-1} e^{-\beta H_B}.
+    \nonumber
+\end{align}
+This bilocal form is standard for linear coupling to a harmonic bath and holds
+exactly under the Gaussian assumption
+\cite{feynmanTheoryGeneralQuantum1963a,caldeiraQuantumTunnellingDissipative1983a,grabertQuantumBrownianMotion1988,tanimuraReducedHierarchicalEquations2014,songCalculationCorrelatedInitial2015}.
+
+\subsection{Gaussian-field (Hubbard--Stratonovich) reformulation}
+The bilocal quadratic form in Eq.~\eqref{eq:influence_functional} can be
+linearized by a Hubbard--Stratonovich transformation, yielding an exact
+representation as a quenched Gaussian average
+\begin{equation}
+    \begin{split}
+        \bar{\rho}_S &= e^{-\beta H_Q}
+        \left\langle \mathcal{T}_\tau
+        \exp\!\left(-\int_0^\beta d\tau\, \xi(\tau)\,\tilde{f}(\tau)\right)
+        \right\rangle_{\xi},
+    \end{split}
+    \label{eq:hs_rep}
+\end{equation}
+where $\xi(\tau)$ is a zero-mean Gaussian field with covariance
+$\langle \xi(\tau)\xi(\tau')\rangle = K(\tau-\tau')$. This reformulation is exact
+and is widely used in stochastic unravellings of imaginary-time influence
+functionals
+\cite{hubbardCalculationPartitionFunctions1959a,stratonovich1957QDistro,moixEquilibriumreducedDensityMatrix2012,chenRigorousStochasticMatrix2014,mccaulPartitionfreeApproachOpen2017c}.
+
+\subsection{Time ordering and interaction-picture dynamics of the coupling operator}
+Although $f$ is time independent in the Schr\"odinger picture, the
+interaction-picture operator $\tilde{f}(\tau)$ is nontrivial whenever
+$[H_Q,f] \neq 0$. The time ordering in
+Eqs.~\eqref{eq:influence_functional}--\eqref{eq:hs_rep} acts on noncommuting
+operators, so one cannot replace $\tilde{f}(\tau)$ by $f$ unless it commutes
+with $H_Q$. Explicitly,
+\begin{equation}
+    \frac{d}{d\tau} \tilde{f}(\tau) = [H_Q, \tilde{f}(\tau)],
+    \qquad \tilde{f}(0) = f,
+    \label{eq:ftilde_eom}
+\end{equation}
+so the ordered product $\mathcal{T}_\tau\,\tilde{f}(\tau)\tilde{f}(\tau')$ cannot
+be reduced to $f^2$ unless $[H_Q,f]=0$. Operator differentiation and ordered
+exponentials are treated systematically in
+Refs.~\cite{wilcoxExponentialOperatorsParameter1967a,magnusExponentialSolutionDifferential1954a,blanesMagnusExpansionIts2009}.
+
+\subsection{Adjoint-action expansion and kernel moments}
+Define the adjoint action $\mathrm{ad}_{H_Q}(X)=[H_Q,X]$ and its iterates
+$\mathrm{ad}_{H_Q}^n$. The interaction-picture operator admits the exact series
+\begin{equation}
+    \tilde{f}(\tau) = e^{\tau \mathrm{ad}_{H_Q}}(f)
+    = \sum_{n=0}^\infty \frac{\tau^n}{n!}\, \mathrm{ad}_{H_Q}^n(f),
+    \label{eq:adjoint_expansion}
+\end{equation}
+which follows from the exponential map for operators
+\cite{wilcoxExponentialOperatorsParameter1967a}. Substituting into the bilocal exponent
+of Eq.~\eqref{eq:influence_functional} yields the exact algebraic expansion
+\begin{multline}
+    \int_0^\beta d\tau \int_0^\beta d\tau'\, K(\tau-\tau')
+    \tilde{f}(\tau)\tilde{f}(\tau') \\
+    = \sum_{n,m=0}^\infty \mu_{nm}\,
+    \mathrm{ad}_{H_Q}^n(f)\,\mathrm{ad}_{H_Q}^m(f).
+    \label{eq:bilocal_expansion}
+\end{multline}
+with kernel moments
+\begin{equation}
+    \mu_{nm} \equiv \frac{1}{n!\,m!}
+    \int_0^\beta d\tau \int_0^\beta d\tau'\, \tau^n (\tau')^m K(\tau-\tau').
+    \label{eq:kernel_moments}
+\end{equation}
+This separates bath statistics (contained in $\mu_{nm}$) from the system operator
+algebra. Symmetry properties of $K$ and moment relations are summarized in
+Appendix~\ref{sec:appendix_kernel}.
+
+\subsection{Exact closure criterion and local construction}
+Define the adjoint-generated subspace
+\begin{equation}
+    \mathcal{A}_f = \mathrm{span}\{\mathrm{ad}_{H_Q}^n(f)\}_{n=0}^\infty.
+    \label{eq:Af_def}
+\end{equation}
+\textbf{Exact closure criterion.} An exact local Hamiltonian of mean force
+exists as a finite operator polynomial if and only if the associative algebra
+generated by $\mathcal{A}_f$ (together with the identity) is finite dimensional
+and closed under multiplication. Equivalently, the Lie algebra generated by
+$\mathcal{A}_f$ is finite dimensional and the corresponding BCH/Magnus series for
+$\log\rho_S$ closes within its enveloping algebra
+\cite{weiLieAlgebraicSolution1963,magnusExponentialSolutionDifferential1954a,blanesMagnusExpansionIts2009,vanbruntVisser2015BCHClosedForms}.
+
+When the closure condition holds, the time-ordered exponential in
+Eq.~\eqref{eq:influence_functional} can be written as $\exp(\Omega)$ with
+$\Omega$ a finite linear combination of basis elements in the closed algebra
+(Magnus expansion). Combining $e^{-\beta H_Q}$ and $e^{\Omega}$ by BCH yields
+$\bar{\rho}_S = e^{-\beta H_{\mathrm{MF}}}$ with
+$H_{\mathrm{MF}}$ in the same finite operator class. When closure fails, the
+Magnus/BCH series does not truncate and any finite local ansatz for
+$H_{\mathrm{MF}}$ necessarily involves truncation or projection; this is the
+only point where approximation enters.
+

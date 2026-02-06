@@ -1,0 +1,46 @@
+\section{Introduction}
+\label{sec:intro}
+
+The reduced equilibrium operator of an open quantum system at inverse
+temperature $\beta$ is
+\begin{equation}
+    \bar{\rho}_S(\beta) = \mathrm{Tr}_B \, e^{-\beta H_{\mathrm{tot}}},
+    \label{eq:intro_rho_unnorm}
+\end{equation}
+with $H_{\mathrm{tot}} = H_Q + H_B + H_I$ and the trace taken over the bath.
+The normalized reduced state is
+\begin{equation}
+    \rho_S = \frac{\bar{\rho}_S}{\mathrm{Tr}_S \bar{\rho}_S}.
+    \label{eq:intro_rho_norm}
+\end{equation}
+An equivalent operator definition of the Hamiltonian of mean force (HMF) is
+given by
+\begin{align}
+    e^{-\beta H_{\mathrm{MF}}(\beta)}
+    &\propto \frac{\mathrm{Tr}_B e^{-\beta(H_Q+H_B+H_I)}}{Z_B(\beta)},
+    \label{eq:intro_hmf_def} \\
+    Z_B(\beta) &= \mathrm{Tr}_B e^{-\beta H_B}.
+    \nonumber
+\end{align}
+where the proportionality fixes an additive scalar in $H_{\mathrm{MF}}$.
+This definition is exact and is standard in strong-coupling thermodynamics
+and mean-force formulations
+\cite{campisiFluctuationTheoremArbitrary2009,talknerColloquiumStatisticalMechanics2020,trushechkinOpenQuantumSystem2022,seifertFirstSecondLaw2016}.
+
+The goal of this paper is to provide an explicit, step-by-step operator
+derivation of $\bar{\rho}_S$ in a form that (i) exposes the exact
+imaginary-time influence functional and its Gaussian-field reformulation and
+(ii) yields a systematic criterion for when $H_{\mathrm{MF}}$ can be represented
+as a local operator within a finite algebra.
+Our derivation is performed in the imaginary-time interaction picture and
+assumes a Gaussian bath (harmonic environment with linear coupling), for which
+the influence functional is bilocal and exact
+\cite{feynmanTheoryGeneralQuantum1963a,caldeiraQuantumTunnellingDissipative1983a,grabertQuantumBrownianMotion1988}.
+We then show how the resulting time-ordered object can be rewritten entirely in
+terms of adjoint actions of $H_Q$ on the coupling operator and kernel moments,
+which leads to an exact closure criterion for locality.
+
+No approximation enters until one projects onto a restricted operator class or
+truncates an operator expansion. Broader implications are outside the present
+scope.
+

@@ -1,0 +1,83 @@
+\section{Quenched Density and Imaginary-Time Evolution}
+\label{sec:appendix_quenched}
+
+This appendix makes explicit the operator identity underlying the quenched
+imaginary-time formulation used in Sec.~\ref{sec:theory}. Define a
+time-ordered exponential with a (generally) $\tau$-dependent operator
+$H(\tau)$,
+\begin{equation}
+    \begin{split}
+        \rho(\tau) &\equiv \mathcal{T}_\tau
+        \exp\left(-\int_0^\tau d\tau' \, H(\tau')\right), \\
+        \rho(0) &= \mathbb{I}.
+    \end{split}
+    \label{eq:appendix_rho_def}
+\end{equation}
+Standard differentiation identities for ordered exponentials imply
+\begin{equation}
+    -\partial_\tau \rho(\tau) = H(\tau)\rho(\tau),
+    \label{eq:appendix_imag_time_eq}
+\end{equation}
+with the ordering built into $\rho(\tau)$; see, e.g.,
+Refs.~\cite{wilcoxExponentialOperatorsParameter1967a,magnusExponentialSolutionDifferential1954a,blanesMagnusExpansionIts2009}
+for operator calculus and time-ordered exponentials.
+
+In the present context one takes
+\begin{equation}
+    H(\tau) = H_Q + \xi(\tau) f,
+    \label{eq:appendix_quenched_H}
+\end{equation}
+where the Gaussian field satisfies
+\begin{equation}
+    \langle \xi(\tau)\xi(\tau')\rangle = K(\tau-\tau').
+    \label{eq:appendix_xi_cov}
+\end{equation}
+The reduced equilibrium operator can be written as
+\begin{equation}
+    \bar{\rho}_S =
+    e^{-\beta H_Q}\left\langle \rho(\beta) \right\rangle_\xi,
+    \label{eq:appendix_rho_beta}
+\end{equation}
+which is the compact operator form of the quenched Gaussian representation
+used in the main text.
+
+To connect Eq.~\eqref{eq:appendix_rho_beta} to an imaginary-time path integral,
+one discretizes $\tau \in [0,\beta]$, applies a Trotter (or Zassenhaus)
+factorization, and inserts resolutions of identity in the system coordinate
+basis. This yields the standard Euclidean path-integral expression for the
+canonical density operator, with the $\tau$-dependent potential induced by the
+auxiliary field, as in the influence-functional derivation for quadratic baths
+and their stochastic unravellings
+\cite{feynmanTheoryGeneralQuantum1963a,caldeiraQuantumTunnellingDissipative1983a,grabertQuantumBrownianMotion1988,moixEquilibriumreducedDensityMatrix2012,chenRigorousStochasticMatrix2014}.
+
+\section{Kernel Symmetry and Moment Relations}
+\label{sec:appendix_kernel}
+
+The bath kernel appearing in the bilocal influence functional is
+\begin{equation}
+    \begin{split}
+        K(\tau-\tau') &=
+        \mathrm{Tr}_B\!\left[\mathcal{T}_\tau \tilde{B}(\tau)\tilde{B}(\tau')\rho_B\right], \\
+        \rho_B &= \frac{e^{-\beta H_B}}{Z_B}.
+    \end{split}
+    \label{eq:appendix_kernel_def}
+\end{equation}
+For equilibrium baths, $K$ depends only on the imaginary-time difference and is
+even under exchange of its arguments, implying
+\begin{equation}
+    K(\tau-\tau') = K(\tau'-\tau), \qquad
+    \mu_{nm} = \mu_{mn},
+    \label{eq:appendix_kernel_sym}
+\end{equation}
+where $\mu_{nm}$ are the kernel moments defined in
+Eq.~\eqref{eq:kernel_moments}. In common quadratic-bath models the kernel is
+explicitly constructed from the bath spectral density and satisfies the
+Kubo-Martin-Schwinger periodicity in imaginary time, which can be used to
+re-express moment integrals in equivalent forms; see
+Refs.~\cite{grabertQuantumBrownianMotion1988,tanimuraReducedHierarchicalEquations2014,songCalculationCorrelatedInitial2015}
+for explicit constructions.
+
+The moment expansion used in Sec.~\ref{sec:theory} requires only these symmetry
+properties and the existence of the integrals defining $\mu_{nm}$. No further
+approximation is introduced at this stage.
+
