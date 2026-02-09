@@ -1,0 +1,755 @@
+\section{Quenched representation of the reduced equilibrium operator\label{sec:quenched}}
+
+The Hamiltonian of mean force is defined implicitly by the reduced equilibrium
+operator $\bar\rho_S(\beta)=\Tr_X e^{-\beta H_{\mathrm{tot}}}$. To obtain a
+constructive handle on $H_{\mathrm{MF}}(\beta)$, it is useful to reorganise the
+problem in two steps.
+
+First, we treat $\bar\rho_S(\beta)$ as an imaginary-time propagator on the system
+Hilbert space: it is a positive operator obtained by evolving over an interval
+of length $\beta$, and any such operator may be written in the form
+\begin{equation}
+    \bar\rho_S(\beta)
+    =
+    \mathcal T_\tau \exp\!\left[-\int_0^\beta d\tau\, H_{\mathrm{eff}}(\tau)\right],
+    \label{eq:bar_rho_as_tau_propagator}
+\end{equation}
+for some (in general non-unique) generator $H_{\mathrm{eff}}(\tau)$.
+
+Second, we explicitly allow the generator to depend on $\tau$. This is not a technical luxury but a structural necessity: after eliminating the bath, the system acquires a non-local memory-kernel self-coupling. As emphasized in recent partition-free approaches~\cite{mccaulPartitionFreeApproach2018,mccaulHowToWin2021} and the development of stochastic Liouville-von Neumann methods~\cite{stockburgerExactNumberRepresentation2002,stockburgerSimulatingSpinbosonDynamics2004,stockburgerVarianceReduction2016,stockburgerStochasticLiouvillevon2018}, this non-local object can be mapped \emph{exactly} to a local, stochastic evolution via the Hubbard-Stratonovich transformation. This transformation trades the temporal non-locality for an average over an auxiliary Gaussian field, ensuring that the full non-Markovian character of the bath is retained without approximation.
+
+A full derivation of this result is provided in Appendix~\ref{app:influence_derivation}.
+
+For a CL environment the bath can be eliminated exactly, yielding an imaginary-time
+influence functional with a memory kernel fixed by the spectral density $J(\omega)$.
+Rather than working with the resulting bilocal object directly, we adopt an equivalent
+representation in which the bath enters through an auxiliary Gaussian field and the
+system evolves with a \emph{local-in-$\tau$} generator. Specifically, we introduce a real stochastic field $\xi(\tau)$ on $\tau\in[0,\beta]$ with
+\begin{equation}
+    \langle \xi(\tau)\rangle_\xi = 0,
+    \qquad
+    \langle \xi(\tau)\xi(\tau')\rangle_\xi = K(\tau-\tau'),
+    \label{eq:xi_cov_main}
+\end{equation}
+where $K$ is the Euclidean bath correlation kernel determined by $J(\omega)$. A convenient
+explicit form is
+\begin{equation}
+    K(\tau)=\frac{1}{\pi}\int_0^\infty d\omega\,J(\omega)\,
+    \frac{\cosh\!\big(\omega(\beta/2-|\tau|)\big)}{\sinh(\beta\omega/2)} ,
+    \qquad \tau\in[-\beta,\beta].
+    \label{eq:K_of_tau_main}
+\end{equation}
+
+For each realisation $\xi$, we define the quenched effective Hamiltonian
+\begin{equation}
+    H_{\mathrm{eff}}[\xi](\tau) \equiv H_Q + \xi(\tau)\,f,
+    \label{eq:Heff_xi_main}
+\end{equation}
+and the corresponding quenched propagator
+\begin{equation}
+    U_\xi(\beta)\equiv \mathcal T_\tau \exp\!\left[-\int_0^\beta d\tau\,H_{\mathrm{eff}}[\xi](\tau)\right].
+    \label{eq:Uxi_def_main}
+\end{equation}
+The reduced equilibrium operator admits the quenched average representation
+\begin{equation}
+    \bar\rho_S(\beta)\equiv \Tr_X e^{-\beta H_{\mathrm{tot}}}
+    \;=\;
+    \big\langle U_\xi(\beta)\big\rangle_\xi,
+    \label{eq:quenched_identity_main}
+\end{equation}
+with the Gaussian measure on $\xi$ fixed by Eqs.\eqref{eq:xi_cov_main}--\eqref{eq:K_of_tau_main}.
+Consequently, performing the average in \eqref{eq:quenched_identity_main} yields the
+Hamiltonian of mean force identically via
+\begin{equation}
+    H_{\mathrm{MF}}(\beta)
+    = -\frac{1}{\beta}\log\!\left[\frac{\bar\rho_S(\beta)}{Z_X(\beta)}\right],
+    \qquad Z_X(\beta)=\Tr_X e^{-\beta H_X},
+    \label{eq:HMF_from_quenched_identity_main}
+\end{equation}
+with the scalar fixed by the chosen normalisation. Consequently, calculating $H_{\mathrm{MF}}(\beta)$ is equivalent to determining $\bar\rho_S(\beta)$, which in turn requires performing the average in \eqref{eq:quenched_identity_main} over the Gaussian field $\xi$. 
+
+To perform this trick, it is necessary first to introduce the imaginary-time interaction picture with respect to $H_Q$ by writing
+\begin{align}
+    U_\xi(\beta)&=e^{-\beta H_Q}\,W_\xi(\beta), \nonumber\\
+    W_\xi(\beta)&\equiv \mathcal T_\tau
+    \exp\!\left[-\int_0^\beta d\tau\,\xi(\tau)\,\tilde f(\tau)\right],
+    \label{eq:Uxi_interaction_picture}
+\end{align}
+where
+\begin{equation}
+    \tilde f(\tau)\equiv e^{\tau H_Q}\,f\,e^{-\tau H_Q}.
+    \label{eq:f_tilde_def}
+\end{equation}
+This factors out the $\int H_Q$ piece from the ordered exponential, leaving $\int \xi(\tau)\tilde f(\tau)$ as the remaining term to be averaged over. As a final step before averaging, it is convenient to introduce the adjoint action of $H_Q$ on $f$, defined as $\mathrm{ad}_{H_Q}(f) = [H_Q, f]$ and $\mathrm{ad}_{H_Q}^n(f) = [H_Q, \mathrm{ad}_{H_Q}^{n-1}(f)]$. Then the interaction-picture coupling obeys
+\begin{equation}
+    \tilde f(\tau)=e^{\tau H_Q} f e^{-\tau H_Q}
+    = e^{\tau\,{\rm ad}_{H_Q}}(f)
+    = \sum_{n=0}^\infty \frac{\tau^n}{n!}\,{\rm ad}_{H_Q}^n(f).
+    \label{eq:adjoint_series}
+\end{equation}
+All operator growth induced by eliminating the bath is therefore controlled by the nested-commutator chain $\{{\rm ad}_{H_Q}^n(f)\}_{n\ge 0}$.
+
+We now compute the averaged interaction-picture propagator and actor out the free evolution:
+\begin{equation}
+    U_\xi(\beta)=e^{-\beta H_Q}\,W_\xi(\beta),
+    \qquad
+    W_\xi(\beta)\equiv
+    \mathcal T_\tau
+    \exp\!\left[
+        -\int_0^\beta d\tau\,\xi(\tau)\,\tilde f(\tau)
+    \right].
+    \label{eq:Uxi_factor_Wxi}
+\end{equation}
+Taking the Gaussian average yields
+\begin{equation}
+    \bar\rho_S(\beta)=e^{-\beta H_Q}\,\bar W(\beta),
+    \qquad
+    \bar W(\beta)\equiv \big\langle W_\xi(\beta)\big\rangle_\xi.
+    \label{eq:bar_rho_as_eH_barW}
+\end{equation}
+Thus the task is to evaluate the averaged interaction-picture propagator $\bar W(\beta)$. To do so, we expand the time-ordered exponential in Eq.~\eqref{eq:Uxi_factor_Wxi} in the standard Dyson series form,
+\begin{equation}
+\begin{split}
+    W_\xi(\beta)
+    =
+    \sum_{k=0}^\infty (-1)^k
+    \int_{\Delta_k} d\tau_1\cdots d\tau_k\;
+    &\xi(\tau_1)\cdots\xi(\tau_k) \\
+    &\times \tilde f(\tau_1)\cdots \tilde f(\tau_k),
+\end{split}
+    \label{eq:Wxi_Dyson_simplex}
+\end{equation}
+where $\Delta_k$ denotes the time-ordered integration domain
+\begin{equation}
+    \Delta_k:\qquad
+    0\le \tau_k\le\cdots\le \tau_2\le\tau_1\le\beta,
+    \label{eq:simplex_domain_def}
+\end{equation}
+and $d\tau_1\cdots d\tau_k$ is shorthand for the product measure over that domain.
+
+Averaging term-by-term gives
+\begin{equation}
+\begin{split}
+    \bar W(\beta)
+    =
+    \sum_{k=0}^\infty (-1)^k
+    &\int_{\Delta_k} d\tau_1\cdots d\tau_k\,
+    \big\langle \xi(\tau_1)\cdots\xi(\tau_k)\big\rangle_\xi \\
+    &\times \tilde f(\tau_1)\cdots \tilde f(\tau_k).
+\end{split}
+    \label{eq:barW_Dyson_avg}
+\end{equation}
+
+\paragraph{Gaussian moments and Wick's theorem.}
+Since $\xi$ is Gaussian with zero mean, all odd moments vanish:
+\begin{equation}
+    \big\langle \xi(\tau_1)\cdots\xi(\tau_{2n+1})\big\rangle_\xi = 0.
+    \label{eq:odd_moments_vanish}
+\end{equation}
+For even moments, Wick's theorem (Isserlis' theorem) yields a sum over all pairings:
+\begin{equation}
+    \big\langle \xi(\tau_1)\cdots\xi(\tau_{2n})\big\rangle_\xi
+    =
+    \sum_{P\in \mathcal P_{2n}}
+    \prod_{(i,j)\in P}
+    K(\tau_i-\tau_j),
+    \label{eq:wick_pairings_general}
+\end{equation}
+where $\mathcal P_{2n}$ is the set of perfect matchings (pair partitions) of $\{1,\dots,2n\}$.
+Substituting Eq.~\eqref{eq:wick_pairings_general} into Eq.~\eqref{eq:barW_Dyson_avg} gives the explicit
+all-orders expansion
+\begin{equation}
+\begin{split}
+    \bar W(\beta)
+    =
+    \sum_{n=0}^\infty
+    \int_{\Delta_{2n}} &d\tau_1\cdots d\tau_{2n}\,
+    \left(
+        \sum_{P\in \mathcal P_{2n}}
+        \prod_{(i,j)\in P}
+        K(\tau_i-\tau_j)
+    \right) \\
+    &\times \tilde f(\tau_1)\cdots \tilde f(\tau_{2n}).
+\end{split}
+    \label{eq:barW_all_orders_pairings}
+\end{equation}
+This series is precisely the Wick expansion of a time-ordered exponential
+with a quadratic (pairwise) contraction. Since the exponent in Eq.~\eqref{eq:Uxi_factor_Wxi} is linear in the
+Gaussian field, the average can be resummed exactly to yield the bilocal influence-functional form
+\begin{equation}
+    \boxed{
+    \bar W(\beta)
+    =
+    \mathcal T_\tau
+    \exp\!\left[
+        \frac{1}{2}
+        \int_0^\beta d\tau
+        \int_0^\beta d\tau'\;
+        K(\tau-\tau')\,\tilde f(\tau)\tilde f(\tau')
+    \right].
+    }
+    \label{eq:barW_bilocal_exact}
+\end{equation}
+For later convenience we define the bilocal quadratic operator
+\begin{equation}
+    \Delta
+    \;\equiv\;
+    \frac{1}{2}
+    \int_0^\beta d\tau
+    \int_0^\beta d\tau'\;
+    K(\tau-\tau')\,\tilde f(\tau)\tilde f(\tau'),
+    \label{eq:Delta_def_bilocal}
+\end{equation}
+so that
+\begin{equation}
+    \bar W(\beta)=\mathcal T_\tau e^{\Delta}.
+    \label{eq:barW_as_Texp_Delta}
+\end{equation}
+At this stage, the Gaussian field has been eliminated exactly, and all bath dependence is contained in the
+translation-invariant kernel $K(\tau-\tau')$. In the next step we exploit this translation invariance to diagonalise $K$ in Matsubara modes and rewrite $\Delta$ as a sum of squares of mode-projected operators.
+
+\subsection{Diagonalising the translation-invariant kernel and a sum-of-squares form}
+\label{sec:kernel_matsubara_diagonalisation}
+
+We now exploit the key structural property of the Euclidean correlation kernel:
+it is translation invariant on the thermal circle, i.e.\ it depends only on the time difference.
+Equivalently, $K$ is $\beta$-periodic and admits a bosonic Matsubara Fourier series.
+This allows us to rewrite the bilocal quadratic operator $\Delta$ in Eq.~\eqref{eq:Delta_def_bilocal}
+in a form that isolates all bath dependence into scalar mode weights.
+
+\paragraph{Matsubara expansion of the kernel.}
+On $\tau\in[0,\beta]$, any $\beta$-periodic translation-invariant kernel may be expanded as
+\begin{equation}
+    K(u)
+    =
+    \frac{1}{\beta}\sum_{\ell\in\mathbb Z}\kappa_\ell\,e^{i\nu_\ell u},
+    \qquad
+    \nu_\ell\equiv \frac{2\pi\ell}{\beta},
+    \label{eq:K_matsubara_series}
+\end{equation}
+with Fourier coefficients
+\begin{equation}
+    \kappa_\ell
+    \equiv
+    \int_0^\beta du\;K(u)\,e^{-i\nu_\ell u}.
+    \label{eq:kappa_l_def}
+\end{equation}
+For a real, even kernel $K(u)=K(-u)$ one has $\kappa_\ell\in\mathbb R$ and $\kappa_{-\ell}=\kappa_\ell$.
+(For the Caldeira--Leggett class one further has $\kappa_\ell\ge 0$.)
+
+Substituting Eq.~\eqref{eq:K_matsubara_series} into Eq.~\eqref{eq:Delta_def_bilocal} gives
+\begin{align}
+    \Delta
+    &=
+    \frac{1}{2}\int_0^\beta d\tau\int_0^\beta d\tau'\;
+    \left[
+        \frac{1}{\beta}\sum_{\ell\in\mathbb Z}\kappa_\ell\,e^{i\nu_\ell(\tau-\tau')}
+    \right]
+    \tilde f(\tau)\tilde f(\tau')
+    \nonumber\\
+    &=
+    \frac{1}{2\beta}\sum_{\ell\in\mathbb Z}\kappa_\ell\;
+    \left(\int_0^\beta d\tau\,e^{i\nu_\ell\tau}\,\tilde f(\tau)\right)
+    \left(\int_0^\beta d\tau'\,e^{-i\nu_\ell\tau'}\,\tilde f(\tau')\right).
+    \label{eq:Delta_matsubara_inserted}
+\end{align}
+
+\paragraph{Mode-projected operators and sum-of-squares form.}
+Define the Matsubara-projected interaction-picture operators
+\begin{equation}
+    \tilde F_\ell
+    \;\equiv\;
+    \int_0^\beta d\tau\,e^{i\nu_\ell\tau}\,\tilde f(\tau).
+    \label{eq:Ftilde_l_def}
+\end{equation}
+Since $\tilde f(\tau)$ is Hermitian for Hermitian $f$, one has $\tilde F_{-\ell}=\tilde F_\ell^\dagger$.
+Equation~\eqref{eq:Delta_matsubara_inserted} then becomes the exact quadratic sum
+\begin{equation}
+    \boxed{
+    \Delta
+    =
+    \frac{1}{2\beta}\sum_{\ell\in\mathbb Z}\kappa_\ell\,
+    \tilde F_\ell\,\tilde F_\ell^\dagger.
+    }
+    \label{eq:Delta_sum_of_squares_complex}
+\end{equation}
+This form cleanly separates bath and system structure:
+all information about the bath enters through the scalar mode weights $\{\kappa_\ell\}$,
+while the system algebra is carried by the family of operators $\{\tilde F_\ell\}$.
+
+\paragraph{Manifestly real form (optional).}
+When $K$ is real and even (so $\kappa_\ell=\kappa_{-\ell}\in\mathbb R$), it is often convenient to pair $\pm\ell$
+and write $\Delta$ in terms of cosine and sine projections. Using
+\begin{equation}
+    K(u)=\frac{\kappa_0}{\beta}+\frac{2}{\beta}\sum_{\ell\ge 1}\kappa_\ell\cos(\nu_\ell u),
+    \label{eq:K_cos_series}
+\end{equation}
+define the real mode operators
+\begin{align}
+    \tilde F_{\ell,c}&\equiv \int_0^\beta d\tau\,\cos(\nu_\ell\tau)\,\tilde f(\tau), \nonumber\\
+    \tilde F_{\ell,s}&\equiv \int_0^\beta d\tau\,\sin(\nu_\ell\tau)\,\tilde f(\tau),
+    \quad (\ell\ge 1),
+    \label{eq:Ftilde_cos_sin_def}
+\end{align}
+and $\tilde F_{0,c}\equiv \int_0^\beta d\tau\,\tilde f(\tau)$.
+Then Eq.~\eqref{eq:Delta_sum_of_squares_complex} is equivalent to
+\begin{equation}
+    \Delta
+    =
+    \frac{\kappa_0}{2\beta}\,\tilde F_{0,c}^2
+    +
+    \frac{1}{2\beta}\sum_{\ell\ge 1}\kappa_\ell\,
+    \Big(\tilde F_{\ell,c}^2+\tilde F_{\ell,s}^2\Big),
+    \label{eq:Delta_sum_of_squares_real}
+\end{equation}
+making explicit that the quadratic form is real.
+
+In the next step we express the projected operators $\tilde F_\ell$ (or equivalently $\tilde F_{\ell,c/s}$)
+in terms of the nested-commutator chain generated by $H_Q$ acting on $f$. This yields a generating-function
+representation for all kernel moments and will allow us to collect the bath dependence into scalar prefactors
+multiplying products of $\mathrm{ad}_{H_Q}^n(f)$.
+
+% =========================
+% Step 3: Express mode operators in the adjoint chain; generating functions for moments
+% (keeps factorial/binomial structure explicit)
+% =========================
+
+\subsection{Adjoint-chain expansion and generating functions for Matsubara moments}
+\label{sec:adjoint_chain_generating_functions}
+
+We now rewrite the mode-projected operators $\tilde F_\ell$ in Eq.~\eqref{eq:Ftilde_l_def}
+in a basis that makes the operator growth induced by the bath completely explicit.
+The key observation is that the entire $\tau$-dependence of $\tilde f(\tau)$ is generated by the
+adjoint action of $H_Q$.
+
+\paragraph{Adjoint chain and interaction-picture coupling.}
+Introduce the adjoint superoperator
+\begin{equation}
+\begin{split}
+    &\mathrm{ad}_{H_Q}(A)\equiv [H_Q,A],
+    \quad
+    \mathrm{ad}_{H_Q}^{0}(A)\equiv A, \\
+    &\mathrm{ad}_{H_Q}^{n}(A)\equiv [H_Q,\mathrm{ad}_{H_Q}^{n-1}(A)].
+\end{split}
+    \label{eq:ad_def_recalled}
+\end{equation}
+Define the nested-commutator chain generated from $f$,
+\begin{equation}
+    f_n \;\equiv\; \mathrm{ad}_{H_Q}^{n}(f),
+    \qquad n\ge 0.
+    \label{eq:fn_def}
+\end{equation}
+Then the interaction-picture operator is
+\begin{equation}
+    \tilde f(\tau)
+    =
+    e^{\tau H_Q} f e^{-\tau H_Q}
+    =
+    e^{\tau\,\mathrm{ad}_{H_Q}}(f)
+    =
+    \sum_{n=0}^\infty \frac{\tau^n}{n!}\,f_n.
+    \label{eq:ftilde_adjoint_series_step3}
+\end{equation}
+Equation~\eqref{eq:ftilde_adjoint_series_step3} cleanly separates
+(i) the scalar monomials $\tau^n/n!$ from
+(ii) the operator content $f_n$, and the latter is the sole source of operator growth.
+
+\paragraph{Matsubara moments and operator-valued mode expansion.}
+Substituting Eq.~\eqref{eq:ftilde_adjoint_series_step3} into the mode definition \eqref{eq:Ftilde_l_def} yields
+\begin{equation}
+    \tilde F_\ell
+    =
+    \int_0^\beta d\tau\,e^{i\nu_\ell\tau}\sum_{n=0}^\infty \frac{\tau^n}{n!}\,f_n
+    =
+    \sum_{n=0}^\infty I_n(\nu_\ell)\,f_n,
+    \label{eq:Ftilde_l_as_sum_fn}
+\end{equation}
+where we have defined the factorial-weighted Matsubara moments
+\begin{equation}
+    I_n(\nu)
+    \;\equiv\;
+    \int_0^\beta d\tau\,\frac{\tau^n}{n!}\,e^{i\nu\tau}.
+    \label{eq:In_def}
+\end{equation}
+Since $\nu_{-\ell}=-\nu_\ell$, one has $I_n(\nu_{-\ell})=I_n(\nu_\ell)^\ast$ and hence $\tilde F_{-\ell}=\tilde F_\ell^\dagger$
+for Hermitian $f$.
+
+\paragraph{Generating function for all moments $I_n(\nu_\ell)$.}
+The full family $\{I_n(\nu_\ell)\}_{n\ge 0}$ is generated by the scalar function
+\begin{equation}
+\begin{split}
+    I(\nu;s)
+    \;\equiv\;
+    \sum_{n=0}^\infty s^n\,I_n(\nu)
+    &=
+    \int_0^\beta d\tau\,\exp\!\big[(s+i\nu)\tau\big] \\
+    &=
+    \frac{e^{(s+i\nu)\beta}-1}{s+i\nu}.
+\end{split}
+    \label{eq:I_gen_general}
+\end{equation}
+For bosonic Matsubara frequencies $\nu=\nu_\ell=2\pi\ell/\beta$ one has $e^{i\nu_\ell\beta}=1$, and therefore
+\begin{equation}
+    I(\nu_\ell;s)
+    =
+    \frac{e^{s\beta}-1}{s+i\nu_\ell}.
+    \label{eq:I_gen_matsubara}
+\end{equation}
+The individual coefficients are recovered by differentiation at $s=0$:
+\begin{equation}
+    I_n(\nu_\ell)
+    =
+    \frac{1}{n!}\,\partial_s^n I(\nu_\ell;s)\Big|_{s=0}.
+    \label{eq:In_from_gen}
+\end{equation}
+Equation~\eqref{eq:I_gen_matsubara} provides a compact representation for all prefactors produced by the time integrals.
+
+\paragraph{Factorisation of the quadratic form.}
+Combining Eq.~\eqref{eq:Delta_sum_of_squares_complex} with Eq.~\eqref{eq:Ftilde_l_as_sum_fn} yields
+\begin{align}
+    \Delta
+    &=
+    \frac{1}{2\beta}\sum_{\ell\in\mathbb Z}\kappa_\ell\,
+    \left(\sum_{n=0}^\infty I_n(\nu_\ell)\,f_n\right)
+    \left(\sum_{m=0}^\infty I_m(\nu_\ell)^\ast\,f_m\right)
+    \nonumber\\
+    &=
+    \frac{1}{2}
+    \sum_{n,m=0}^\infty
+    C_{nm}(\beta)\,f_n f_m,
+    \label{eq:Delta_as_Cnm_fnfm}
+\end{align}
+where the moment matrix is
+\begin{equation}
+    C_{nm}(\beta)
+    \;\equiv\;
+    \frac{1}{\beta}\sum_{\ell\in\mathbb Z}\kappa_\ell\,
+    I_n(\nu_\ell)\,I_m(\nu_\ell)^\ast.
+    \label{eq:Cnm_factorised}
+\end{equation}
+This makes the desired decoupling explicit: $C_{nm}$ factorises as a sum of outer products over Matsubara modes.
+Equivalently, defining mode coefficients
+\begin{equation}
+    a_{n\ell}\;\equiv\;\sqrt{\frac{\kappa_\ell}{\beta}}\,I_n(\nu_\ell),
+    \label{eq:anl_def}
+\end{equation}
+one has
+\begin{equation}
+    C_{nm}(\beta)
+    =
+    \sum_{\ell\in\mathbb Z} a_{n\ell}\,a_{m\ell}^\ast,
+    \label{eq:Cnm_outer_product}
+\end{equation}
+and therefore
+\begin{equation}
+    \Delta=\frac{1}{2}\sum_{\ell\in\mathbb Z}
+    \left(\sum_{n\ge 0} a_{n\ell}\,f_n\right)
+    \left(\sum_{m\ge 0} a_{m\ell}^\ast\,f_m\right).
+    \label{eq:Delta_as_sum_mode_squares}
+\end{equation}
+All temperature and spectral-density dependence is confined to the scalar mode weights $\kappa_\ell$
+and the generating function \eqref{eq:I_gen_matsubara}, while all operator complexity resides in the adjoint chain $\{f_n\}$.
+
+\medskip
+In the next step we return from the interaction picture to the Schr\"odinger picture, combining
+$e^{-\beta H_Q}$ with the averaged propagator $\bar W(\beta)=\mathcal T_\tau e^{\Delta}$ to obtain a single-exponent
+representation and hence a systematic expansion of the mean-force Hamiltonian in commutator order.
+
+% =========================
+% Step 4: Drop time ordering (Delta is tau-independent), de-interaction-picture,
+% and collapse to a single exponent via BCH / Bernoulli (systematic commutator order).
+% Keep binomial factors explicit.
+% =========================
+
+\subsection{De-interaction picture and single-exponent form}
+\label{sec:collapse_single_exponent}
+
+At this point the Gaussian average has been performed exactly, and the averaged interaction-picture propagator
+is
+\begin{align}
+    \bar W(\beta)&=\mathcal T_\tau e^{\Delta}, \nonumber\\
+    \Delta&=\frac{1}{2\beta}\sum_{\ell\in\mathbb Z}\kappa_\ell\,\tilde F_\ell\tilde F_\ell^\dagger
+    =\frac12\sum_{n,m\ge 0} C_{nm}(\beta)\,f_n f_m,
+    \label{eq:barW_Texp_Delta_recalled_step4}
+\end{align}
+with $\tilde F_\ell=\sum_{n\ge0}I_n(\nu_\ell)f_n$ and $C_{nm}$ given by Eq.~\eqref{eq:Cnm_factorised}.
+
+\paragraph{Time ordering becomes redundant after mode reduction.}
+Although Eq.~\eqref{eq:barW_Texp_Delta_recalled_step4} is written as a time-ordered exponential,
+the operator $\Delta$ itself contains no remaining $\tau$-dependence: all $\tau$-integrals have been carried out
+explicitly into scalar coefficients ($\kappa_\ell$, $I_n$, and hence $C_{nm}$), while the operator content is
+carried by the time-independent adjoint-chain elements $\{f_n\}$.
+Therefore $\mathcal T_\tau$ acts trivially and we may write
+\begin{equation}
+    \bar W(\beta)=e^{\Delta}.
+    \label{eq:barW_equals_expDelta}
+\end{equation}
+Consequently, the reduced equilibrium operator takes the nonperturbative product form
+\begin{equation}
+    \bar\rho_S(\beta)=e^{-\beta H_Q}\,e^{\Delta}.
+    \label{eq:bar_rho_product_form}
+\end{equation}
+
+\paragraph{Definition of the effective (mean-force) Hamiltonian.}
+We now define an effective system Hamiltonian $H_{\rm eff}(\beta)$ by the single-exponent representation
+\begin{equation}
+    \bar\rho_S(\beta) \equiv e^{-\beta H_{\rm eff}(\beta)},
+    \label{eq:Heff_def_by_single_exponent}
+\end{equation}
+up to the overall scalar normalisation fixed by $Z_X(\beta)$ in Eq.~\eqref{eq:HMF_from_quenched_identity_main}.
+Combining Eqs.~\eqref{eq:bar_rho_product_form} and \eqref{eq:Heff_def_by_single_exponent} gives
+\begin{equation}
+    -\beta H_{\rm eff}(\beta) = \log\!\left(e^{-\beta H_Q}e^{\Delta}\right),
+    \label{eq:Heff_log_product}
+\end{equation}
+so $H_{\rm eff}$ is obtained by the Baker--Campbell--Hausdorff (BCH) series with
+\begin{equation}
+\begin{split}
+    &A\equiv -\beta H_Q,
+    \qquad
+    B\equiv \Delta, \\
+    &\log(e^{A}e^{B}) = A + B + \frac12[A,B] \\
+    &\quad + \frac{1}{12}[A,[A,B]] - \frac{1}{12}[B,[A,B]] + \cdots.
+\end{split}
+    \label{eq:BCH_recalled}
+\end{equation}
+
+\paragraph{Systematic commutator-order expansion at fixed quadratic content.}
+A key advantage of the adjoint-chain representation is that commutators with $H_Q$ simply shift the chain index.
+Indeed, by definition $[H_Q,f_n]=f_{n+1}$, and the adjoint action satisfies the Leibniz rule. Iterating yields
+the explicit binomial decomposition
+\begin{equation}
+    \mathrm{ad}_{H_Q}^{r}(f_n f_m)
+    =
+    \sum_{k=0}^{r}\binom{r}{k}\,f_{n+k}\,f_{m+r-k},
+    \qquad r\ge 0,
+    \label{eq:ad_r_on_product_binomial}
+\end{equation}
+which isolates the combinatorics (the binomial factors) from the operator content.
+
+Using Eq.~\eqref{eq:Delta_as_Cnm_fnfm}, the $r$-fold adjoint action of $H_Q$ on $\Delta$ is therefore
+\begin{equation}
+\begin{split}
+    \mathrm{ad}_{H_Q}^{r}(\Delta)
+    &=
+    \frac12\sum_{n,m\ge 0} C_{nm}(\beta)\;
+    \mathrm{ad}_{H_Q}^{r}(f_n f_m) \\
+    &=
+    \frac12\sum_{n,m\ge 0} C_{nm}(\beta)\;
+    \sum_{k=0}^{r}\binom{r}{k}\,f_{n+k}\,f_{m+r-k}.
+\end{split}
+    \label{eq:ad_r_on_Delta_binomial}
+\end{equation}
+
+\paragraph{Linear-in-$\Delta$ resummation (Bernoulli/BCH kernel).}
+If we retain only terms \emph{linear} in $\Delta$ in the BCH series (i.e.\ we drop terms of order $\Delta^2$ and higher,
+such as $[B,[A,B]]$ in Eq.~\eqref{eq:BCH_recalled}), then the remaining commutator tower
+$B+\frac12[A,B]+\frac{1}{12}[A,[A,B]]+\cdots$ can be resummed to all commutator orders via a Bernoulli series.
+Specifically,
+\begin{align}
+    \log(e^{A}e^{B})
+    &=
+    A + \varphi(\mathrm{ad}_{A})\,B + \mathcal O(B^2), \nonumber\\
+    \varphi(x)&\equiv \frac{x}{1-e^{-x}}
+    =
+    \sum_{r=0}^\infty \frac{B_r}{r!}\,x^r,
+    \label{eq:Bernoulli_resummation_phi}
+\end{align}
+where $B_r$ are Bernoulli numbers with the convention $B_0=1$ and $B_1=+1/2$.
+Since $A=-\beta H_Q$, one has $\mathrm{ad}_{A}=-\beta\,\mathrm{ad}_{H_Q}$, and hence
+\begin{equation}
+    -\beta H_{\rm eff}(\beta)
+    =
+    -\beta H_Q + \varphi\!\big(-\beta\,\mathrm{ad}_{H_Q}\big)\Delta + \mathcal O(\Delta^2).
+    \label{eq:Heff_phi_adHQ}
+\end{equation}
+Equivalently,
+\begin{equation}
+    \boxed{
+    \begin{aligned}
+    H_{\rm eff}(\beta)
+    &=
+    H_Q
+    -\frac{1}{\beta}\,
+    \varphi\!\big(-\beta\,\mathrm{ad}_{H_Q}\big)\Delta \\
+    &\quad +\mathcal O(\Delta^2).
+    \end{aligned}
+    }
+    \label{eq:Heff_linear_in_Delta}
+\end{equation}
+Expanding $\varphi$ explicitly gives the commutator-order series
+\begin{equation}
+    H_{\rm eff}(\beta)
+    =
+    H_Q
+    -\frac{1}{\beta}\sum_{r=0}^\infty \frac{B_r}{r!}\,(-\beta)^r\,
+    \mathrm{ad}_{H_Q}^{r}(\Delta)
+    +\mathcal O(\Delta^2),
+    \label{eq:Heff_Bernoulli_commutator_series}
+\end{equation}
+and substituting Eq.~\eqref{eq:ad_r_on_Delta_binomial} yields the fully explicit adjoint-chain form
+\begin{equation}
+\begin{split}
+    H_{\rm eff}(\beta)
+    =
+    H_Q
+    &-\frac{1}{2\beta}\sum_{r=0}^\infty \frac{B_r}{r!}\,(-\beta)^r
+    \sum_{n,m\ge 0} C_{nm}(\beta) \\
+    &\times \sum_{k=0}^{r}\binom{r}{k}\,f_{n+k}\,f_{m+r-k} + \mathcal O(\Delta^2).
+\end{split}
+    \label{eq:Heff_explicit_binomial}
+\end{equation}
+All bath dependence is contained in the scalar matrix $C_{nm}(\beta)$ (or equivalently $\kappa_\ell$ and $I_n(\nu_\ell)$),
+while the full operator content is controlled by the adjoint chain $\{f_n\}$ and the binomial factors in
+Eq.~\eqref{eq:ad_r_on_product_binomial}.
+
+% =========================
+% Step 5: Insert an explicit "commuting check / baseline" subsection
+% and then append the normalisation to obtain H_MF from H_eff.
+% =========================
+
+\subsection{Commuting baseline and commutator expansion of $H_{\rm eff}(\beta)$}
+\label{sec:commuting_baseline}
+
+It is useful to isolate the simplest limiting case in which the coupling operator $f$ commutes with the system
+Hamiltonian $H_Q$. This provides both a consistency check and a natural ``baseline'' around which to organise
+the general noncommuting corrections in terms of nested commutators with $H_Q$.
+
+\paragraph{Commuting check: $[H_Q,f]=0$.}
+If $[H_Q,f]=0$, then the interaction-picture coupling is $\tau$-independent:
+$\tilde f(\tau)=f$. The Matsubara-projected operators defined in Eq.~\eqref{eq:Ftilde_l_def} reduce to
+\begin{equation}
+    \tilde F_\ell
+    =
+    \int_0^\beta d\tau\,e^{i\nu_\ell\tau}\,f
+    =
+    f\int_0^\beta d\tau\,e^{i\nu_\ell\tau}
+    =
+    \beta f\,\delta_{\ell 0},
+    \label{eq:Ftilde_l_commuting_limit}
+\end{equation}
+so only the $\ell=0$ mode contributes to the sum-of-squares form \eqref{eq:Delta_sum_of_squares_complex}.
+Consequently,
+\begin{equation}
+    \Delta
+    =
+    \frac{1}{2\beta}\kappa_0\,(\beta f)(\beta f)
+    =
+    \frac{\beta\kappa_0}{2}\,f^2.
+    \label{eq:Delta_commuting_limit}
+\end{equation}
+Since $\Delta$ then commutes with $H_Q$, the reduced equilibrium operator
+$\bar\rho_S(\beta)=e^{-\beta H_Q}e^{\Delta}$ collapses to a single exponential,
+\begin{equation}
+    \bar\rho_S(\beta)
+    =
+    \exp\!\left[-\beta\left(H_Q-\frac{\kappa_0}{2}f^2\right)\right].
+    \label{eq:bar_rho_commuting_single_exponent}
+\end{equation}
+Thus in the commuting limit the effective Hamiltonian acquires a purely local quadratic correction,
+\begin{equation}
+    H_{\rm eff}(\beta)
+    =
+    H_Q-\frac{\kappa_0}{2}f^2,
+    \qquad\text{when }[H_Q,f]=0,
+    \label{eq:Heff_commuting_limit}
+\end{equation}
+consistent with interpreting $\kappa_0$ as the zero-frequency weight of the Euclidean bath correlations.
+
+\paragraph{General case: organise $H_{\rm eff}$ in $f$ and commutators with $H_Q$.}
+Away from the commuting limit, we retain the exact product form
+\begin{equation}
+    \bar\rho_S(\beta)=e^{-\beta H_Q}e^{\Delta},
+    \label{eq:bar_rho_product_recalled_step5}
+\end{equation}
+with $\Delta$ given explicitly by Eqs.~\eqref{eq:Delta_sum_of_squares_complex}--\eqref{eq:Delta_as_Cnm_fnfm}.
+We then define $H_{\rm eff}(\beta)$ by
+\begin{equation}
+    \bar\rho_S(\beta)\equiv e^{-\beta H_{\rm eff}(\beta)},
+    \label{eq:Heff_def_recalled_step5}
+\end{equation}
+so that $-\beta H_{\rm eff}(\beta)=\log(e^{-\beta H_Q}e^{\Delta})$.
+
+To express $H_{\rm eff}$ in a form that depends only on $f$ and nested commutators with $H_Q$, we use the
+adjoint-chain representation $f_n\equiv \mathrm{ad}_{H_Q}^n(f)$ in Eq.~\eqref{eq:fn_def}.
+In particular, $[H_Q,f_n]=f_{n+1}$ and for products the $r$-fold adjoint action obeys the binomial identity
+\begin{equation}
+    \mathrm{ad}_{H_Q}^{r}(f_n f_m)
+    =
+    \sum_{k=0}^{r}\binom{r}{k}\,f_{n+k}\,f_{m+r-k}.
+    \label{eq:ad_r_product_binomial_recalled_step5}
+\end{equation}
+Using Eq.~\eqref{eq:Delta_as_Cnm_fnfm}, the commutator tower $\mathrm{ad}_{H_Q}^r(\Delta)$ is therefore
+\begin{equation}
+    \mathrm{ad}_{H_Q}^{r}(\Delta)
+    =
+    \frac12\sum_{n,m\ge 0} C_{nm}(\beta)
+    \sum_{k=0}^{r}\binom{r}{k}\,f_{n+k}\,f_{m+r-k}.
+    \label{eq:ad_r_Delta_explicit_step5}
+\end{equation}
+This exhibits the desired separation: all $\beta$- and bath-dependence resides in the scalar coefficients $C_{nm}(\beta)$,
+while the operator basis is generated entirely by $f$ and successive commutators with $H_Q$.
+
+\paragraph{Linear-in-$\Delta$ commutator resummation.}
+Retaining only terms linear in $\Delta$ in the BCH series for $\log(e^{-\beta H_Q}e^{\Delta})$,
+the commutator tower can be resummed to all orders in $\mathrm{ad}_{H_Q}$ using Bernoulli numbers:
+\begin{equation}
+    H_{\rm eff}(\beta)
+    =
+    H_Q
+    -\frac{1}{\beta}\sum_{r=0}^\infty \frac{B_r}{r!}\,(-\beta)^r\,
+    \mathrm{ad}_{H_Q}^{r}(\Delta)
+    +\mathcal O(\Delta^2),
+    \label{eq:Heff_Bernoulli_recalled_step5}
+\end{equation}
+with $B_0=1$ and $B_1=+1/2$.
+Substituting Eq.~\eqref{eq:ad_r_Delta_explicit_step5} yields an explicit expansion in products of commutator-chain elements:
+\begin{equation}
+    \boxed{
+    \begin{aligned}
+    H_{\rm eff}(\beta)
+    =
+    H_Q
+    &-\frac{1}{2\beta}\sum_{r=0}^\infty \frac{B_r}{r!}\,(-\beta)^r \\
+    &\times \sum_{n,m\ge 0} C_{nm}(\beta)
+    \sum_{k=0}^{r}\binom{r}{k}\,f_{n+k}\,f_{m+r-k} \\
+    &+\mathcal O(\Delta^2).
+    \end{aligned}
+    }
+    \label{eq:Heff_commutator_chain_explicit_step5}
+\end{equation}
+Equation~\eqref{eq:Heff_commutator_chain_explicit_step5} is a systematic commutator-order construction of the effective
+Hamiltonian: for any truncation in the adjoint chain $\{f_n\}$ one obtains a closed operator approximation, with all
+scalar prefactors determined exactly from the translation-invariant kernel via Eqs.~\eqref{eq:Cnm_factorised} and
+\eqref{eq:I_gen_matsubara}.
+
+\subsection{Normalisation and the Hamiltonian of mean force}
+\label{sec:normalisation_HMF}
+
+The Hamiltonian of mean force is defined (up to an additive scalar multiple of the identity) by
+\begin{equation}
+    H_{\mathrm{MF}}(\beta)
+    =
+    -\frac{1}{\beta}\log\!\left[\frac{\bar\rho_S(\beta)}{Z_X(\beta)}\right],
+    \qquad
+    Z_X(\beta)=\Tr_X e^{-\beta H_X}.
+    \label{eq:HMF_def_recalled_step5}
+\end{equation}
+Using the definition of $H_{\rm eff}$ in Eq.~\eqref{eq:Heff_def_recalled_step5},
+\begin{equation}
+    \bar\rho_S(\beta)=e^{-\beta H_{\rm eff}(\beta)},
+    \label{eq:bar_rho_as_Heff_again}
+\end{equation}
+we obtain the compact relation
+\begin{equation}
+    \boxed{
+    H_{\mathrm{MF}}(\beta)
+    =
+    H_{\rm eff}(\beta)
+    +\frac{1}{\beta}\log Z_X(\beta)\;\mathbb I_S.
+    }
+    \label{eq:HMF_from_Heff}
+\end{equation}
+Equivalently, if one chooses the conventional normalisation $\rho_S(\beta)\equiv \bar\rho_S(\beta)/Z_X(\beta)$,
+then $\rho_S(\beta)=e^{-\beta H_{\rm MF}(\beta)}$ exactly, and the scalar shift in Eq.~\eqref{eq:HMF_from_Heff}
+ensures $\Tr_S \rho_S(\beta)=1$.

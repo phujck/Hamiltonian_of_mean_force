@@ -2,7 +2,7 @@
 \label{sec:appendix_quenched}
 
 This appendix makes explicit the operator identity underlying the quenched
-imaginary-time formulation used in Sec.~\ref{sec:theory}. Define a
+imaginary-time formulation used in Sec.~\ref{sec:model}. Define a
 time-ordered exponential with a (generally) $\tau$-dependent operator
 $H(\tau)$,
 \begin{equation}
@@ -58,7 +58,7 @@ The bath kernel appearing in the bilocal influence functional is
     \begin{split}
         K(\tau-\tau') &=
         \mathrm{Tr}_B\!\left[\mathcal{T}_\tau \tilde{B}(\tau)\tilde{B}(\tau')\rho_B\right], \\
-        \rho_B &= \frac{e^{-\beta H_B}}{Z_B}.
+        \rho_B &= \frac{e^{-\beta H_X}}{Z_B}.
     \end{split}
     \label{eq:appendix_kernel_def}
 \end{equation}
@@ -69,15 +69,95 @@ even under exchange of its arguments, implying
     \mu_{nm} = \mu_{mn},
     \label{eq:appendix_kernel_sym}
 \end{equation}
-where $\mu_{nm}$ are the kernel moments defined in
-Eq.~\eqref{eq:kernel_moments}. In common quadratic-bath models the kernel is
+\begin{equation}
+    \mu_{nm} = \frac{1}{n!m!} \int_0^\beta d\tau \int_0^\beta d\tau' \tau^n (\tau')^m K(\tau-\tau').
+    \label{eq:kernel_moments_def}
+\end{equation}
+In common quadratic-bath models the kernel is
 explicitly constructed from the bath spectral density and satisfies the
 Kubo-Martin-Schwinger periodicity in imaginary time, which can be used to
 re-express moment integrals in equivalent forms; see
 Refs.~\cite{grabertQuantumBrownianMotion1988,tanimuraReducedHierarchicalEquations2014,songCalculationCorrelatedInitial2015}
 for explicit constructions.
 
-The moment expansion used in Sec.~\ref{sec:theory} requires only these symmetry
+The moment expansion used in Sec.~\ref{sec:model} requires only these symmetry
 properties and the existence of the integrals defining $\mu_{nm}$. No further
 approximation is introduced at this stage.
+
+\section{Derivation of the Influence Functional\label{app:influence_derivation}}
+
+In this appendix, we construct the influence functional formalism used in Sec.~\ref{sec:quenched}. Our goal is to derive the exact form of the reduced density operator $\bar{\rho}_S(\beta)$ by explicitly integrating out the harmonic bath, and to demonstrate that this leads directly to the stochastic unravelling employed in the main text.
+
+\subsection{Euclidean Path Integral Setup}
+We begin with the definition of the unnormalized reduced state,
+\begin{equation}
+    \bar{\rho}_S(\beta) = \Tr_X \left[ e^{-\beta H_{\mathrm{tot}}} \right].
+\end{equation}
+This trace can be represented as a Euclidean path integral. Let $|q\rangle$ and $|x\rangle = |x_1, x_2, \dots\rangle$ denote the position bases for the system and bath, respectively. The matrix element $\langle q | \bar{\rho}_S | q' \rangle$ involves a sum over all periodic paths $x(\tau)$ (where $x(0)=x(\beta)$) and open paths $q(\tau)$ (where $q(0)=q'$ and $q(\beta)=q$):
+\begin{equation}
+\begin{split}
+    \langle q | \bar{\rho}_S | q' \rangle = \int_{q(0)=q'}^{q(\beta)=q} &\mathcal{D}q(\tau) e^{-S_Q[q]/\hbar} \\
+    &\times \prod_k Z_k[q],
+\end{split}
+    \label{eq:app_path_integral_start}
+\end{equation}
+where $S_Q$ is the Euclidean action of the isolated system, and $Z_k[q]$ is the partition function of the $k$-th oscillator in the presence of the external driving force $J_k(\tau) = -c_k f(q(\tau))$:
+\begin{equation}
+\begin{split}
+    Z_k[q] = \oint & \mathcal{D}x_k(\tau) \exp\bigg( -\frac{1}{\hbar} \int_0^\beta d\tau \\
+    &\times \left[ \frac{m_k}{2} \dot{x}_k^2 + \frac{m_k \omega_k^2}{2} x_k^2 + c_k x_k f(q(\tau)) \right] \bigg).
+\end{split}
+\end{equation}
+Note that the periodicity of the trace implies periodic boundary conditions for the bath paths $x_k(\tau)$.
+
+\subsection{Gaussian Integration}
+The functional integral for $Z_k[q]$ is Gaussian and can be evaluated exactly. It corresponds to the partition function of a forced harmonic oscillator. The result is expressible as the product of the free oscillator partition function, $Z_X^{(k)} = (2\sinh(\beta\hbar\omega_k/2))^{-1}$, and an exponential "influence phase" depending quadratically on the drive~\cite{feynmanTheoryGeneralQuantum1963a,weissQuantumDissipativeSystems2012}:
+\begin{equation}
+\begin{split}
+    Z_k[q] = Z_X^{(k)} \exp\bigg( &\frac{1}{2\hbar} \int_0^\beta d\tau \int_0^\beta d\tau' \\
+    &\times K_k(\tau-\tau') f(q(\tau)) f(q(\tau')) \bigg).
+\end{split}
+\end{equation}
+The kernel $K_k(\tau)$ is the equilibrium autocorrelation function of the coordinate $x_k$:
+\begin{equation}
+    K_k(\tau-\tau') = c_k^2 \langle \mathcal{T}_\tau x_k(\tau) x_k(\tau') \rangle_0.
+\end{equation}
+Summing over all modes $k$, the total influence functional is $\prod_k Z_k[q] = Z_X \exp( \Phi_{inf}[q] )$, with
+\begin{equation}
+\begin{split}
+    \Phi_{inf}[q] = \frac{1}{2\hbar} \int_0^\beta d\tau &\int_0^\beta d\tau' K(\tau-\tau') \\
+    &\times f(q(\tau)) f(q(\tau')),
+\end{split}
+\end{equation}
+where $K(\tau) = \sum_k K_k(\tau)$ is the total force autocorrelation function.
+
+\subsection{From Non-local Action to Stochastic Average}
+Substituting this back into Eq.~\eqref{eq:app_path_integral_start}, the reduced density matrix becomes
+\begin{equation}
+    \bar{\rho}_S = Z_X \int \mathcal{D}q \, e^{-S_Q[q]/\hbar} \exp\left( \Phi_{inf}[q] \right).
+\end{equation}
+The term $\Phi_{inf}[q]$ is non-local in imaginary time, representing a self-interaction of the system mediated by the bath. To disentangle this, we use the Hubbard-Stratonovich transformation (the continuous analog of the Gaussian identity $e^{\frac{1}{2} A^2} \sim \int d\xi e^{-\frac{1}{2}\xi^2 + \xi A}$). We introduce a real, auxiliary stochastic field $\xi(\tau)$ with zero mean and covariance
+\begin{equation}
+    \langle \xi(\tau) \xi(\tau') \rangle_\xi = K(\tau-\tau').
+\end{equation}
+Using this field, we can rewrite the influence exponential as a stochastic average:
+\begin{equation}
+\begin{split}
+    \exp\left( \Phi_{inf}[q] \right) = \bigg\langle \exp\bigg( &\frac{1}{\hbar} \int_0^\beta d\tau \\
+    &\times \xi(\tau) f(q(\tau)) \bigg) \bigg\rangle_\xi.
+\end{split}
+\end{equation}
+Inserting this identity into the path integral for $\bar{\rho}_S$, we can swap the order of the path integration over $q$ and the stochastic average over $\xi$:
+\begin{equation}
+    \bar{\rho}_S = Z_X \left\langle \int \mathcal{D}q \, \exp\left[-\frac{1}{\hbar} S_Q[q] + \frac{1}{\hbar} \int_0^\beta \xi f \right] \right\rangle_\xi.
+\end{equation}
+The term in the angle brackets is exactly the path integral for a system evolving under the time-dependent Hamiltonian $H(\tau) = H_Q - \xi(\tau)f$. Thus, in operator language, we arrive at the exact stochastic representation:
+\begin{equation}
+\begin{split}
+    \bar{\rho}_S(\beta) = Z_X \bigg\langle \mathcal{T}_\tau \exp\bigg( &-\int_0^\beta d\tau \\
+    &\times [H_Q - \xi(\tau)f] \bigg) \bigg\rangle_\xi.
+\end{split}
+    \label{eq:app_stochastic_final}
+\end{equation}
+This confirms that the HMF can be constructed by averaging the non-unitary (imaginary-time) evolution of the system driven by colored Gaussian noise.
 

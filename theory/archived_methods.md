@@ -1,4 +1,4 @@
-\section{Methods}
+# Methods (Archived)
 \label{sec:methods}
 
 This section summarizes a concrete procedure for determining whether the HMF
@@ -33,4 +33,3 @@ $\exp(\Omega)$ using the Magnus expansion, and combine with $e^{-\beta H_Q}$
 using BCH. When the algebra closes, $H_{\mathrm{MF}}$ is a finite operator
 polynomial. When it does not, any truncation or projection is the sole source
 of approximation.
-
