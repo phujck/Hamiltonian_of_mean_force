@@ -18,14 +18,21 @@ elseif ($Command -eq "sim") {
 }
 elseif ($Command -eq "paper") {
     Push-Location manuscript/tex
-    pdflatex -output-directory ../build main.tex
-    bibtex ../build/main
-    pdflatex -output-directory ../build main.tex
-    pdflatex -output-directory ../build main.tex
+    pdflatex main.tex
+    bibtex main
+    pdflatex main.tex
+    pdflatex main.tex
+    if (-not (Test-Path ../build)) {
+        New-Item -ItemType Directory -Path ../build | Out-Null
+    }
+    Copy-Item main.pdf ../build/main.pdf -Force
     Pop-Location
 }
 elseif ($Command -eq "clean") {
-    Remove-Item -Recurse -Force manuscript/build/*
+    if (Test-Path manuscript/build) {
+        Remove-Item -Recurse -Force manuscript/build/* -ErrorAction SilentlyContinue
+    }
+    Remove-Item -Path "manuscript/tex/*.aux", "manuscript/tex/*.bbl", "manuscript/tex/*.blg", "manuscript/tex/*.log", "manuscript/tex/*.out", "manuscript/tex/*.synctex.gz" -ErrorAction SilentlyContinue
 }
 else {
     Write-Host "Usage: ./manage.ps1 [install|sim|paper|clean]"
