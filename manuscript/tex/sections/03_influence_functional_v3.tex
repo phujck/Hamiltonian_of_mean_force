@@ -1,0 +1,117 @@
+\section{Quenched representation and influence functional\label{sec:quenched}}
+We begin by recapitulating the quenched representation introduced in Ref.~\cite{mccaulMeanForceHamiltoniansInfluence2026}.
+To proceed directly from Sec.~\ref{sec:intro}, we explicit the composite model.
+We denote the bare system Hamiltonian by $H_Q$ and write
+\begin{equation}
+    H_{\mathrm{tot}} = H_Q + H_X + H_{\mathrm{int}},
+    \label{eq:Htot_split_sec3}
+\end{equation}
+where $H_X$ is the bath Hamiltonian. We assume a factorizable interaction
+\begin{equation}
+    H_{\mathrm{int}} = f \otimes B,
+    \label{eq:Hint_general_f_B}
+\end{equation}
+where $f$ acts on the system and $B$ is a bath operator. We can define the reduced equilibrium operator (up to normalisation) by $\bar{\rho}_Q(\beta)\equiv \Tr_X e^{-\beta H_{\mathrm{tot}}}$. As shown in Ref.~\cite{mccaulMeanForceHamiltoniansInfluence2026}, this can be represented as a \emph{quenched density}. This is an average over a stochastic propagator, given by:
+\begin{align}
+    \bar{\rho}_Q(\beta) &= \mathbb E_\xi\big[U_\xi(\beta)\big],
+    \label{eq:quenched_identity_main}\\
+    U_\xi(\beta) &\equiv \mathcal T_\tau \exp\!\left[-\int_0^\beta d\tau\,\big(H_Q+\xi(\tau)f\big)\right],
+    \label{eq:quenched_propagator_sec3}
+\end{align}
+where $\xi(\tau)$ is a stochastic process whose statistics encode the bath correlations, and $ \mathcal T_\tau$ denotes time-ordering in imaginary time. Regardless of the precise form of bath and coupling, the reduced density must always be describable in this form. 
+
+This result can be understood intuitively by first observing that since the environment influence can only enter through the system coupling $f$, its influence can be captured by attaching a $\tau$-dependent driving field to $f$~\cite{huQuantumBrownianMotion1992,mccaulHowWinFriends2021b}. If this were a single deterministic field however, it would correspond to the bath exerting the \emph{same} back-action history for every microscopic bath configuration. But $\Tr_X$ averages over many bath microstates in the thermal ensemble, and hence over many back-action histories. In this sense the partial trace is necessarily an average over histories in imaginary time, and the quenched representation simply makes this averaging explicit. For each realisation $\xi(\tau)$ the system evolves under an imaginary-time Hamiltonian $H_Q+\xi(\tau)f$; the bath is then recovered by averaging over $\xi(\tau)$ with a law chosen to reproduce the bath-induced correlations. In this sense $\xi(\tau)$ is not a physical external control field but an efficient parametrisation of the bath history $B(\tau)$ as seen through the coupling channel. 
+
+We may understand what formal properties are demanded of $\xi$ by considering the influence functional it is required to match. Working in imaginary time, introduce the bath interaction picture: 
+\begin{equation}
+    B(\tau) \equiv e^{\tau H_X} B e^{-\tau H_X},\qquad \tau\in[0,\beta],
+\end{equation}
+and define the bath thermal state $\rho_X \equiv e^{-\beta H_X}/Z_X$.
+For an arbitrary c-number source $j(\tau)$ coupled linearly to $B(\tau)$, the bath generates a
+(time-ordered) functional
+\begin{equation}
+    \mathcal Z_X[j]
+    \equiv \Tr_X\!\left[\mathcal T_\tau \exp\!\left(-\int_0^\beta d\tau\, j(\tau)\,B(\tau)\right)\rho_X\right].
+    \label{eq:bath_generating_functional}
+\end{equation}
+Here $j(\tau)$ is introduced as an external c-number source used to generate ordered bath correlators by functional differentiation.  More generally, $j(\tau)$ may be any object commuting with the bath algebra (e.g. a system operator tensored with $\mathbb I_X$). In the influence-functional derivation it is ultimately supplied by the system history, which becomes a c-number function in the path-integral representation. In the influence-functional approach, tracing out the bath produces precisely such a functional, evaluated on the system history through the coupling channel. 
+
+From this, the bath contribution to the effective Euclidean action can be written as \cite{feynmanTheoryGeneralQuantum1963a,grabertQuantumBrownianMotion1988,caldeiraQuantumTunnellingDissipative1983a}
+\begin{equation}
+    \mathcal F[f] \equiv \mathcal Z_X[f],
+    \qquad
+    \Phi[f] \equiv \log \mathcal F[f].
+    \label{eq:influence_functional_definition}
+\end{equation}
+A key structural fact is that $\Phi[f]=\log\mathcal F[f]$ is the \emph{cumulant generating functional} of the bath operator $B(\tau)$ with respect to the thermal state. Concretely, the generalised
+(time-ordered) cumulant theorem implies the connected expansion
+\cite{Kubo1962,BreuerMaPetruccione2002}
+\begin{equation}
+\begin{split}
+\Phi[f]
+&=
+\sum_{n\ge 1}\frac{(-1)^n}{n!}\!\!\int_0^\beta\!\! d\tau_1\cdots d\tau_n\, \\
+&\quad\times K^{(n)}(\tau_1,\ldots,\tau_n)\,
+f(\tau_1)\cdots f(\tau_n),
+\end{split}
+\label{eq:influence_cumulant_expansion}
+\end{equation}
+where the kernels $K^{(n)}$ are the \emph{connected} (cumulant) bath correlators, defined via \cite{DasThermalFieldTheory}
+\begin{equation}
+    K^{(n)}(\tau_1,\ldots,\tau_n)
+    \equiv
+    \big\langle \mathcal T_\tau B(\tau_1)\cdots B(\tau_n)\big\rangle_c.
+    \label{eq:Kn_as_connected_bath_correlators}
+\end{equation}
+The explicit connection back to Eq.~\eqref{eq:bath_generating_functional} is given via its functional differentiation:
+\begin{equation}
+    \big\langle \mathcal T_\tau B(\tau_1)\cdots B(\tau_n)\big\rangle_c = (-1)^n \left. \frac{\delta^n \log \mathcal Z_X[j]}{\delta j(\tau_1)\cdots\delta j(\tau_n)} \right|_{j=0}.
+    \label{eq:connected_correlator_oneliner}
+\end{equation}
+The bath influence is then completely characterised by the hierarchy $\{K^{(n)}\}_{n\ge1}$. 
+
+To connect the influence functional back to the quenched density, we use the fact that the bath
+influence depends on the system history only through the linear functional $\int_0^\beta d\tau\, f(\tau)B(\tau)$. One may therefore represent $\mathcal F[f]$ as the (generalised) characteristic functional of an
+auxiliary field $\xi(\tau)$ \cite{hubbardCalculationPartitionFunctions1959a,stratonovich1957QDistro,stockburgerExactNumberRepresentation2002}:
+\begin{equation}
+\mathcal F[f]
+=
+\mathbb E_\xi\!\left[\exp\!\left(-\int_0^\beta d\tau\,\xi(\tau)\,f(\tau)\right)\right],
+\label{eq:noise_characteristic_functional}
+\end{equation}
+where $\mathbb E_\xi[\cdot]$ denotes averaging with respect to a (possibly complex) measure on
+$\xi$-histories chosen such that \eqref{eq:noise_characteristic_functional} holds.
+
+Since $\xi(\tau)$ is a commuting $c$-number field, its $n$-point moments are symmetric under
+permutations of the time arguments. The influence kernels $K^{(n)}$ fix the \emph{cumulants} of
+$\xi$ via
+\begin{equation}
+\big\langle \xi(\tau_1)\cdots \xi(\tau_n)\big\rangle_c
+=
+K^{(n)}(\tau_1,\ldots,\tau_n).
+\label{eq:xi_cumulants_equal_K}
+\end{equation}
+Consequently, the ordinary correlation functions of the noise are obtained from
+$\{K^{(m)}\}$ by the standard moment-cumulant relations:
+\begin{equation}
+\big\langle \xi(\tau_1)\cdots \xi(\tau_n)\big\rangle
+=
+\sum_{\pi\in\mathcal P_n}\;
+\prod_{C\in\pi}
+K^{(|C|)}\!\big(\{\tau_i\}_{i\in C}\big),
+\label{eq:moment_cumulant_partition}
+\end{equation}
+where $\mathcal P_n$ denotes the set of all partitions of the index set $\{1,\ldots,n\}$, and $C$ are the disjoint blocks of a given partition $\pi \in \mathcal P_n$. After shifting the mean so that $K^{(1)}(\tau)=\langle\xi(\tau)\rangle=0$, one has (for example)
+\begin{align}
+\big\langle \xi(\tau_1)\xi(\tau_2)\big\rangle
+&= K^{(2)}(\tau_1,\tau_2),\\
+\big\langle \xi(\tau_1)\xi(\tau_2)\xi(\tau_3)\big\rangle
+&= K^{(3)}(\tau_1,\tau_2,\tau_3),\\
+\begin{split}
+\big\langle \xi(\tau_1)\xi(\tau_2)&\xi(\tau_3)\xi(\tau_4)\big\rangle \\
+&= K^{(4)}(\tau_1,\tau_2,\tau_3,\tau_4) \\
+& \quad + K^{(2)}(\tau_1,\tau_2)K^{(2)}(\tau_3,\tau_4) \\
+& \quad + K^{(2)}(\tau_1,\tau_3)K^{(2)}(\tau_2,\tau_4) \\
+& \quad + K^{(2)}(\tau_1,\tau_4)K^{(2)}(\tau_2,\tau_3).
+\end{split}
+\end{align}

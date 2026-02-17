@@ -1,0 +1,282 @@
+\section{Universal reduction of the moment matrix $C_{nm}(\beta)$}
+\label{app:Cnm_universal}
+
+This appendix derives the universal representation \eqref{eq:Cnm_universal_main} and gives explicit
+closed forms for the thermal form factors $S_r(\omega,\beta)$.
+
+\subsection{Step 1: swap Matsubara sum and spectral integral}
+
+Start from
+\begin{equation}
+C_{nm}(\beta)=\frac{1}{\beta}\sum_{\ell\in\mathbb Z}\kappa_\ell\,I_n(\nu_\ell)\,I_m(\nu_\ell)^*,
+\qquad \nu_\ell=\frac{2\pi\ell}{\beta},
+\end{equation}
+and insert the harmonic-bath spectral form \eqref{eq:kappa_l_J}:
+\begin{equation}
+\kappa_\ell=\frac{2}{\pi}\int_0^\infty d\omega\,\frac{\omega J(\omega)}{\omega^2+\nu_\ell^2}.
+\end{equation}
+Assuming the standard UV regularity on $J(\omega)$ that ensures the Gaussian influence functional is
+well-defined, we may exchange the sum and integral to obtain
+\begin{equation}
+\label{eq:Cnm_swap}
+\begin{split}
+C_{nm}(\beta)&=\frac{2}{\pi}\int_0^\infty d\omega\,\omega J(\omega)\,
+\Phi_{nm}(\omega,\beta), \\
+\Phi_{nm}(\omega,\beta)&\equiv
+\frac{1}{\beta}\sum_{\ell\in\mathbb Z}\frac{I_n(\nu_\ell)I_m(\nu_\ell)^*}{\omega^2+\nu_\ell^2}.
+\end{split}
+\end{equation}
+Thus all bath dependence is isolated as the scalar weight $\omega J(\omega)$.
+
+\subsection{Step 2: finite inverse-frequency expansion of $I_n(\nu_\ell)$}
+
+For $\ell\neq 0$, bosonic Matsubara frequencies satisfy $e^{i\nu_\ell\beta}=1$.
+The integral \eqref{eq:Ftilde_In} can be evaluated in closed form for $\nu\neq 0$ as
+\begin{equation}
+\label{eq:In_closed_form}
+I_n(\nu)
+=\frac{1}{(-i\nu)^{n+1}}
+\left[
+1-e^{i\nu\beta}\sum_{k=0}^{n}\frac{(-i\nu\beta)^k}{k!}
+\right],
+\end{equation}
+which for $\nu_\ell$ simplifies to
+\begin{equation}
+\label{eq:In_poly_app}
+\begin{split}
+I_n(\nu_\ell)
+&=\frac{1}{(-i\nu_\ell)^{n+1}}
+\left[
+1-\sum_{k=0}^{n}\frac{(-i\nu_\ell\beta)^k}{k!}
+\right] \\
+&=-\sum_{p=1}^{n}\frac{\beta^{\,n+1-p}}{(n+1-p)!}\,\frac{1}{(-i\nu_\ell)^{p}},
+\qquad \ell\neq 0.
+\end{split}
+\end{equation}
+The $\ell=0$ value is obtained by continuity,
+\begin{equation}
+\label{eq:In0_app}
+I_n(0)=\frac{\beta^{n+1}}{(n+1)!}.
+\end{equation}
+Define coefficients
+\begin{equation}
+\label{eq:Anp_def_app}
+A_{n,p}\equiv \frac{\beta^{\,n+1-p}}{(n+1-p)!},\qquad p=1,\dots,n,
+\end{equation}
+so that $I_n(\nu_\ell)=-\sum_{p=1}^{n}A_{n,p}(-i\nu_\ell)^{-p}$ for $\ell\neq 0$.
+
+\subsection{Step 3: reduction to even-power Matsubara sums}
+
+Split $\Phi_{nm}$ into the zero mode and the nonzero modes:
+\begin{equation}
+\label{eq:Phi_split_app}
+\Phi_{nm}(\omega,\beta)=\frac{1}{\beta}\frac{I_n(0)I_m(0)}{\omega^2}
++\frac{1}{\beta}\sum_{\ell\neq 0}\frac{I_n(\nu_\ell)I_m(\nu_\ell)^*}{\omega^2+\nu_\ell^2}.
+\end{equation}
+Insert the finite expansion \eqref{eq:In_poly_app} into the $\ell\neq 0$ term:
+\begin{equation}
+I_n(\nu_\ell)I_m(\nu_\ell)^*
+=\sum_{p=1}^{n}\sum_{q=1}^{m}A_{n,p}A_{m,q}\,
+\frac{1}{(-i\nu_\ell)^{p}}\frac{1}{(+i\nu_\ell)^{q}}.
+\end{equation}
+Under $\ell\mapsto -\ell$, $\nu_\ell\mapsto -\nu_\ell$ while $\omega^2+\nu_\ell^2$ is invariant. It follows
+that contributions with odd $(p+q)$ cancel in the $\ell$-sum, leaving only even total powers
+$p+q=2r$. Collecting the surviving terms yields the finite reduction
+\begin{equation}
+\label{eq:Phi_reduce_app}
+\Phi_{nm}(\omega,\beta)
+=\frac{1}{\beta}\frac{I_n(0)I_m(0)}{\omega^2}
++\sum_{r=1}^{\lfloor (n+m)/2\rfloor}\alpha^{(nm)}_{r}(\beta)\,S_r(\omega,\beta),
+\end{equation}
+where the universal form factors are
+\begin{equation}
+\label{eq:Sr_def_app}
+S_r(\omega,\beta)\equiv \frac{1}{\beta}\sum_{\ell\neq 0}\frac{1}{\nu_\ell^{2r}}\frac{1}{\omega^2+\nu_\ell^2},
+\qquad r=0,1,2,\dots,
+\end{equation}
+and the coefficients are the explicit finite combinatorial contractions
+\begin{equation}
+\label{eq:alpha_def_app}
+\alpha^{(nm)}_{r}(\beta)\equiv
+\sum_{\substack{p=1,\dots,n\\ q=1,\dots,m\\ p+q=2r}}
+(-1)^{p+r}\,A_{n,p}A_{m,q}.
+\end{equation}
+Substituting \eqref{eq:Phi_reduce_app} into \eqref{eq:Cnm_swap} gives the universal representation
+\eqref{eq:Cnm_universal_main}.
+
+\subsection{Step 4: closed form for $S_r(\omega,\beta)$}
+
+The base sum is standard:
+\begin{equation}
+\label{eq:S0_app}
+S_0(\omega,\beta)=\frac{1}{\beta}\sum_{\ell\neq 0}\frac{1}{\omega^2+\nu_\ell^2}
+=\frac{1}{2\omega}\coth\!\left(\frac{\beta\omega}{2}\right)-\frac{1}{\beta\omega^2}.
+\end{equation}
+Define also the zeta moments
+\begin{equation}
+\label{eq:Zr_app}
+Z_r(\beta)\equiv \frac{1}{\beta}\sum_{\ell\neq 0}\frac{1}{\nu_\ell^{2r}}
+=\beta^{2r-1}\frac{\zeta(2r)}{(2\pi)^{2r}},\qquad r\ge 1.
+\end{equation}
+Using the identity
+\begin{equation}
+\frac{1}{\nu^{2r}(\omega^2+\nu^2)}
+=\frac{1}{\omega^2}\left(\frac{1}{\nu^{2r}}-\frac{1}{\nu^{2r-2}(\omega^2+\nu^2)}\right),
+\end{equation}
+one obtains the recursion
+\begin{equation}
+\label{eq:Sr_rec_app}
+S_r(\omega,\beta)=\frac{1}{\omega^2}\Big(Z_r(\beta)-S_{r-1}(\omega,\beta)\Big),\qquad r\ge 1,
+\end{equation}
+which may be unrolled to the explicit closed form
+\begin{equation}
+\label{eq:Sr_closed_app}
+S_r(\omega,\beta)=
+\sum_{k=0}^{r-1}(-1)^k\frac{Z_{r-k}(\beta)}{\omega^{2(k+1)}}
++(-1)^r\frac{S_0(\omega,\beta)}{\omega^{2r}}.
+\end{equation}
+Thus every $S_r$ is an explicit combination of a single thermal function $\coth(\beta\omega/2)$ and
+a finite set of zeta values $\{\zeta(2),\dots,\zeta(2r)\}$.
+
+\section{Direct $\Delta$ evaluation for the PRL qubit and projector reduction of Eq.~(8)}
+\label{app:prl_qubit_delta}
+
+This appendix provides the direct evaluation used in
+Sec.~\ref{sec:qubit_prl_recovery}. We take
+\begin{equation}
+H_S=\frac{\omega_q}{2}\sigma_z,\qquad
+X=\cos\theta\,\sigma_z-\sin\theta\,\sigma_x,
+\end{equation}
+and the coupling scaling $J_\lambda(\omega)=\lambda^2J_0(\omega)$ so that
+$\kappa_\ell(\lambda)=\lambda^2\kappa_\ell^{(0)}$.
+
+\subsection{Direct-kernel multiplication in Eq.~\eqref{eq:Delta_direct_prl}}
+
+Using $\tilde X(\tau)=e^{\tau H_S}Xe^{-\tau H_S}$,
+\begin{equation}
+\tilde X(\tau)=\cos\theta\,\sigma_z
+-\sin\theta\!\left[\cosh(\omega_q\tau)\sigma_x+i\sinh(\omega_q\tau)\sigma_y\right].
+\end{equation}
+Set $c\equiv\cos\theta$, $s\equiv\sin\theta$, and $u\equiv\tau-\tau'$. Direct Pauli multiplication gives
+\begin{equation}
+\begin{split}
+\tilde X(\tau)\tilde X(\tau')
+&=\big[c^2+s^2\cosh(\omega_q u)\big]\mathbb I
++s^2\sinh(\omega_q u)\sigma_z \\
+&\quad +cs\big[\sinh(\omega_q\tau)-\sinh(\omega_q\tau')\big]\sigma_x \\
+&\quad +ics\big[\cosh(\omega_q\tau)-\cosh(\omega_q\tau')\big]\sigma_y.
+\end{split}
+\end{equation}
+In Eq.~\eqref{eq:Delta_direct_prl}, however, the bilinear enters as
+$\mathcal T_\tau[\tilde X(\tau)\tilde X(\tau')]$. Use
+\begin{equation}
+\mathcal T_\tau[AB]=\frac12\{A,B\}+\frac12\,\mathrm{sgn}(\tau-\tau')[A,B].
+\end{equation}
+Applying this to the product above gives
+\begin{equation}
+\begin{split}
+\mathcal T_\tau[\tilde X(\tau)\tilde X(\tau')]
+&=\big[c^2+s^2\cosh(\omega_q u)\big]\mathbb I \\
+&\quad +cs\,\mathrm{sgn}(u)\big[\sinh(\omega_q\tau)-\sinh(\omega_q\tau')\big]\sigma_x \\
+&\quad +ics\,\mathrm{sgn}(u)\big[\cosh(\omega_q\tau)-\cosh(\omega_q\tau')\big]\sigma_y \\
+&\quad +s^2\,\mathrm{sgn}(u)\sinh(\omega_q u)\sigma_z .
+\end{split}
+\end{equation}
+Hence
+\begin{equation}
+\Delta(\beta,\lambda)=\lambda^2\!\left[\alpha_0\mathbb I
++\delta_x\sigma_x+i\delta_y\sigma_y+\delta_z\sigma_z\right],
+\end{equation}
+with
+\begin{align}
+\alpha_0
+&=\frac12\!\int_0^\beta d\tau\!\int_0^\beta d\tau'\,
+K_0(\tau-\tau')\big[c^2+s^2\cosh(\omega_q(\tau-\tau'))\big],\\
+\delta_z
+&=\frac{s^2}{2}\!\int_0^\beta d\tau\!\int_0^\beta d\tau'\,
+K_0(\tau-\tau')\,\mathrm{sgn}(\tau-\tau')\,\sinh(\omega_q(\tau-\tau')),\\
+\delta_x
+&=\frac{cs}{2}\!\int_0^\beta d\tau\!\int_0^\beta d\tau'\,
+K_0(\tau-\tau')\,\mathrm{sgn}(\tau-\tau')\big[\sinh(\omega_q\tau)-\sinh(\omega_q\tau')\big],\\
+\delta_y
+&=\frac{cs}{2}\!\int_0^\beta d\tau\!\int_0^\beta d\tau'\,
+K_0(\tau-\tau')\,\mathrm{sgn}(\tau-\tau')\big[\cosh(\omega_q\tau)-\cosh(\omega_q\tau')\big].
+\end{align}
+
+\subsection{Reduction to one-dimensional direct-kernel moments}
+
+Because $K_0(u)=K_0(-u)$, the coefficients reduce exactly to
+\begin{align}
+\alpha_0(\beta)
+&=\int_{0}^{\beta}\!du\,(\beta-u)\,K_0(u)\big[c^2+s^2\cosh(\omega_q u)\big],\\
+\delta_z(\beta)
+&=s^2\int_{0}^{\beta}\!du\,(\beta-u)\,K_0(u)\sinh(\omega_q u),\\
+\delta_x(\beta)
+&=\frac{cs}{\omega_q}\int_{0}^{\beta}\!du\,K_0(u)\!
+\left[\cosh(\beta\omega_q)+1-\cosh(\omega_q u)-\cosh\!\big(\omega_q(\beta-u)\big)\right],\\
+\delta_y(\beta)
+&=\frac{cs}{\omega_q}\int_{0}^{\beta}\!du\,K_0(u)\!
+\left[\sinh(\beta\omega_q)-\sinh(\omega_q u)-\sinh\!\big(\omega_q(\beta-u)\big)\right].
+\end{align}
+These are exactly Eqs.~\eqref{eq:alpha0_direct_kernel}--\eqref{eq:deltaz_direct_kernel}
+in the main text.
+
+\subsection{Weak-order correction}
+
+Let $\tau_S=\frac12(\mathbb I-\tanh(\beta\omega_q/2)\sigma_z)$ and
+$\Delta=\lambda^2\Delta_0$. Expanding
+$\rho\propto e^{-\beta H_S}e^{\Delta}$ to $O(\lambda^2)$ and keeping the Hermitian part gives
+\begin{equation}
+\delta\rho_{\mathrm{weak}}
+=\frac{\delta_x}{2}\sigma_x
++\frac{1-\tanh^2(\beta\omega_q/2)}{2}\,\delta_z\,\sigma_z,
+\end{equation}
+which is Eq.~\eqref{eq:delta_rho_weak_prl}. The $i\delta_y\sigma_y$ component contributes to the
+collapsed finite-coupling product shortcut, but not to this Hermitian weak-order correction.
+
+\subsection{Ordered finite-coupling evaluation used in the benchmark}
+
+The finite comparator in Sec.~\ref{sec:qubit_prl_recovery} is not the collapsed
+$e^{-\beta H_S}e^{\Delta}$ product. We evaluate instead
+\begin{equation}
+\rho_{\mathrm{ord}}(\beta,\lambda)\propto
+e^{-\beta H_S}\,\mathcal T_\tau
+\exp\!\left[
+\lambda^2\!\int_0^\beta d\tau\!\int_0^\tau d\tau'\,
+K_0(\tau-\tau')\,\tilde X(\tau)\tilde X(\tau')
+\right],
+\end{equation}
+numerically by deterministic Gaussian quadrature:
+\begin{enumerate}
+\item discretise $\tau\in[0,\beta]$ and build the covariance matrix
+$C_{ij}=K_0(\tau_i-\tau_j)$;
+\item apply a KL decomposition $C\approx VV^\top$ with retained rank $r$;
+\item write the sampled field as $\xi(\tau_i)=\lambda (V\eta)_i$ with independent
+standard-normal components of $\eta$;
+\item replace the $\eta$-average by tensor Gauss--Hermite quadrature and evaluate each
+time-ordered trajectory exactly using $\exp[-v\tilde X]=\cosh(v)\mathbb I-\sinh(v)\tilde X$,
+since $\tilde X(\tau)^2=\mathbb I$.
+\end{enumerate}
+This yields the ordered finite-coupling state used in the figure and CSV outputs.
+
+\subsection{Projector reduction for the PRL ultrastrong qubit state}
+
+Take the interaction-axis projectors
+\begin{equation}
+P_\pm=\frac12\left(\mathbb I\pm\sigma_{\hat r}\right),\qquad
+\sigma_{\hat r}=\cos\theta\,\sigma_z-\sin\theta\,\sigma_x.
+\end{equation}
+Using $H_S=(\omega_q/2)\sigma_z$ and $P_\pm \sigma_z P_\pm = \pm\cos\theta\,P_\pm$,
+\begin{equation}
+\sum_n P_n H_S P_n
+=\frac{\omega_q\cos\theta}{2}\left(P_+-P_-\right)
+=\frac{\omega_q\cos\theta}{2}\sigma_{\hat r}.
+\end{equation}
+Substitution into PRL Eq.~(7) gives
+\begin{equation}
+\rho_{US}
+=\frac{e^{-(\beta\omega_q\cos\theta/2)\sigma_{\hat r}}}
+{\Tr\!\left[e^{-(\beta\omega_q\cos\theta/2)\sigma_{\hat r}}\right]}
+=\frac12\left[\mathbb I-\sigma_{\hat r}\tanh\!\left(\frac{\beta\omega_q\cos\theta}{2}\right)\right],
+\end{equation}
+which is Eq.~\eqref{eq:rho_us_qubit_prl} in the main text.

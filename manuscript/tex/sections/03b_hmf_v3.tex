@@ -1,0 +1,62 @@
+﻿\section{Quenched density and the Hamiltonian of mean force \label{sec:hmf}}
+The Hamiltonian of mean force is, by definition, the operator whose Gibbs form reproduces the
+system's reduced equilibrium state. Equivalently, it is the \emph{operator logarithm} of the
+unnormalised reduced equilibrium operator
+\begin{equation}
+\bar{\rho}_Q(\beta)\equiv \Tr_X e^{-\beta H_{\mathrm{tot}}},
+\qquad
+H_{\mathrm{MF}}(\beta)\;\equiv\;-\frac{1}{\beta}\log \bar{\rho}_Q(\beta),
+\label{eq:rhobar_and_HMF_tilde}
+\end{equation}
+defined up to an additive multiple of the identity (fixed only when normalising the state).
+
+The quenched representation in Eq.~\eqref{eq:quenched_identity_main} supplies an exact stochastic
+parametrisation of the unnormalised mean-force Gibbs operator $\bar{\rho}_Q(\beta)$ by making the
+bath trace an explicit average over imaginary-time back-action histories. Combining
+Eq.~\eqref{eq:quenched_identity_main} with Eq.~\eqref{eq:rhobar_and_HMF_tilde} yields
+\begin{equation}
+H_{\mathrm{MF}}(\beta)
+=
+-\frac{1}{\beta}\log \mathbb E_\xi\!\left[U_\xi(\beta)\right].
+\end{equation}
+Thus, constructing the mean-force Hamiltonian reduces to evaluating a stochastic average and then
+compressing the result via an operator logarithm. The conditions for being able to perform this average exactly is the focus of the present work. 
+
+ To make the handling of this problem more concrete, we shall specialise the environment to the Caldeira-Leggett model, where the bath is a collection of harmonic oscillators ($H_X=\sum_k \omega_k b_k^\dagger b_k$) and the coupling is linear in bath coordinates ($B=\sum_k c_k x_k$). None of the results that follow are essentially dependent on this choice, and a generalisation to anharmonic environments is (relatively) straightforward.  In the interests of comprehensibility however, we restrict our scope to quadratic environments. In this setting, the auxiliary field $\xi(\tau)$ becomes a stationary zero-mean Gaussian process completely characterized by its covariance
+\begin{equation}
+    \mathbb E_\xi[\xi(\tau)\xi(\tau')] = K(\tau-\tau').
+\end{equation}
+The kernel $K(\tau)$ is determined by the bath spectral density $J(\omega)=\frac{\pi}{2}\sum_k \frac{c_k^2}{m_k\omega_k}\delta(\omega-\omega_k)$ via the relation~\cite{weissQuantumDissipativeSystems2012}
+\begin{equation}
+    K(\tau)=\frac{1}{\pi}\int_0^\infty d\omega\,J(\omega)\,
+    \frac{\cosh\!\big(\omega(\beta/2-|\tau|)\big)}{\sinh(\beta\omega/2)}.
+    \label{eq:K_explicit_cosh}
+\end{equation}
+A key property of this kernel is its integrated strength. Integrating Eq.~\eqref{eq:K_explicit_cosh} yields
+\begin{align}
+    \int_0^\beta d\tau\,K(\tau) 
+    &= \frac{1}{\pi}\int_0^\infty \!\!d\omega\,J(\omega) \int_0^\beta d\tau\, \frac{\cosh\!\big(\omega(\beta/2-|\tau|)\big)}{\sinh(\beta\omega/2)} \nonumber\\
+    &= \frac{1}{\pi}\int_0^\infty \!\!d\omega\,J(\omega)\,\frac{2}{\omega} \nonumber\\
+    &= 2\lambda,
+\end{align}
+where $\lambda$ is the explicit reorganisation energy. Consequently, the total variance of the integrated noise field $\Xi = \int_0^\beta d\tau\,\xi(\tau)$ grows linearly with inverse temperature:
+\begin{equation}
+    \mathbb E_\xi[\Xi^2] = \int_0^\beta \!\!d\tau\!\int_0^\beta \!\!d\tau'\,K(\tau-\tau') = 2\beta\lambda.
+    \label{eq:integrated_variance_linear}
+\end{equation}
+
+In the case that the system and its coupling commute, $[H_Q,f]= 0$ and $f$ is $\tau$-independent in imaginary time. In this instance time ordering drops out, and the average is given by \cite{mccaulMeanForceHamiltoniansInfluence2026}:
+\begin{equation}
+    \bar{\rho}_Q(\beta)=
+    \exp\!\left[-\beta\left(H_Q-\frac{\kappa_0(\beta)}{2}f^2\right)\right],
+    \label{eq:rho_commuting_closed_sec3}
+\end{equation}
+which in turn yields
+\begin{equation}
+    H_{\mathrm{MF}}(\beta)=
+    H_Q-\frac{\kappa_0(\beta)}{2}f^2+\frac{1}{\beta}\log Z_X(\beta)\,\mathbb I.
+    \label{eq:Heff_commuting_limit}
+\end{equation}
+
+Notably this correction to  $H_{\mathrm{MF}}(\beta)$ is entirely \emph{classical} \cite{mccaulMeanForceHamiltoniansInfluence2026}. This is hardly surprising, but emphasises that truly quantum effects \emph{always} stem from non-commutativity. Truly quantum thermodynamic effects are therefore only present when $[H_Q,f]\neq 0$. In this case however, the noise enters through a noncommuting operator inside $\mathcal T_\tau$, rendering the question of averaging highly non-trivial. In the next section, we attack this problem directly, deriving conditions under which $H_{\mathrm{MF}}(\beta)$ possesses a closed form. 
+

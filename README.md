@@ -35,6 +35,14 @@ Current simulation baseline:
   - `simulations/results/data/prl127_qubit_scan.csv`
   - `simulations/results/figures/prl127_qubit_scan.png`
 
+PRL qubit analytic-bridge benchmark:
+- `py simulations/src/main.py --benchmark prl127_qubit_analytic_bridge`
+- Ordered finite-model controls (optional): `--ordered-time-slices 80 --ordered-kl-rank 5 --ordered-gh-order 3`
+- Primary outputs:
+  - `simulations/results/data/prl127_qubit_analytic_bridge_scan.csv`
+  - `simulations/results/data/prl127_qubit_analytic_bridge_summary.csv`
+  - `simulations/results/figures/prl127_qubit_analytic_bridge_alignment.png`
+
 All-to-all designability benchmark:
 - `py simulations/src/main.py --benchmark designability_alltoall`
 - Primary outputs:

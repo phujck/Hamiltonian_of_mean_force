@@ -1,0 +1,85 @@
+\section{Numerical Validation Against Weak/Ultrastrong Predictions}
+\label{sec:numerical_validation}
+
+We benchmark the qubit predictions of Ref.~\cite{cresserWeakUltrastrongCoupling2021a}
+against exact finite-bath trace-out calculations over the full coupling range, using
+Sec.~\ref{sec:qubit_prl_recovery} as the analytic target: the direct-kernel Gaussian
+weak target in Eqs.~\eqref{eq:rho_weak_prl}--\eqref{eq:delta_rho_weak_prl} and the
+ultrastrong projector state in Eq.~\eqref{eq:rho_us_qubit_prl}.
+The system Hamiltonian and coupling operator are
+\begin{equation}
+    H_S=\frac{\omega_q}{2}\sigma_z,
+    \qquad
+    X=\cos\theta\,\sigma_z-\sin\theta\,\sigma_x,
+\end{equation}
+with $\omega_q=3$ and $\theta=0.25$. The bath is discretised from
+$J(\omega)=Q\tau_c\omega e^{-\tau_c\omega}$ using $N_\omega=3$ modes over
+$[0.5,8.0]$, per-mode cutoff $n_{\max}=4$, and $(Q,\tau_c)=(10,1)$.
+
+For each $\lambda$ we compute $\rho_S^{\mathrm{exact}}(\lambda)$ from the global
+Gibbs state by exact diagonalisation and partial trace. We compare it against:
+\begin{enumerate}
+    \item the bare Gibbs state $\tau_S\propto e^{-\beta H_S}$;
+    \item the ultrastrong projected state $\rho_{US}$ from Eq.~(7) of
+    Ref.~\cite{cresserWeakUltrastrongCoupling2021a} (equivalently the qubit form,
+    Eq.~(8) there).
+\end{enumerate}
+The primary diagnostics are
+\begin{equation}
+    D_\tau=\frac{1}{2}\|\rho_S^{\mathrm{exact}}-\tau_S\|_1,
+    \qquad
+    D_{US}=\frac{1}{2}\|\rho_S^{\mathrm{exact}}-\rho_{US}\|_1,
+\end{equation}
+plus the $\ell_1$ coherence in the $H_S$ eigenbasis.
+
+The numerical results support the PRL predictions:
+\begin{enumerate}
+    \item At $\lambda=0$, $D_\tau$ is numerically zero
+    ($\sim 10^{-16}$), as required.
+    \item As $\lambda$ increases, $\rho_S^{\mathrm{exact}}$ departs from
+    $\tau_S$ and approaches $\rho_{US}$. For $\beta=1$, $D_{US}$ drops from
+    $0.1124$ at $\lambda=0$ to $1.99\times10^{-3}$ at $\lambda=8$, while
+    $D_\tau$ increases to $0.1104$.
+    \item Energetic coherence persists in the $H_S$ basis at strong coupling,
+    consistent with Eq.~(8) in Ref.~\cite{cresserWeakUltrastrongCoupling2021a}:
+    for $\beta=1$, $C_{H_S}$ increases from $0$ at $\lambda=0$ to $0.218$ at
+    $\lambda=8$.
+\end{enumerate}
+
+Figure~\ref{fig:prl_qubit_beta1_scan} shows the full coupling scan at $\beta=1$.
+Figure~\ref{fig:prl_qubit_beta_compare} shows the temperature dependence
+($\beta=0.5,1,2$): in all cases $D_{US}$ is minimised at the largest simulated
+coupling and remains near $2\times10^{-3}$ at $\lambda=8$, while the crossover
+from Gibbs-like to ultrastrong-like behaviour shifts to smaller $\lambda$ as
+$\beta$ increases (approximately $0.6\rightarrow0.4\rightarrow0.2$).
+
+A resolution check (low-resolution run: $N_\omega=2$, $n_{\max}=3$) changes the
+$\beta=1$, $\lambda=8$ diagnostics only slightly:
+$|D_{US}^{\mathrm{prod}}-D_{US}^{\mathrm{low}}|=6.45\times10^{-4}$ and
+$|C_{H_S}^{\mathrm{prod}}-C_{H_S}^{\mathrm{low}}|=1.25\times10^{-3}$, indicating
+that the qualitative conclusions are robust to the present discretisation.
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.95\textwidth]{../figures/hmf_prl_qubit_beta1_scan.png}
+    \caption{
+    Single-qubit benchmark at $\beta=1$: trace-distance crossover, basis-dependent
+    coherence, and expectation-value trends versus coupling strength $\lambda$.
+    The exact finite-bath state moves away from the bare Gibbs state and towards
+    the ultrastrong projected state as coupling grows.
+    }
+    \label{fig:prl_qubit_beta1_scan}
+\end{figure*}
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.95\textwidth]{../figures/hmf_prl_qubit_beta_comparison.png}
+    \caption{
+    Temperature comparison ($\beta=0.5,1,2$): left panel shows
+    $D_\tau$ (solid) and $D_{US}$ (dashed), right panel shows energetic coherence
+    in the $H_S$ basis. Across temperatures, increasing coupling drives the exact
+    state towards the ultrastrong predicted form while preserving nonzero
+    energetic coherence.
+    }
+    \label{fig:prl_qubit_beta_compare}
+\end{figure*}
