@@ -1,7 +1,6 @@
-\subsection{Exact mean-force Hamiltonian for the transverse-coupling 
-spin-boson model}
+\section{Exact Solution of the Spin-Boson Model}
 
-We now turn to applying the results developed in the previous section. A particularly instructive example concerns spins, as the su(2) algebra is sufficiently simple at to permit an exact analytic solution. We demonstrate this by applying it to a transverse-coupling spin-boson model. Following  Ref.~\cite{cresserWeakUltrastrongCoupling2021a}, let
+We now turn to applying the results developed in the previous section. A particularly instructive example concerns spins, as the $\mathfrak{su}(2)$ algebra provides a particularly compact analytic solution. We demonstrate this by applying it to a transverse-coupling spin-boson model. Following  Ref.~\cite{cresserWeakUltrastrongCoupling2021a}, let
 %
 \begin{equation}
     H_Q = \frac{\omega_q}{2}\sigma_z, 
@@ -29,162 +28,179 @@ precesses. A direct induction gives
 \end{equation}
 %
 The adjoint chain therefore closes on $\mathrm{span}\{\sigma_x,\sigma_y,
-\sigma_z\}$, satisfying condition (C1) We now evaluate each sector of products $f_nf_m$ using the Pauli 
-identities $\sigma_j^2 = \mathbb{I}$ and $\sigma_j\sigma_k = 
-\delta_{jk}\mathbb{I} + i\epsilon_{jkl}\sigma_l$. Dropping $\mathbb{I}$ terms throughout (they contribute only to the normalisation), the non-trivial contributions to each Pauli component can be summarized by cases. For indices $n,m$ yielding non-vanishing terms, we find:
+\sigma_z\}$, satisfying condition (C1).
+
+We use $f_n$ to evaluate the influence exponent $\Delta(\beta)$. To streamline the algebra, we treat each $f_n$ as a Pauli vector:
 \begin{equation}
-    f_n f_m \cong \begin{cases}
-        i s^2 \omega_q^{n+m} \sigma_z & n \in 2\mathbb{N}, m \in 2\mathbb{N}-1, \\
-        -i s^2 \omega_q^{n+m} \sigma_z & n \in 2\mathbb{N}-1, m \in 2\mathbb{N}, \\
-        c s \omega_q^m \sigma_x - s^2 \omega_q^m \sigma_z & n=0, m \in 2\mathbb{N}-1, \\
-        c s \omega_q^n \sigma_x + s^2 \omega_q^n \sigma_z & n \in 2\mathbb{N}-1, m=0.
+    f_n = \mathbf v_n \cdot \boldsymbol{\sigma},
+    \qquad 
+    \boldsymbol{\sigma}=(\sigma_x,\sigma_y,\sigma_z),
+    \label{eq:vn_def}
+\end{equation}
+with
+\begin{equation}
+    \mathbf v_n =
+    \begin{cases}
+        \mathbf v_0 = (-s,\,0,\,c), & n=0, \\
+        (-s\,\omega_q^{n},\,0,\,0), & n\ge 1,\; n\ \text{even},\\[2pt]
+        (0,\,-is\,\omega_q^{n},\,0), & n\ge 1,\; n\ \text{odd}.
     \end{cases}
-    \label{eq:fnfm_cases}
+    \label{eq:vn_qubit}
 \end{equation}
-Terms generating $\sigma_y$ are omitted as they vanish by the symmetry $C_{nm}=C_{mn}$. The $\sigma_z$ contributions from the $n,m \ge 1$ sector also vanish by this symmetry, as the cases $n$ even, $m$ odd and $n$ odd, $m$ even enter with opposite signs. The only $\sigma_z$ contributions then come from the $n=0$ cross terms. This confirms condition (C2) is also satisfied.
+The Pauli multiplication rule then becomes the single identity
+\begin{equation}
+    (\mathbf a\cdot\boldsymbol{\sigma})(\mathbf b\cdot\boldsymbol{\sigma})
+    = (\mathbf a\cdot\mathbf b)\,\mathbb I + i(\mathbf a\times\mathbf b)\cdot\boldsymbol{\sigma},
+    \label{eq:pauli_vector_product}
+\end{equation}
+so that
+\begin{equation}
+    f_n f_m
+    = (\mathbf v_n\cdot\mathbf v_m)\,\mathbb I
+    + i(\mathbf v_n\times\mathbf v_m)\cdot\boldsymbol{\sigma}.
+    \label{eq:fnfm_vector}
+\end{equation}
+The scalar part contributes only to the overall normalization (free-energy shift) and may be discarded when determining the operator structure.  The non-trivial Pauli sector is therefore controlled entirely by the cross products $\mathbf v_n\times \mathbf v_m$.
 
-Inserting these into Eq.\eqref{eq:Delta_final}, we now enumerate each component of $\Delta$. For the $\sigma_z$ component, we have
+Given this, we introduce the symmetric and antisymmetric parts of the ordered kernel moments:
 \begin{equation}
-    \Delta\big|_{\sigma_z} = -2s^2\sum_{m=0}^\infty
-      C_{0,2m+1}\,\omega_q^{2m+1}\,\sigma_z,
+    S_{nm}:=\frac{1}{2}\big(C^{>}_{nm}+C^{>}_{mn}\big),
+    \quad 
+    A_{nm}:=\frac{1}{2}\big(C^{>}_{nm}-C^{>}_{mn}\big),
+    \label{eq:Snm_Anm_def}
 \end{equation}
-where the symmetry $C_{0m}=C_{m0}$ has again been employed. Similarly for the $\sigma_x$ component, we obtain 
+so that $C^{>}_{nm}=S_{nm}+A_{nm}$ with $S_{nm}=S_{mn}$ and $A_{nm}=-A_{mn}$.
+Since $\mathbf v_n\times\mathbf v_m$ is antisymmetric under $n\leftrightarrow m$, only the antisymmetric sector of the coefficients contributes to the Pauli part of $\Delta$. We may therefore restrict the sum to ordered indices $n>m$ to avoid double counting:
 \begin{equation}
-    \Delta\big|_{\sigma_x} = 2cs\sum_{m=0}^\infty
-      C_{0,2m+1}\,\omega_q^{2m+1}\,\sigma_x.
+\begin{split}
+    \Delta(\beta) 
+    &\cong i\sum_{n,m\ge 0} A_{nm}\,(\mathbf v_n\times\mathbf v_m)\cdot\boldsymbol{\sigma} \\
+    &= 2i\sum_{n>m} A_{nm}\,(\mathbf v_n\times\mathbf v_m)\cdot\boldsymbol{\sigma},
+\end{split}
+\label{eq:Delta_Pauli_Anm}
 \end{equation}
-From this we find that the non-trivial operator content of $\Delta(\beta)$ is controlled by the single sum
+where $\cong$ indicates equality up to an irrelevant $\mathbb I$ contribution. This makes explicit that the non-commuting structure in $\Delta$ is entirely inherited from the ordered nature of $C^{>}_{nm}$.
+
+For $n,m\ge 1$, only even-odd index pairs contribute and the cross product is always parallel to $\hat{\mathbf z}$. This yields a purely $\sigma_z$ contribution from the $n,m\ge 1$ block. The special $n=0$ layer contributes additional terms. In particular, for $\ell\ge 0$,
 \begin{equation}
     \begin{split}
-    &\sum_{m=0}^\infty C_{0,2m+1}\,\omega_q^{2m+1} \\
-    &\quad= \frac{1}{2}\int_0^\beta d\tau\int_0^\beta d\tau'\,
-      K(\tau-\tau')\sum_{m=0}^\infty
-      \frac{(\omega_q\tau')^{2m+1}}{(2m+1)!} \\
-    &\quad= \frac{1}{2}\int_0^\beta d\tau\int_0^\beta d\tau'\,
-      K(\tau-\tau')\sinh(\omega_q\tau'),
+    \mathbf v_0\times \mathbf v_{2\ell+1} &= \big(i c s\,\omega_q^{2\ell+1},\,0,\, i s^2\,\omega_q^{2\ell+1}\big), \\
+    \mathbf v_0\times \mathbf v_{2\ell} &= \big(0,\,-c s\,\omega_q^{2\ell},\,0\big),
     \end{split}
+    \label{eq:v0_cross_parity}
+\end{equation}
+so that both $\sigma_x$ and $\sigma_z$ arise from the $0$--odd sector, while a $\sigma_y$ sector is generated by the $0$--even sector whenever the ordered coefficients have a non-vanishing antisymmetric part $A_{0,2\ell}$.
+Collecting these contributions, the Pauli sector of $\Delta$ may be written in the general Bloch form
+\begin{equation}
+    \Delta(\beta)\cong \Delta_x(\beta)\,\sigma_x+\Delta_y(\beta)\,\sigma_y+\Delta_z(\beta)\,\sigma_z,
+    \label{eq:Delta_xyz_form}
 \end{equation}
 
-From this we may define the \emph{effective kernel}:
-\begin{equation}
-    \mathcal{K}(\beta) \equiv \int_0^\beta d\tau\int_0^\beta d\tau'\,
-    K(\tau-\tau')\sinh(\omega_q\tau').
-\end{equation}
-Using the periodicity of the kernel $K(\tau)=K(\tau+\beta)$, the integral over the first variable $\tau$ decouples from $\tau'$:
-\begin{equation}
-    \int_0^\beta d\tau\, K(\tau-\tau') = \int_{-\tau'}^{\beta-\tau'} du\, K(u) = \int_0^\beta du\, K(u).
-\end{equation}
-The remaining integral over $\sinh(\omega_q\tau')$ can be performed directly. Identifying the integrated kernel strength with the reorganization energy via Eq.~\eqref{eq:int_K_2lambda}, $\int_0^\beta d\tau K(\tau) = 2\lambda$, we obtain:
-\begin{equation}
-    \mathcal{K}(\beta) = 2\lambda \int_0^\beta d\tau' \sinh(\omega_q\tau') 
-    = \frac{4\lambda}{\omega_q}\sinh^2\left(\frac{\beta\omega_q}{2}\right),
-    \label{eq:Kscalar}
-\end{equation}
-which leads to the a compact final form for the influence exponent:
-\begin{equation}
-    \begin{split}
-    \Delta(\beta) &= \mathcal{K}(\beta)
-    \bigl(cs\,\sigma_x - s^2\,\sigma_z\bigr) \\
-    &= s\,\mathcal{K}(\beta)
-    \bigl(c\,\sigma_x - s\,\sigma_z\bigr).
-    \end{split}
-    \label{eq:Delta_final}
-\end{equation}
-Amusingly, we see that the form of $\Delta(\beta)$ lies orthogonal to the original coupling $f = c\sigma_z - s\sigma_x$ in the $xz$-plane.
-
-The final step is to recombine $\Delta(\beta)$ with $-\beta H_Q$ to obtain the mean-force Hamiltonian. This generically requires condition (C3), but in this case our task is simplified greatly as both $-\beta H_Q$ and $\Delta(\beta)$ are elements of 
-$\mathfrak{su}(2)$. Thus their combined exponential is given by
-\begin{equation}
-    \begin{split}
-    \bar{\rho}_Q(\beta) &= e^{-\beta H_Q}e^{\Delta(\beta)} \\
-    &= e^{\vec{a}\cdot\vec{\sigma}}
-      e^{\vec{b}\cdot\vec{\sigma}}
-    = e^{\vec{\nu}\cdot\vec{\sigma}}
-    \end{split}
-\end{equation}   
-We apply this by setting $\vec{a} = 
--\frac{\beta\omega_q}{2}\hat{z}$ and $\vec{b} \equiv \delta_x\hat{x} + \delta_z\hat{z}$, with $\delta_x = cs\,\mathcal{K}$ and $\delta_z = -s^2\,\mathcal{K}$ This then
-points in the fixed direction $c\hat{x} - s\hat{z}$ with magnitude
-\begin{equation}
-     |\vec{b}| 
-    = \sqrt{\delta_x^2+\delta_z^2} 
-    = s\,\mathcal{K}(\beta).
-    \label{eq:OmegaDelta}
-\end{equation}
-The composition rule for $\vec{\nu}$ is
 \begin{align}
-    \cos|\vec{\nu}| &= 
-        \cos|\vec{a}|\cos|\vec{b}|
-        - \hat{a}\cdot\hat{b}\,
-          \sin|\vec{a}|\sin|\vec{b}|,
-    \label{eq:su2_cos}\\
-    \frac{\vec{\nu}}{|\vec{\nu}|} &= 
-    \frac{1}{\sin|\vec{\nu}|}
-    \Bigl[
-        \sin|\vec{a}|\cos|\vec{b}|\,\hat{a}
-        + \cos|\vec{a}|\sin|\vec{b}|\,\hat{b} \notag\\
-        &\qquad\qquad + \sin|\vec{a}|\sin|\vec{b}|\,
-          (\hat{a}\times\hat{b})
-    \Bigr].
-    \label{eq:su2_vec}
+    \Delta_x(\beta)
+    &= -2cs\sum_{\ell\ge 0} A_{2\ell+1,\, 0}(\beta)\,\omega_q^{2\ell+1},
+    \label{eq:Deltax_series_corr}\\[4pt]
+    \Delta_y(\beta)
+    &= -2ics\sum_{\ell\ge 1} A_{2\ell,\, 0}(\beta)\,\omega_q^{2\ell},
+    \label{eq:Deltay_series_corr}\\[4pt]
+    \Delta_z(\beta)
+    &= -2s^2\sum_{k\ge 1,\,\ell\ge 0} A_{2k,\,2\ell+1}(\beta)\,\omega_q^{2k+2\ell+1} \notag\\
+    &\quad\, -2s^2\sum_{\ell\ge 0} A_{2\ell+1,\, 0}(\beta)\,\omega_q^{2\ell+1}.
+    \label{eq:Deltaz_series_corr}
 \end{align}
-%
-With $\hat{a} = -\hat{z}$, $\hat{b} = c\hat{x}-s\hat{z}$, we have 
-$\hat{a}\cdot\hat{b} = s$ and
-%
-\begin{equation}
-    \hat{a}\times\hat{b} = -\hat{z}\times(c\hat{x}-s\hat{z}) 
-    = -c\,\hat{y},
-\end{equation}
-%
-so a $\sigma_y$ component is generated by the noncommutativity of 
-$H_Q$ and $\Delta$. Substituting $|\vec{a}| = 
-\beta\omega_q/2$ and $|\vec{b}| = s\mathcal{K}$, \eqref{eq:su2_cos} gives
-%
-\begin{equation}
-    \cos\Omega \equiv \cos\tfrac{\beta\omega_q}{2}\cos(s\mathcal{K})
-    + s\sin\tfrac{\beta\omega_q}{2}\sin(s\mathcal{K}),
-    \label{eq:Omega_def}
-\end{equation}
-%
-which defines $\Omega \equiv |\vec{\nu}|$. The resulting vector $\vec{\nu}$ has a nonzero $y$-component \eqref{eq:su2_vec}, indicating that $H_\mathrm{MF}$ contains a term $\propto \sigma_y$. However, the structure of \eqref{eq:su2_vec} allows this to be removed by a simple frame rotation. 
+The first term in \eqref{eq:Deltaz_series_corr} comes from the $n,m\ge 1$ even--odd sector, and the remaining terms from the $n=0$ cross layer.
 
-Specifically, the transverse part of $\vec{\nu}$ lies at an angle $-\beta\omega_q/2$ in the $xy$-plane. We may therefore eliminate $\nu_y$ by applying the unitary transformation $U_0 = e^{-i\frac{\beta\omega_q}{4}\sigma_z}$, which rotates the frame by an angle $\phi = \beta\omega_q/2$ about the $z$-axis. In this rotated frame, the mean-force Hamiltonian $H'_\mathrm{MF} = U_0 H_\mathrm{MF} U_0^\dagger$ is given simply by
+\subsection{Generating function for the influence exponent}
+
+While technically complete, this series representation of $\Delta$ is not particularly illuminating. A more transparent expression for the components - with a correspondingly more robust physical interpretation - is obtained by recognising that the ordered moments $C^{>}_{nm}$ can be interpreted as Laplace transforms of the imaginary-time kernel. To this end, we introduce the bivariate generating function
 \begin{equation}
-    H_\mathrm{MF}(\beta) = h_x(\beta)\,\sigma_x + h_z(\beta)\,\sigma_z,
-    \label{eq:HMF_rotated}
+    \mathcal{G}^>(x,y)
+    =
+    \int_0^\beta d\tau \int_0^\tau d\tau'\,
+    K(\tau-\tau')\,e^{x\tau+y\tau'},
+    \label{eq:Gxy_def}
 \end{equation}
-with components
+and its anti-ordered counterpart $\mathcal{G}^<(x,y) = \mathcal{G}^>(y,x)$, where the equality follows from $K(-u)=K(u)$. Structurally, these objects are the time-ordered and anti-ordered Green's functions of the bath projected onto the Laplace domain. They directly sample the bath's correlations at the frequencies $x$ and $y$ dictated by the system's eigenoperators. This identification immediately suggests an implicit fluctuation theorem, readily uncovered by application of the KMS condition $K(\beta-u)=K(u)$:
+\begin{equation}
+    \mathcal{G}^>(x,y) = e^{\beta(x+y)}\,\mathcal{G}^>(-y,-x).
+    \label{eq:KMS_Gxy}
+\end{equation}
+Changing variables to $u=\tau-\tau'$, $v=\tau'$ and using the KMS symmetry yields the closed form
+\begin{equation}
+    \mathcal{G}^>(x,y) = \frac{e^{x\beta}\tilde{K}(y) - \tilde{K}(x)}{x+y},
+    \label{eq:Gxy_closed}
+\end{equation}
+where we have defined the bare Laplace transform of the kernel as
+\begin{equation}
+    \tilde{K}(\omega) \equiv \int_0^\beta du\, K(u)\,e^{\omega u}.
+    \label{eq:Ktilde_def}
+\end{equation}
+The resonant case $x+y \to 0$ is recovered as the limit $\mathcal{G}^>(x,-x) = e^{x\beta}\tilde{K}'(-x)$, where pure derivatives with respect to frequency appear:
+\begin{equation}
+    \tilde{K}'(-x) \equiv \partial_{\omega}\tilde{K}(\omega)\big|_{\omega=-x} = \int_0^\beta du\, u\, K(u)\, e^{-xu}.
+\end{equation}
+Using the KMS symmetry, the resonant limit takes the explicit integral form
+\begin{equation}
+    \mathcal{G}^>(x,-x) = \int_0^\beta du\,(\beta-u)\,K(u)\,e^{xu}.
+    \label{eq:Gxy_resonant_integral}
+\end{equation}
+These resonant terms introduce linear-in-$\beta$ (secular) and exponential-in-$\beta$ behaviors, which upon recombination generate the hyperbolic structure observed in the $\Delta_z$ component equations.
+
+The effective Hamiltonian is determined by the antisymmetric combination
+\begin{equation}
+\begin{split}
+    \mathcal{G}^-(x,y) 
+    &\equiv \mathcal{G}^>(x,y) - \mathcal{G}^<(x,y) \\
+    &= \frac{e^{x\beta}\tilde{K}(y) - e^{y\beta}\tilde{K}(x)
+           + \tilde{K}(x) - \tilde{K}(y)}{x+y},
+\end{split}
+\label{eq:Gminus_closed}
+\end{equation}
+while the symmetric part $\mathcal{G}^+(x,y) \equiv \mathcal{G}^>(x,y) + \mathcal{G}^<(x,y)$ contributes only to the partition function normalisation. This splitting is physically natural: the Pauli algebra maps the antisymmetric operator product to the vector sector $\boldsymbol{\sigma}$, and the symmetric product to the scalar identity.
+
+Because the qubit adjoint chain \eqref{eq:fn_qubit} has a strict even/odd parity structure, only the values $x,y\in\{0,\pm\omega_q\}$ enter the sum. Evaluating \eqref{eq:Gminus_closed} at these points and introducing the even and odd parts of $\tilde{K}$ at the Bohr frequency,
+\begin{equation}
+    \tilde{K}^\pm \equiv \tilde{K}(\omega_q) \pm \tilde{K}(-\omega_q),
+    \label{eq:Ktilde_pm}
+\end{equation}
+the influence components reduce to
 \begin{align}
-    h_x &= c\,\frac{\Omega}{\sin\Omega}\sin(s\mathcal{K}),
-    \label{eq:nux_prime}\\
-    h_z &= \frac{\Omega}{\sin\Omega}
-    \Bigl[
-        -\sin\tfrac{\beta\omega_q}{2}\cos(s\mathcal{K})
-        -s\cos\tfrac{\beta\omega_q}{2}\sin(s\mathcal{K})
-    \Bigr].
-    \label{eq:nuz_prime}
+    \Delta_x(\beta)
+        &= \frac{cs}{\omega_q}\,\tilde{K}^-,
+    \label{eq:Deltax_final}\\[4pt]
+    \Delta_y(\beta)
+        &= \frac{ics}{\omega_q}\,\tilde{K}^+,
+    \label{eq:Deltay_final}\\[4pt]
+    \Delta_z(\beta)
+        &= \frac{s^2}{\omega_q}\,\tilde{K}^-
+           + \frac{s^2}{2\omega_q}\Bigl[
+               \tilde{K}^- \cosh(\omega_q\beta) - \tilde{K}^+ \sinh(\omega_q\beta)
+             \Bigr].
+    \label{eq:Deltaz_final}
 \end{align}
+The explicit dependence on the transition frequency $\omega_q$ identifies this as an `on-shell' renormalization: the bath's infinite complexity is distilled into its response at the system's natural energy scale.
+This structure establishes a direct map to the standard non-equilibrium Green's function formalism. The odd component $\tilde{K}^-$ plays the role of a dissipative self-energy (analogous to the imaginary part of a retarded Green's function), driving the coherent renormalization of the Hamiltonian parameters $\Delta_x$ and $\Delta_z$. 
+Conversely, the even component $\tilde{K}^+$ represents the integrated fluctuation spectrum (analogous to the Keldysh or 'greater' Green's function), explicitly capturing the thermal noise responsible for the $\Delta_y$ component. 
+The precise balance between these terms is dictated by the KMS condition, which functions here as an on-shell Fluctuation-Dissipation Theorem, ensuring that the interplay of dissipation and fluctuations correctly targets the canonical equilibrium state.
 
-It has taken an awfully large amount of work for such an awfully small description, but finally we have it: the complete and exact influence of the environment on the qubit at all coupling strengths and temperatures, captured entirely by the effective kernel $\mathcal{K}(\beta)$ and the mixing angle $\theta$ (via $c,s$). 
+\subsubsection*{Recombination}
+The reduced equilibrium operator is $\bar\rho_Q(\beta)=e^{-\beta H_Q}e^{\Delta(\beta)}$, and the Hamiltonian of mean force is defined (up to an additive constant) by
+\begin{equation}
+    H_{\mathrm{MF}}(\beta) = -\beta^{-1}\log\bar\rho_Q(\beta).
+    \label{eq:HMF_def_qubit}
+\end{equation}
+Because $\bar\rho_Q(\beta)$ is Hermitian and positive, $H_{\mathrm{MF}}(\beta)$ is itself Hermitian. Since the influence operator $\Delta(\beta)$ lies in the span of $\{\sigma_x,\sigma_z\}$ (after absorbing the $\Delta_y$ phase or rotating), so does $H_{\mathrm{MF}}(\beta)$. Thus one may generally write
+\begin{equation}
+    H_{\mathrm{MF}}(\beta) \equiv \mathrm{const}\cdot \mathbb I + h_x(\beta)\,\sigma_x + h_z(\beta)\,\sigma_z,
+    \label{eq:HMF_xz_form}
+\end{equation}
+with the effective fields $h_{x,z}(\beta)$ obtained exactly by evaluating the $2\times 2$ logarithm in \eqref{eq:HMF_def_qubit}. 
+A subsequent rotation about $\sigma_z$ can be used to align the transverse component purely along $\sigma_x$, yielding a manifestly real representation if desired.
+In the following subsection we carry out this final step explicitly and discuss the resulting renormalisation of the qubit field direction as a function of temperature and bath spectrum.
 
-This form allows for a direct analysis of the coupling limits. The coupling strength $g$ enters exclusively through the reorganization energy $\lambda \propto g^2$, which in turn scales the effective kernel $\mathcal{K}(\beta) \propto g^2$.
-\begin{enumerate}
-    \item \textbf{Weak Coupling ($\lambda\to 0$):} In this limit $\mathcal{K}\to 0$, implying $s\mathcal{K} \to 0$. We immediately have $\nu_x \to 0$ and $\nu_z \to -\frac{\beta\omega_q}{2}$. Thus $H_\mathrm{MF} \to \frac{\omega_q}{2}\sigma_z = H_Q$, recovering the bare system Hamiltonian as expected.
-    
-    \item \textbf{Ultrastrong Coupling ($\lambda\to \infty$):} Here $s\mathcal{K} \propto g^2 \gg 1$. In this regime the bath term dominates the free evolution phase $\beta\omega_q$, so $\Omega \approx s\mathcal{K}$. The vector components simplify to:
-    \begin{align}
-        \nu_x &\approx c\,\frac{s\mathcal{K}}{\sin(s\mathcal{K})}\sin(s\mathcal{K}) = c\,s\mathcal{K}, \\
-        \nu_z &\approx -s\,\frac{s\mathcal{K}}{\sin(s\mathcal{K})}\sin(s\mathcal{K}) = -s^2\mathcal{K}.
-    \end{align}
-    The mean-force Hamiltonian becomes
-    \begin{equation}
-        H_\mathrm{MF} \approx -\frac{s\mathcal{K}}{\beta}(c\sigma_x - s\sigma_z) = \frac{s\mathcal{K}}{\beta} f.
-    \end{equation}
-    This result is physically transparent: at ultrastrong coupling, the mean-force potential is simply the system-bath coupling operator $f$ scaled by the reorganization energy directly.
-\end{enumerate}
 
 \subsection{Numerical Demonstrations}
+\label{sec:numerical_validation}
 
 To validate the analytic derivation of the mean-force Hamiltonian $H_\mathrm{MF}$, we compare our results against exact numerical diagonalization (ED) of the full system-bath Hamiltonian. We model the bath as a set of discrete harmonic oscillators with an Ohmic spectral density, using $N=4$ modes and a Fock space cutoff of $N_{cut}=6$ per mode to ensure convergence. The full Hamiltonian is diagonalized to obtain the exact thermal state $\rho_{tot} = e^{-\beta H_{tot}}/Z$, from which the reduced system state $\rho_S = \mathrm{Tr}_B[\rho_{tot}]$ is computed.
 
@@ -194,7 +210,7 @@ Furthermore, we extract the effective fields $h_x, h_z$ from the numerical state
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\columnwidth]{figures/hmf_v4_validation_fig.png}
+    % \includegraphics[width=\columnwidth]{figures/hmf_v4_validation_fig.png}
     \caption{Validation of the analytic mean-force Hamiltonian against exact diagonalization. (Left) The trace distance between the exact reduced state and the analytic prediction remains negligible ($< 10^{-5}$) for all coupling strengths $\lambda$. (Center) The components of the effective field $\vec{h}$ in the rotated frame show perfect agreement between theory (solid) and numerics (dashed). (Right) The unrotated $y$-component is non-zero in the lab frame but vanishes in the rotated frame as predicted.}
     \label{fig:hmf_v4_validation}
 \end{figure}

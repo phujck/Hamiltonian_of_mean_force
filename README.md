@@ -37,7 +37,9 @@ Current simulation baseline:
 
 PRL qubit analytic-bridge benchmark:
 - `py simulations/src/main.py --benchmark prl127_qubit_analytic_bridge`
-- Ordered finite-model controls (optional): `--ordered-time-slices 80 --ordered-kl-rank 5 --ordered-gh-order 3`
+- `powershell -ExecutionPolicy Bypass -File .\\run_safe.ps1 simulations/src/main.py --benchmark prl127_qubit_analytic_bridge` (thread-limited safe mode)
+- Uses direct ordered-kernel channel coefficients `(\delta_x,\delta_y,\delta_z)` in the symmetric finite model.
+- Ordered comparator controls (optional): `--ordered-time-slices 80 --ordered-kl-rank 5 --ordered-gh-order 3`
 - Primary outputs:
   - `simulations/results/data/prl127_qubit_analytic_bridge_scan.csv`
   - `simulations/results/data/prl127_qubit_analytic_bridge_summary.csv`

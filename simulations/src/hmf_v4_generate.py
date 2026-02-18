@@ -8,7 +8,7 @@ Run with: ./run_safe.ps1 simulations/src/hmf_v4_generate.py
 
 import numpy as np
 import pandas as pd
-from scipy.linalg import logm, expm
+from scipy.linalg import logm
 import os
 
 from prl127_qubit_benchmark import (
@@ -20,59 +20,13 @@ from prl127_qubit_benchmark import (
     thermal_state,
     partial_trace_bath,
     trace_distance,
-    spectral_density_exp
+)
+from prl127_qubit_analytic_bridge import (
+    compute_delta_coefficients,
+    finite_hmf_symmetric_product_state,
 )
 
 SIGMA_Y = np.array([[0.0, -1.0j], [1.0j, 0.0]], dtype=complex)
-
-def analytic_hmf_v4(config: BenchmarkConfig, lam_coupling: float, q_reorg_integral: float) -> np.ndarray:
-    """
-    Computes H_MF using the analytic result from results_v4.tex.
-    """
-    beta = config.beta
-    omega_q = config.omega_q
-    theta = config.theta
-    
-    c = np.cos(theta)
-    s = np.sin(theta)
-    
-    # Calculate paper's lambda (reorganization energy)
-    lambda_paper = (lam_coupling**2) * (q_reorg_integral / np.pi)
-    
-    # Effective Kernel K(beta)
-    kernel_eff = (4.0 * lambda_paper / omega_q) * (np.sinh(beta * omega_q / 2.0)**2)
-    
-    # Argument sK
-    sk_val = s * kernel_eff
-    
-    # Omega definition
-    phi = beta * omega_q / 2.0
-    cos_omega = np.cos(phi) * np.cos(sk_val) + s * np.sin(phi) * np.sin(sk_val)
-    
-    omega_val = np.arccos(cos_omega)
-    sin_omega = np.sin(omega_val)
-    
-    if abs(sin_omega) < 1e-9:
-        prefactor = 1.0 # Limit case
-        if abs(omega_val) > 1e-9:
-             prefactor = omega_val / sin_omega
-    else:
-        prefactor = omega_val / sin_omega
-        
-    term_x = c * np.sin(sk_val)
-    term_z = -np.sin(phi) * np.cos(sk_val) - s * np.cos(phi) * np.sin(sk_val)
-    
-    h_x = -(1.0/beta) * prefactor * term_x
-    h_z = -(1.0/beta) * prefactor * term_z
-    
-    # Construct Hamiltonian
-    H_mf = h_x * SIGMA_X + h_z * SIGMA_Z
-    
-    # Compute state
-    rho = expm(-beta * H_mf)
-    rho /= np.trace(rho)
-    
-    return rho, h_x, h_z
 
 
 def run_validation(config: BenchmarkConfig):
@@ -81,16 +35,7 @@ def run_validation(config: BenchmarkConfig):
     # Build operators (expensive)
     h_static, h_int, h_counter, h_s, x_op = build_static_operators(config)
     
-    # Calculate q_reorg manually as before
-    if config.n_modes == 1:
-        omegas = np.array([0.5 * (config.omega_min + config.omega_max)])
-        delta_omega = config.omega_max - config.omega_min
-    else:
-        omegas = np.linspace(config.omega_min, config.omega_max, config.n_modes)
-        delta_omega = omegas[1] - omegas[0]
-    j_vals = config.q_strength * config.tau_c * omegas * np.exp(-config.tau_c * omegas)
-    g_vals = np.sqrt(np.maximum(j_vals, 0.0) * delta_omega)
-    q_reorg = float(np.sum((g_vals**2) / np.maximum(omegas, 1e-12)))
+    _, delta_x, delta_y, delta_z = compute_delta_coefficients(config, n_kernel_grid=4001)
 
     dim_system = h_s.shape[0]
     dim_bath = h_static.shape[0] // dim_system
@@ -109,7 +54,7 @@ def run_validation(config: BenchmarkConfig):
         rho_ex = partial_trace_bath(rho_tot, dim_system, dim_bath)
         
         # Analytic HMF v4
-        rho_v4, hx_v4, hz_v4 = analytic_hmf_v4(config, lam, q_reorg)
+        rho_v4 = finite_hmf_symmetric_product_state(config, lam, delta_x, delta_y, delta_z)
         
         # Distance
         dist_v4 = trace_distance(rho_ex, rho_v4)
@@ -121,9 +66,16 @@ def run_validation(config: BenchmarkConfig):
         hx_num = np.real(np.trace(h_eff_num @ SIGMA_X)) / 2.0
         hy_num = np.real(np.trace(h_eff_num @ SIGMA_Y)) / 2.0
         hz_num = np.real(np.trace(h_eff_num @ SIGMA_Z)) / 2.0
+
+        log_rho_v4 = logm(rho_v4 + 1e-12 * IDENTITY_2)
+        h_eff_v4 = (-1.0 / config.beta) * log_rho_v4
+        hx_v4 = np.real(np.trace(h_eff_v4 @ SIGMA_X)) / 2.0
+        hy_v4 = np.real(np.trace(h_eff_v4 @ SIGMA_Y)) / 2.0
+        hz_v4 = np.real(np.trace(h_eff_v4 @ SIGMA_Z)) / 2.0
+        sym_nonherm = float(np.max(np.abs(rho_v4 - rho_v4.conj().T)))
         
-        # Rotate numerical fields
-        phi = config.beta * config.omega_q / 2.0
+        # Rotate numerical fields using the model-implied in-plane angle
+        phi = np.arctan2(hy_v4, hx_v4)
         hx_rot = hx_num * np.cos(phi) + hy_num * np.sin(phi)
         hy_rot = -hx_num * np.sin(phi) + hy_num * np.cos(phi)
         
@@ -131,12 +83,15 @@ def run_validation(config: BenchmarkConfig):
             "lambda": lam,
             "dist_v4": dist_v4,
             "hx_v4": hx_v4,
+            "hy_v4": hy_v4,
             "hz_v4": hz_v4,
+            "phi_v4": float(phi),
             "hx_num_lab": hx_num,
             "hy_num_lab": hy_num,
             "hx_num_rot": hx_rot,
             "hy_num_rot": hy_rot,
-            "hz_num": hz_num
+            "hz_num": hz_num,
+            "sym_nonherm_maxabs": sym_nonherm,
         })
         
     df = pd.DataFrame(results)

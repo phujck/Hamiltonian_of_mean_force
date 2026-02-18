@@ -228,21 +228,22 @@ def _scaled_expm_general(matrix: np.ndarray) -> np.ndarray:
     return expm(matrix - shift * IDENTITY_2)
 
 
-def finite_hmf_collapsed_product_state(
+def finite_hmf_symmetric_product_state(
     config: BenchmarkConfig,
     coupling_lambda: float,
     delta_x: float,
     delta_y: float,
     delta_z: float,
 ) -> np.ndarray:
-    h_s = 0.5 * config.omega_q * SIGMA_Z
-    delta_op = (coupling_lambda**2) * (delta_x * SIGMA_X + 1.0j * delta_y * SIGMA_Y + delta_z * SIGMA_Z)
+    """
+    Symmetric finite model from the direct-Delta channels:
+      rho_bar = exp(-beta H_S / 2) exp(Delta) exp(-beta H_S / 2).
 
-    # Noncommuting qubit prediction: evaluate the product form directly,
-    # without collapsing to H_S - Delta/beta.
-    left = _scaled_expm_general(-config.beta * h_s)
-    right = _scaled_expm_general(delta_op)
-    rho_bar = left @ right
+    The z-channel enters with a relative minus sign from the corrected qubit algebra.
+    """
+    half = _scaled_expm_general(-0.25 * config.beta * config.omega_q * SIGMA_Z)
+    delta_op = (coupling_lambda**2) * (delta_x * SIGMA_X + 1.0j * delta_y * SIGMA_Y - delta_z * SIGMA_Z)
+    rho_bar = half @ _scaled_expm_general(delta_op) @ half
     return _project_density(rho_bar)
 
 
@@ -343,15 +344,16 @@ def run_scan(
         rho_exact = partial_trace_bath(rho_tot, dim_system=dim_system, dim_bath=dim_bath)
 
         rho_weak = weak_state_from_delta(config, lam, delta_x, delta_z)
-        rho_hmf = finite_hmf_ordered_gaussian_state(lam, ordered_ctx)
-        rho_hmf_collapsed = finite_hmf_collapsed_product_state(config, lam, delta_x, delta_y, delta_z)
+        rho_hmf = finite_hmf_symmetric_product_state(config, lam, delta_x, delta_y, delta_z)
+        rho_hmf_ordered = finite_hmf_ordered_gaussian_state(lam, ordered_ctx)
 
         record: Dict[str, float] = {
             "lambda": float(lam),
             "d_exact_tau": trace_distance(rho_exact, tau_s),
             "d_exact_weak": trace_distance(rho_exact, rho_weak),
             "d_exact_hmf": trace_distance(rho_exact, rho_hmf),
-            "d_exact_hmf_collapsed": trace_distance(rho_exact, rho_hmf_collapsed),
+            "d_exact_hmf_ordered": trace_distance(rho_exact, rho_hmf_ordered),
+            "d_hmf_vs_ordered": trace_distance(rho_hmf, rho_hmf_ordered),
             "d_exact_us": trace_distance(rho_exact, rho_us_closed),
             "d_weak_tau": trace_distance(rho_weak, tau_s),
             "d_us_projector_vs_closed": rho_us_diff,
@@ -364,7 +366,7 @@ def run_scan(
         _record_state("tau", tau_s, hs_basis, record)
         _record_state("weak", rho_weak, hs_basis, record)
         _record_state("hmf", rho_hmf, hs_basis, record)
-        _record_state("hmf_collapsed", rho_hmf_collapsed, hs_basis, record)
+        _record_state("hmf_ordered", rho_hmf_ordered, hs_basis, record)
         _record_state("us", rho_us_closed, hs_basis, record)
         records.append(record)
 
@@ -459,8 +461,9 @@ def build_summary(
         "ultrastrong_distance_lambda_min": float(row0["d_exact_us"]),
         "ultrastrong_distance_lambda_max": float(row_last["d_exact_us"]),
         "ultrastrong_distance_delta": float(row0["d_exact_us"] - row_last["d_exact_us"]),
-        "ordered_distance_lambda_max": float(row_last["d_exact_hmf"]),
-        "collapsed_distance_lambda_max": float(row_last["d_exact_hmf_collapsed"]),
+        "symmetric_distance_lambda_max": float(row_last["d_exact_hmf"]),
+        "ordered_distance_lambda_max": float(row_last["d_exact_hmf_ordered"]),
+        "hmf_vs_ordered_lambda_max": float(row_last["d_hmf_vs_ordered"]),
         "theta0_delta_x_abs": abs(theta0_dx),
         "theta0_delta_y_abs": abs(theta0_dy),
         "theta0_weak_coherence_hs": float(theta0_coh),
@@ -468,7 +471,9 @@ def build_summary(
         "weak_equals_tau_max_dist": float(np.max(np.abs(df["d_weak_tau"]))),
         "pass_direct_noncommuting_channel": float(abs(delta_x) > 1e-8),
         "pass_theta0_delta_channels_off": float(abs(theta0_dx) < 1e-10 and abs(theta0_dy) < 1e-10),
-        "pass_ordered_beats_collapsed_lambda_max": float(row_last["d_exact_hmf"] < row_last["d_exact_hmf_collapsed"]),
+        "pass_ordered_beats_symmetric_lambda_max": float(
+            row_last["d_exact_hmf_ordered"] < row_last["d_exact_hmf"]
+        ),
         "pass_eq8_identity": float(eq8_identity_global_max_abs < 1e-12),
         "pass_weak_lambda2_scaling": float(1.5 <= weak_model_slope <= 2.5) if np.isfinite(weak_model_slope) else 0.0,
         "pass_ultrastrong_trend": float(row_last["d_exact_us"] < row0["d_exact_us"]),
@@ -482,8 +487,8 @@ def make_alignment_figure(df: pd.DataFrame, out_path: Path, config: BenchmarkCon
     fig, axes = plt.subplots(1, 3, figsize=(14, 4))
 
     axes[0].plot(df["lambda"], df["d_exact_weak"], label="Exact vs direct-kernel weak target")
-    axes[0].plot(df["lambda"], df["d_exact_hmf"], label="Exact vs ordered-Gaussian finite model")
-    axes[0].plot(df["lambda"], df["d_exact_hmf_collapsed"], linestyle="--", label="Exact vs collapsed-product model")
+    axes[0].plot(df["lambda"], df["d_exact_hmf"], label="Exact vs symmetric finite model")
+    axes[0].plot(df["lambda"], df["d_exact_hmf_ordered"], linestyle="--", label="Exact vs ordered finite model")
     axes[0].plot(df["lambda"], df["d_exact_us"], label="Exact vs ultrastrong PRL")
     axes[0].set_xlabel(r"$\lambda$")
     axes[0].set_ylabel("Trace distance")
@@ -491,9 +496,8 @@ def make_alignment_figure(df: pd.DataFrame, out_path: Path, config: BenchmarkCon
     axes[0].legend(fontsize=8)
 
     axes[1].plot(df["lambda"], df["exact_bloch_x"], linewidth=2, label=r"Exact $\langle \sigma_x \rangle$")
-    axes[1].plot(
-        df["lambda"], df["hmf_bloch_x"], linestyle="--", label=r"Ordered-Gaussian model $\langle \sigma_x \rangle$"
-    )
+    axes[1].plot(df["lambda"], df["hmf_bloch_x"], linestyle="-", label=r"Symmetric model $\langle \sigma_x \rangle$")
+    axes[1].plot(df["lambda"], df["hmf_ordered_bloch_x"], linestyle="--", label=r"Ordered model $\langle \sigma_x \rangle$")
     axes[1].plot(df["lambda"], df["us_bloch_x"], linestyle=":", label=r"US PRL $\langle \sigma_x \rangle$")
     axes[1].set_xlabel(r"$\lambda$")
     axes[1].set_ylabel("Bloch-x")
@@ -501,9 +505,8 @@ def make_alignment_figure(df: pd.DataFrame, out_path: Path, config: BenchmarkCon
     axes[1].legend(fontsize=8)
 
     axes[2].plot(df["lambda"], df["exact_bloch_z"], linewidth=2, label=r"Exact $\langle \sigma_z \rangle$")
-    axes[2].plot(
-        df["lambda"], df["hmf_bloch_z"], linestyle="--", label=r"Ordered-Gaussian model $\langle \sigma_z \rangle$"
-    )
+    axes[2].plot(df["lambda"], df["hmf_bloch_z"], linestyle="-", label=r"Symmetric model $\langle \sigma_z \rangle$")
+    axes[2].plot(df["lambda"], df["hmf_ordered_bloch_z"], linestyle="--", label=r"Ordered model $\langle \sigma_z \rangle$")
     axes[2].plot(df["lambda"], df["us_bloch_z"], linestyle=":", label=r"US PRL $\langle \sigma_z \rangle$")
     axes[2].set_xlabel(r"$\lambda$")
     axes[2].set_ylabel("Bloch-z")
