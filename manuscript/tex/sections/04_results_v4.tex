@@ -127,90 +127,81 @@ and its anti-ordered counterpart $\mathcal{G}^<(x,y) = \mathcal{G}^>(y,x)$, wher
 \end{equation}
 Changing variables to $u=\tau-\tau'$, $v=\tau'$ and using the KMS symmetry yields the closed form
 \begin{equation}
-    \mathcal{G}^>(x,y) = \frac{e^{x\beta}\tilde{K}(y) - \tilde{K}(x)}{x+y},
+    \mathcal{G}^>(x,y) = \frac{e^{x\beta}\mathcal{K}(y) - \mathcal{K}(x)}{x+y},
     \label{eq:Gxy_closed}
 \end{equation}
 where we have defined the bare Laplace transform of the kernel as
 \begin{equation}
-    \tilde{K}(\omega) \equiv \int_0^\beta du\, K(u)\,e^{\omega u}.
+    \mathcal{K}(\omega) \equiv \int_0^\beta du\, K(u)\,e^{\omega u}.
     \label{eq:Ktilde_def}
 \end{equation}
-The resonant case $x+y \to 0$ is recovered as the limit $\mathcal{G}^>(x,-x) = e^{x\beta}\tilde{K}'(-x)$, where pure derivatives with respect to frequency appear:
+
+The resonant case $x+y \to 0$ is recovered as the limit $\mathcal{G}^>(x,-x) = e^{x\beta}\mathcal{K}'(-x)$, where pure derivatives with respect to frequency appear:
 \begin{equation}
-    \tilde{K}'(-x) \equiv \partial_{\omega}\tilde{K}(\omega)\big|_{\omega=-x} = \int_0^\beta du\, u\, K(u)\, e^{-xu}.
+    \mathcal{K}'(-x) \equiv \partial_{\omega}\mathcal{K}(\omega)\big|_{\omega=-x} = \int_0^\beta du\, u\, K(u)\, e^{-xu}.
 \end{equation}
 Using the KMS symmetry, the resonant limit takes the explicit integral form
 \begin{equation}
     \mathcal{G}^>(x,-x) = \int_0^\beta du\,(\beta-u)\,K(u)\,e^{xu}.
     \label{eq:Gxy_resonant_integral}
 \end{equation}
-These resonant terms introduce linear-in-$\beta$ (secular) and exponential-in-$\beta$ behaviors, which upon recombination generate the hyperbolic structure observed in the $\Delta_z$ component equations.
 
-The effective Hamiltonian is determined by the antisymmetric combination
+The KMS reflection symmetry $K(\beta-u)=K(u)$ implies a corresponding constraint on the Laplace transform \eqref{eq:Ktilde_def}. Indeed,
+\begin{align}
+    \mathcal{K}(-\omega)
+    &= \int_0^\beta du\,K(u)e^{-\omega u}
+     = \int_0^\beta du\,K(\beta-u)e^{-\omega u} \notag\\
+    &= \int_0^\beta dv\,K(v)\,e^{-\omega(\beta-v)}
+     = e^{-\beta\omega}\int_0^\beta dv\,K(v)e^{\omega v} \notag \\
+     &= e^{-\beta\omega}\mathcal{K}(\omega).
+    \label{eq:Ktilde_detailed_balance}
+\end{align}
+If we then define the symmetric and antisymmetric pairs
 \begin{equation}
-\begin{split}
-    \mathcal{G}^-(x,y) 
-    &\equiv \mathcal{G}^>(x,y) - \mathcal{G}^<(x,y) \\
-    &= \frac{e^{x\beta}\tilde{K}(y) - e^{y\beta}\tilde{K}(x)
-           + \tilde{K}(x) - \tilde{K}(y)}{x+y},
-\end{split}
-\label{eq:Gminus_closed}
-\end{equation}
-while the symmetric part $\mathcal{G}^+(x,y) \equiv \mathcal{G}^>(x,y) + \mathcal{G}^<(x,y)$ contributes only to the partition function normalisation. This splitting is physically natural: the Pauli algebra maps the antisymmetric operator product to the vector sector $\boldsymbol{\sigma}$, and the symmetric product to the scalar identity.
-
-Because the qubit adjoint chain \eqref{eq:fn_qubit} has a strict even/odd parity structure, only the values $x,y\in\{0,\pm\omega_q\}$ enter the sum. Evaluating \eqref{eq:Gminus_closed} at these points and introducing the even and odd parts of $\tilde{K}$ at the Bohr frequency,
-\begin{equation}
-    \tilde{K}^\pm \equiv \tilde{K}(\omega_q) \pm \tilde{K}(-\omega_q),
+    \mathcal{K}^\pm \equiv \frac{1}{2}\bigl(\mathcal{K}(\omega_q)\pm\mathcal{K}(-\omega_q)\bigr),
     \label{eq:Ktilde_pm}
 \end{equation}
-the influence components reduce to
+then the even/odd combinations \eqref{eq:Ktilde_pm} satisfy the fluctuation-dissipation relation
+\begin{equation}
+    \frac{\mathcal{K}^+}{\mathcal{K}^-}
+    = \frac{1+e^{-\beta\omega_q}}{1-e^{-\beta\omega_q}}
+    = \coth\!\left(\frac{\beta\omega_q}{2}\right),
+    \label{eq:FDT_Ktilde_pm}
+\end{equation}
+Because the qubit adjoint chain \eqref{eq:fn_qubit} has a strict even/odd parity structure, only the values $x,y\in\{0,\pm\omega_q\}$ enter the sum. The influence components reduce to
 \begin{align}
     \Delta_x(\beta)
-        &= \frac{cs}{\omega_q}\,\tilde{K}^-,
+        &= \frac{cs}{\omega_q}\,\mathcal{K}^-,
     \label{eq:Deltax_final}\\[4pt]
     \Delta_y(\beta)
-        &= \frac{ics}{\omega_q}\,\tilde{K}^+,
+        &= \frac{ics}{\omega_q}\,\mathcal{K}^+,
     \label{eq:Deltay_final}\\[4pt]
     \Delta_z(\beta)
-        &= \frac{s^2}{\omega_q}\,\tilde{K}^-
-           + \frac{s^2}{2\omega_q}\Bigl[
-               \tilde{K}^- \cosh(\omega_q\beta) - \tilde{K}^+ \sinh(\omega_q\beta)
-             \Bigr].
+        &= \frac{s^2}{2\omega_q}\,\mathcal{K}^-.
     \label{eq:Deltaz_final}
 \end{align}
-The explicit dependence on the transition frequency $\omega_q$ identifies this as an `on-shell' renormalization: the bath's infinite complexity is distilled into its response at the system's natural energy scale.
-This structure establishes a direct map to the standard non-equilibrium Green's function formalism. The odd component $\tilde{K}^-$ plays the role of a dissipative self-energy (analogous to the imaginary part of a retarded Green's function), driving the coherent renormalization of the Hamiltonian parameters $\Delta_x$ and $\Delta_z$. 
-Conversely, the even component $\tilde{K}^+$ represents the integrated fluctuation spectrum (analogous to the Keldysh or 'greater' Green's function), explicitly capturing the thermal noise responsible for the $\Delta_y$ component. 
-The precise balance between these terms is dictated by the KMS condition, which functions here as an on-shell Fluctuation-Dissipation Theorem, ensuring that the interplay of dissipation and fluctuations correctly targets the canonical equilibrium state.
 
-\subsubsection*{Recombination}
-The reduced equilibrium operator is $\bar\rho_Q(\beta)=e^{-\beta H_Q}e^{\Delta(\beta)}$, and the Hamiltonian of mean force is defined (up to an additive constant) by
+
+
+\subsection{Recombination to Mean-Force Hamiltonian}
+
+The $\mathfrak{su}(2)$ algebra allows the influence components to be recombined into a closed-form Mean-Force Hamiltonian. We work directly with the physical parameters $\theta, \beta, \omega_q$ and the odd kernel component $\mathcal{K}^-$. The influence magnitude $\delta \equiv \sqrt{\boldsymbol{\Delta}\cdot\boldsymbol{\Delta}}$ evaluates to
 \begin{equation}
-    H_{\mathrm{MF}}(\beta) = -\beta^{-1}\log\bar\rho_Q(\beta).
-    \label{eq:HMF_def_qubit}
+    \delta = \frac{\mathcal{K}^-\sin^2\theta}{2\omega_q} \chi,
+    \qquad
+    \chi(\beta,\theta) = \sqrt{1 - \frac{4\cot^2\theta}{\sinh^2(\beta\omega_q/2)}}.
 \end{equation}
-Because $\bar\rho_Q(\beta)$ is Hermitian and positive, $H_{\mathrm{MF}}(\beta)$ is itself Hermitian. Since the influence operator $\Delta(\beta)$ lies in the span of $\{\sigma_x,\sigma_z\}$ (after absorbing the $\Delta_y$ phase or rotating), so does $H_{\mathrm{MF}}(\beta)$. Thus one may generally write
+The reduced density matrix $\bar{\rho}_Q$ is Hermitian, and the Mean-Force Hamiltonian $H_{\mathrm{MF}} = -\beta^{-1} \log \bar{\rho}_Q$ is given in the real gauge by
 \begin{equation}
-    H_{\mathrm{MF}}(\beta) \equiv \mathrm{const}\cdot \mathbb I + h_x(\beta)\,\sigma_x + h_z(\beta)\,\sigma_z,
-    \label{eq:HMF_xz_form}
+    H_{\mathrm{MF}}^{(\mathrm{real})}(\beta) = -\frac{\Delta_0}{\beta}\mathbb{I} + \frac{\gamma}{\beta\sinh\gamma}\left( \mathcal{H}_\perp \sigma_x + \mathcal{H}_z \sigma_z \right),
 \end{equation}
-with the effective fields $h_{x,z}(\beta)$ obtained exactly by evaluating the $2\times 2$ logarithm in \eqref{eq:HMF_def_qubit}. 
-A subsequent rotation about $\sigma_z$ can be used to align the transverse component purely along $\sigma_x$, yielding a manifestly real representation if desired.
-In the following subsection we carry out this final step explicitly and discuss the resulting renormalisation of the qubit field direction as a function of temperature and bath spectrum.
-
-
-\subsection{Numerical Demonstrations}
-\label{sec:numerical_validation}
-
-To validate the analytic derivation of the mean-force Hamiltonian $H_\mathrm{MF}$, we compare our results against exact numerical diagonalization (ED) of the full system-bath Hamiltonian. We model the bath as a set of discrete harmonic oscillators with an Ohmic spectral density, using $N=4$ modes and a Fock space cutoff of $N_{cut}=6$ per mode to ensure convergence. The full Hamiltonian is diagonalized to obtain the exact thermal state $\rho_{tot} = e^{-\beta H_{tot}}/Z$, from which the reduced system state $\rho_S = \mathrm{Tr}_B[\rho_{tot}]$ is computed.
-
-In Fig.~\ref{fig:hmf_v4_validation}, we show the trace distance $D(\rho_{ex}, \rho_{HMF}) = \frac{1}{2}\mathrm{Tr}|\rho_{ex} - \rho_{HMF}|$ between the exact reduced state and the state generated by our analytic mean-force Hamiltonian. The agreement is excellent, with the distance remaining below $10^{-5}$ across the entire range of coupling strengths $\lambda \in [0, 4]$.
-
-Furthermore, we extract the effective fields $h_x, h_z$ from the numerical state by projecting onto the Pauli basis. As predicted by our theory, the effective field vector rotates non-trivially in the $xz$-plane as the coupling increases. The analytic predictions (solid lines) perfectly match the numerical data (dashed lines), confirming that the simple expression for $\mathcal{K}(\beta)$ captures the full non-perturbative influence of the environment.
-
-\begin{figure}[t]
-    \centering
-    % \includegraphics[width=\columnwidth]{figures/hmf_v4_validation_fig.png}
-    \caption{Validation of the analytic mean-force Hamiltonian against exact diagonalization. (Left) The trace distance between the exact reduced state and the analytic prediction remains negligible ($< 10^{-5}$) for all coupling strengths $\lambda$. (Center) The components of the effective field $\vec{h}$ in the rotated frame show perfect agreement between theory (solid) and numerics (dashed). (Right) The unrotated $y$-component is non-zero in the lab frame but vanishes in the rotated frame as predicted.}
-    \label{fig:hmf_v4_validation}
-\end{figure}
+where the common prefactor is determined by the closure angle
+\begin{align}
+    \gamma &= \operatorname{arcosh}\!\left[ \cosh\left(\tfrac{\beta\omega_q}{2}\right)\cosh\delta - \frac{\sinh(\beta\omega_q/2)}{\chi}\sinh\delta \right],
+\end{align}
+and the unscaled field components are
+\begin{align}
+    \mathcal{H}_\perp &= \frac{2\cot\theta}{\chi\sinh(\beta\omega_q/2)}\sinh\delta, \\
+    \mathcal{H}_z &= \frac{1}{\chi}\cosh\left(\tfrac{\beta\omega_q}{2}\right)\sinh\delta - \sinh\left(\tfrac{\beta\omega_q}{2}\right)\cosh\delta.
+\end{align}
+This result is exact for the spin-boson model with transverse coupling, expressing the equilibrium state purely in terms of the bath's on-shell response $\mathcal{K}^-$, the system frequency $\omega_q$, the mixing angle $\theta$, and the inverse temperature $\beta$.
