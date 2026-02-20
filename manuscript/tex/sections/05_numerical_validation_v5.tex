@@ -1,0 +1,187 @@
+\section{Numerical Regime Benchmark: ED versus Ordered-Kernel Theory}
+\label{sec:numerical_v5}
+
+We benchmark the v5 qubit predictions against exact diagonalisation (ED) of a finite-mode
+spin-boson model across weak-to-strong dressing regimes.
+The objective is state-level validation, not only observable matching.
+In practice, the numerically accurate comparator is the \emph{ordered-kernel finite model}
+(the same construction that produced the strong agreement in the earlier simulation pipeline);
+by contrast, the naive compact left-factorised closure over-polarises the state at finite coupling
+and is not used for the main comparison figure.
+
+We fix
+\(
+H_Q=(\omega_q/2)\sigma_z
+\),
+\(
+f=\cos\theta\,\sigma_z-\sin\theta\,\sigma_x
+\),
+with
+\(
+\theta=\pi/4
+\),
+\(
+\omega_q=1
+\),
+and temperatures
+\(
+\beta\omega_q\in\{0.5,2,8\}
+\).
+The bath discretisation matches the simulation pipeline:
+\(
+J(\omega)=Q\tau_c\omega e^{-\tau_c\omega}
+\)
+on
+\(
+\omega\in[0.5,8]
+\),
+with
+\(
+Q=10
+\),
+\(
+\tau_c=1
+\),
+\(
+N_\omega=2
+\)
+and per-mode cutoff
+\(
+n_{\max}=4
+\)
+(thread-limited ``safe'' profile).
+
+For each coupling \(g\), we construct
+\begin{equation}
+    H_{\mathrm{tot}}(g)=H_Q+H_B+g\,f\otimes B+g^2\,Q_{\mathrm{reorg}}\,f^2,
+\end{equation}
+evaluate
+\(
+\rho_{\mathrm{tot}}=e^{-\beta H_{\mathrm{tot}}}/\Tr e^{-\beta H_{\mathrm{tot}}}
+\),
+and trace out the bath:
+\(
+\rho_Q^{\mathrm{ED}}=\Tr_B\rho_{\mathrm{tot}}
+\).
+The analytic comparator \(\rho_Q^{\mathrm{th}}\) is built from the ordered-kernel finite model,
+which directly evaluates the time-ordered Gaussian propagator and therefore resums the
+noncommuting operator structure without further truncation.
+We scan \(g\) on a temperature-dependent interval set by Eq.~\eqref{eq:chi_crossover_condition_v5},
+\begin{equation}
+    g_\star(\beta)=\chi_0(\beta)^{-1/2},
+\end{equation}
+and use \(g\in[0,\,2.5\,g_\star]\) (no cap reached for these runs).
+The resulting crossover scales are
+\(
+g_\star\simeq 0.608,\;0.143,\;0.0106
+\)
+for
+\(
+\beta\omega_q=0.5,\;2,\;8
+\),
+respectively.
+
+To compare theory and ED on equal footing, both states are phase-gauge rotated by a \(z\)-axis unitary
+so that \(\rho_{01}\) is real and nonnegative. We then evaluate:
+\begin{equation}
+\phi(g)=\arctan2\!\big(m_x(g),m_z(g)\big),
+\end{equation}
+\begin{equation}
+r(g)=\sqrt{m_x^2+m_y^2+m_z^2},
+\end{equation}
+\begin{equation}
+C(g)=2|\rho_{01}(g)|,
+\qquad
+\Xi_\phi(g)=\partial_g\phi(g),
+\end{equation}
+\begin{equation}
+D(g)=\frac{1}{2}\left\|\rho_Q^{\mathrm{ED}}-\rho_Q^{\mathrm{th}}\right\|_1.
+\end{equation}
+Here \(m_\alpha=\Tr(\rho_Q\sigma_\alpha)\).
+
+Figure~\ref{fig:v5_regime_panels} summarises the regime scan.
+Panel (a) tracks the Bloch-geometry flow through \(\phi(g)\) and \(r(g)\): the basis-rotation signal
+shifts systematically to smaller \(g\) as temperature is lowered, consistent with the \(g_\star(\beta)\)
+scaling. Panel (b) shows the bare-basis coherence \(C(g)\), which grows continuously away from \(g=0\),
+confirming that the reduced mean-force state is generically not diagonal in the bare energy basis.
+Panel (c) shows the susceptibility \(\Xi_\phi\): the largest response is concentrated in the crossover region
+and shifts with \(g_\star\), providing a clean ``sharpness'' diagnostic. Panel (d) reports the state-level
+distance \(D(g)\), verifying exact agreement at \(g=0\) (numerically \(D(0)\sim 10^{-16}\)) and quantifying
+the finite-coupling discrepancy across temperatures.
+
+For this deliberately conservative finite-bath setup (\(N_\omega=2\), \(n_{\max}=4\)),
+the agreement remains strong across all three temperatures:
+\(
+\max_g D(g)\approx 2.91\times10^{-2},\,2.10\times10^{-2},\,1.80\times10^{-3}
+\)
+for
+\(
+\beta\omega_q=0.5,\,2,\,8
+\),
+respectively.
+Residual discrepancy is consistent with finite discretisation/truncation error in ED
+and sets a concrete target for systematic convergence studies
+(larger \(N_\omega\), larger \(n_{\max}\), bath-window refinement).
+For panel (c), \(\Xi_\phi\) is computed from an unwrapped \(\pi\)-periodic orientation angle;
+pointwise derivatives near the smallest \(g\) values remain step-size sensitive, but
+peak locations and crossover trends are robust.
+
+\subsection*{Cutoff and mode-count sensitivity}
+
+To make the truncation dependence explicit, we performed a dedicated convergence probe at
+representative couplings close to the observed crossover-response maxima:
+\(g=0.329\) (\(\beta\omega_q=0.5\)),
+\(g=0.143\) (\(\beta\omega_q=2\)),
+and \(g=0.0264\) (\(\beta\omega_q=8\)).
+Figure~\ref{fig:v5_cutoff_modes} reports
+\(D(\rho_Q^{\mathrm{ED}},\rho_Q^{\mathrm{ord}})\)
+under two scans:
+\(n_{\max}\) at fixed \(N_\omega=2\), and \(N_\omega\) at fixed \(n_{\max}\in\{4,6\}\).
+
+The strongest sensitivity is to the Fock cutoff in the hotter/intermediate regimes.
+At \(\beta\omega_q=0.5\), the distance drops from
+\(2.91\times10^{-2}\) at \(n_{\max}=4\) to
+\(6.19\times10^{-3}\) at \(n_{\max}=12\).
+At \(\beta\omega_q=2\), it falls from
+\(2.10\times10^{-2}\) at \(n_{\max}=4\) to a minimum
+\(2.79\times10^{-3}\) near \(n_{\max}=6\).
+By contrast, the low-temperature point \(\beta\omega_q=8\) is nearly cutoff-insensitive
+over the same range (\(\sim 1.80\times10^{-3}\rightarrow1.79\times10^{-3}\)).
+
+The mode-count scan shows that increasing \(N_\omega\) from the two-mode baseline changes the
+distance at the \(10^{-3}\) to \(10^{-2}\) level for these probes, with weak non-monotonicity
+at finite truncation. Operationally, this indicates the dominant numerical limitation in the
+current setup is \(n_{\max}\) (especially away from the cold regime), while \(N_\omega=2\) already
+captures the qualitative crossover structure used in Fig.~\ref{fig:v5_regime_panels}.
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.98\textwidth]{../figures/hmf_v5_regime_panels.png}
+    \caption{
+    v5 regime benchmark for \(\theta=\pi/4\), \(\omega_q=1\), and
+    \(\beta\omega_q\in\{0.5,2,8\}\), comparing ED (markers) with the ordered-kernel
+    finite-theory state (lines).
+    (a) Bloch angle \(\phi(g)\) (left axis) and radius \(r(g)\) (right axis).
+    (b) Bare-energy-basis coherence \(C(g)=2|\rho_{01}|\).
+    (c) Angle susceptibility \(\Xi_\phi(g)\), with dotted vertical lines at
+    \(g_\star(\beta)\) defined by \(\chi(\beta,g_\star)=1\).
+    (d) State-level trace distance
+    \(D(g)=\frac{1}{2}\|\rho_Q^{\mathrm{ED}}-\rho_Q^{\mathrm{th}}\|_1\).
+    }
+    \label{fig:v5_regime_panels}
+\end{figure*}
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.95\textwidth]{../figures/hmf_v5_cutoff_modes_convergence.png}
+    \caption{
+    Cutoff/mode convergence probe at representative couplings
+    \(g=\{0.329,\,0.143,\,0.0264\}\) for
+    \(\beta\omega_q=\{0.5,\,2,\,8\}\).
+    (a) Trace-distance sensitivity to Fock cutoff \(n_{\max}\) at fixed \(N_\omega=2\).
+    (b) Sensitivity to bath mode count \(N_\omega\) at fixed \(n_{\max}=4,6\).
+    The dominant finite-size effect in the hot/intermediate points is cutoff truncation,
+    while low-temperature agreement is comparatively stable across truncations.
+    }
+    \label{fig:v5_cutoff_modes}
+\end{figure*}

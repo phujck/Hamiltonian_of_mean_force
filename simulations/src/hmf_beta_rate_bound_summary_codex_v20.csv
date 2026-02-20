@@ -1,0 +1,2 @@
+c_fit_excess,raw_margin_max,ordered_margin_max,eff_margin_max,raw_margin_min,ordered_margin_min,eff_margin_min,rmse_p00_eff_vs_ordered,rmse_p00_raw_vs_ordered
+2000.0,15421.653799176991,0.005337096321849311,0.0013773674237875788,-0.33644583817264606,-0.49447995250962196,-1.7457776633200695e-06,0.241079308550248,0.6697068052934443

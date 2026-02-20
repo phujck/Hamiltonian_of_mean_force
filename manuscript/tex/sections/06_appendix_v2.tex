@@ -61,16 +61,23 @@ The final step requires counting the occurrences of each Wick pairing. The expan
 \begin{equation}
     e^X = \sum_{p=0}^\infty \frac{1}{(2p)!} \int d^{2p}\tau \left( \sum_P \prod_{(i,j) \in P} K_{ij} \right) \mathcal{T}_\tau \left[ \tilde{f}_1 \cdots \tilde{f}_{2p} \right].
 \end{equation}
-This series matches Eq.~\eqref{eq:app_lhs_expanded} term-by-term, proving the exponentiation of the Gaussian average.
+This series matches Eq.~\eqref{eq:app_lhs_expanded} term-by-term, proving the exponentiation of the Gaussian average. Consequently, we may right the influence on the reduced density matrix as
+\begin{equation}
+    \begin{split}
+        \langle W_\xi(\beta)\rangle_\xi &= \exp\bigg[\frac12\int_0^\beta d\tau\int_0^\beta d\tau' K(\tau-\tau') \\
+        &\quad \times \mathcal T_\tau\!\big[\tilde f(\tau)\tilde f(\tau')\big]\bigg].
+    \end{split}
+    \label{eq:Wbar_cumulant_T}
+\end{equation}
 
-\section{Domain Folding and the Triangular Form of the Influence Operator}
+\subsection*{Domain Folding and the Triangular Form of the Influence Operator}
 \label{app:triangular_folding}
 
-The influence operator $\Delta(\beta)$ appearing in Eq.~\eqref{eq:rho_bar_product_form} admits a simplified representation over a strictly ordered time domain. Beginning from the square-integral form in the exponent of Eq.~\eqref{eq:Wbar_cumulant_T}, we have
+The influence operator $\Delta(\beta)$ 
 \begin{equation}
     \Delta(\beta) = \frac{1}{2} \int_0^\beta d\tau \int_0^\beta d\tau' \, K(\tau-\tau') \, \mathcal{T}_\tau \big[ \tilde{f}(\tau) \tilde{f}(\tau') \big].
 \end{equation}
-By definition, the time-ordering operator for two system operators acts as
+ admits a simplified representation over a strictly ordered time domain. By definition, the time-ordering operator for two system operators acts as
 \begin{equation}
     \mathcal{T}_\tau \left[ \tilde{f}(\tau) \tilde{f}(\tau') \right] = \Theta(\tau-\tau') \tilde{f}(\tau) \tilde{f}(\tau') + \Theta(\tau'-\tau) \tilde{f}(\tau') \tilde{f}(\tau).
 \end{equation}
@@ -92,4 +99,4 @@ Using the symmetry of the equilibrium kernel, $K(\tau-\tau') = K(\tau'-\tau)$, w
 \begin{equation}
     \Delta(\beta) = \int_0^\beta d\tau \int_0^\tau d\tau' \, K(\tau-\tau') \tilde{f}(\tau) \tilde{f}(\tau').
 \end{equation}
-This confirms that the factor of $1/2$ in the Gaussian average is exactly cancelled by the doubling of the integration domain upon folding, justifying Equation~\eqref{eq:Delta_def_hermitian}.
+

@@ -12,18 +12,10 @@ existence of the mean-force object (it is defined by a logarithm), but the \emph
 where $\tilde f(\tau)\equiv e^{\tau H_Q} f e^{-\tau H_Q}$.
 
 Because the noise is classical Gaussian with zero mean, the average of the
-time-ordered exponential resums exactly in terms of the second cumulant. Time ordering adds a non-trivial complication, which is addressed in Appendix~\ref{app:gaussian_averaging}. The result may be succinctly expressed as 
+time-ordered exponential resums exactly in terms of the second cumulant. Time ordering adds a non-trivial complication, which is addressed in Appendix~\ref{app:gaussian_averaging}. The result may be succinctly expressed in terms of an \emph{influence operator}
 \begin{equation}
     \begin{split}
-        \langle W_\xi(\beta)\rangle_\xi &= \exp\bigg[\frac12\int_0^\beta d\tau\int_0^\beta d\tau' K(\tau-\tau') \\
-        &\quad \times \mathcal T_\tau\!\big[\tilde f(\tau)\tilde f(\tau')\big]\bigg].
-    \end{split}
-    \label{eq:Wbar_cumulant_T}
-\end{equation}
-From this, we may write the full reduced state in terms of an \emph{influence operator}
-\begin{equation}
-    \begin{split}
-        \bar W(\beta) &= \exp\!\big(\Delta(\beta)\big), \\
+          \langle W_\xi(\beta)\rangle_\xi &\equiv \bar W(\beta) = \exp\!\big(\Delta(\beta)\big), \\
         \bar\rho_Q(\beta) &= \langle U_\xi(\beta)\rangle_\xi = e^{-\beta H_Q}\,e^{\Delta(\beta)},
     \end{split}
     \label{eq:rho_bar_product_form}

@@ -1,0 +1,2 @@
+n_points,max_abs_dp00_naive_minus_stable,max_abs_dp11_naive_minus_stable,max_rel_dratio_naive_minus_stable,naive_nonfinite_count,stable_nonfinite_count
+54,inf,0.07753571046881302,0.9999015387246344,3,0

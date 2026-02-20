@@ -1,0 +1,394 @@
+\section{Exact Solution of the Spin-Boson Model: a response-kernel route}
+\label{sec:qubit_direct_response_v5}
+
+We now put the machinery of the previous section to work. The transverse-coupling
+spin-boson model is the ideal proving ground: the $\mathfrak{su}(2)$ algebra is
+just rich enough to generate non-trivial dynamics while remaining analytically
+tractable at every coupling strength. Moreover, it is not often one has the opportunity to say something new about a qubit. 
+
+There are a number of approaches to performing this calculation. Most directly, one could follow the chain of closure conditions $(C1)-(C3)$ of Sec. \ref{sec:closure}, calculating first $f_n$, then the products $f_nf_m$, then finally the full chain of BCH commutators. This is a thoroughly miserable exercise in algebraic manipulation, but for the truly masochistic reader we provide details of it in App.~\ref{app:algebraic_closure_qubit}.
+
+Rather than torturing ourselves with commutator expansions, we shall adopt a more direct approach, which is not only less algebraically intensive but leads to a more robust physical interpretation of the result. We bypass the cumulant series entirely by working in the ladder basis from the outset, evaluating the product $\tilde{f}(\tau)\tilde{f}(\tau')$ in Eq. (\ref{eq:Delta_def_hermitian}) directly. This naturally implies the existence of ordered response kernels, which emerge as the fundamental constituents of the solution. The same physics emerges, but the dependence on the underlying properties of the bath is more transparent.
+
+Following Ref.~\cite{cresserWeakUltrastrongCoupling2021a}, we take
+\begin{equation}
+    H_Q = \frac{\omega_q}{2}\sigma_z,
+    \qquad
+    f = \cos\theta\,\sigma_z - \sin\theta\,\sigma_x,
+    \label{eq:qubit_setup}
+\end{equation}
+and write $c\equiv\cos\theta$, $s\equiv\sin\theta$ throughout. The coupling
+operator mixes a \emph{commuting} sector, $c\sigma_z$ (which is dark to the
+system dynamics), with a \emph{transverse} sector $-s\sigma_x$ that precesses
+under $H_Q$.
+
+Rather than expanding in the cumulant series, we compute the imaginary-time
+interaction picture operator directly. Introducing the standard raising and
+lowering operators $\sigma_\pm=(\sigma_x\pm i\sigma_y)/2$ and using the
+Heisenberg-picture identity $e^{\tau H_Q}\sigma_\pm e^{-\tau H_Q}=e^{\pm\omega_q\tau}\sigma_\pm$,
+the coupling operator in the interaction picture is
+\begin{equation}
+    \tilde{f}(\tau)
+    = c\,\sigma_z - s\!\left(e^{\omega_q\tau}\sigma_+ + e^{-\omega_q\tau}\sigma_-\right).
+    \label{eq:ftilde_sigma_pm_v5}
+\end{equation}
+The ladder representation is tailor-made for computing products, since the
+$\sigma_\pm$ algebra is particularly transparent: $\sigma_+\sigma_-=(\mathbb{I}+\sigma_z)/2$,
+$\sigma_-\sigma_+=(\mathbb{I}-\sigma_z)/2$, and $\sigma_\pm^2=0$. These
+elementary identities, applied to the product $\tilde{f}(\tau)\tilde{f}(\tau')$,
+immediately give
+\begin{equation}
+\begin{split}
+    \tilde{f}(\tau)\tilde{f}(\tau')
+    &= \Big[c^2+s^2\cosh\!\big(\omega_q(\tau-\tau')\big)\Big]\mathbb{I} \\
+    &\quad + s^2\sinh\!\big(\omega_q(\tau-\tau')\big)\sigma_z \\
+    &\quad + cs\!\left(e^{\omega_q\tau}-e^{\omega_q\tau'}\right)\sigma_+ \\
+    &\quad + cs\!\left(e^{-\omega_q\tau'}-e^{-\omega_q\tau}\right)\sigma_-.
+\end{split}
+\label{eq:ff_product_sigma_pm_v5}
+\end{equation}
+This deceptively compact expression is already the crux of the calculation.
+Each Pauli channel carries a distinct frequency dependence: the longitudinal
+channel $\sigma_z$ is driven by the \emph{difference} $\tau-\tau'$ alone (a
+function of the time-separation, not the individual times), while the transverse
+channels $\sigma_\pm$ are sensitive to each time argument individually. 
+Physically, this reflects the fact that $\sigma_z$ commutes with $H_Q$ and
+so cannot exchange quanta with the bath, whereas $\sigma_\pm$ do not commute
+and can.
+
+
+\subsection{The ordered Green's kernel}
+Given the product \eqref{eq:ff_product_sigma_pm_v5}, we can now evaluate the
+folded influence operator \eqref{eq:Delta_def_hermitian} in the ladder basis. Before doing so, it is useful to define a new object, as theordered integrals that appear in each channel of \eqref{eq:Delta_sigma_pm_v5}
+share a common structure. They are all instances of an \emph{ordered Green's kernel}
+\begin{equation}
+    \mathcal{G}^>(x,y)
+    =
+    \int_0^\beta d\tau \int_0^\tau d\tau'\,
+    K(\tau-\tau')\,e^{x\tau+y\tau'},
+    \label{eq:Gxy_def}
+\end{equation}
+Substituting \eqref{eq:ff_product_sigma_pm_v5} into the folded influence operator
+\eqref{eq:Delta_def_hermitian} immediately yields
+\begin{equation}
+    \Delta(\beta)
+    = \Delta_0(\beta)\,\mathbb{I}
+    + \Delta_z(\beta)\,\sigma_z
+    + \Sigma_+(\beta)\,\sigma_+
+    + \Sigma_-(\beta)\,\sigma_-.
+    \label{eq:Delta_sigma_pm_v5}
+\end{equation}
+with channel amplitudes
+\begin{align}
+    \Sigma_+ &= cs\!\left[\mathcal{G}^>(\omega_q,0)-\mathcal{G}^>(0,\omega_q)\right], \label{eq:Sigma_plus_G_v5}\\
+    \Sigma_- &= cs\!\left[\mathcal{G}^>(0,-\omega_q)-\mathcal{G}^>(-\omega_q,0)\right], \label{eq:Sigma_minus_G_v5}\\
+    \Delta_z &= \frac{s^2}{2}\!\left[\mathcal{G}^>(\omega_q,-\omega_q)-\mathcal{G}^>(-\omega_q,\omega_q)\right], \label{eq:Delta_z_G_v5}\\
+    \Delta_0 &= c^2\mathcal{G}^>(0,0)
+    +\frac{s^2}{2}\!\left[\mathcal{G}^>(\omega_q,-\omega_q)+\mathcal{G}^>(-\omega_q,\omega_q)\right]. \label{eq:Delta_0_G_v5}
+\end{align}
+
+It is worth now lingering a moment on $\mathcal{G}^>(x,y)$. It not only allows for a compact representation of the influence operator, but possesses rich formal analogues that deepen its physical interpretation. Structurally, it is the imaginary-time analogue of the \emph{two-time retarded Green's function}
+of the bath, computed on the triangular domain $0\le\tau'\le\tau\le\beta$ and
+projected onto the Laplace frequencies $(x,y)$ set by the system's own
+eigenoperators. Furthermore, this object provides a direct bridge to the Matsubara formalism. If one identifies $(x,y)$ with analytic continuations of discrete frequencies $i\omega_n$, $\mathcal{G}^>$ captures the exact bath response summed over all thermal modes. The specific values $x,y \in \{0, \pm\omega_q\}$ selected by the algebra thus correspond to evaluating this effective vertex on the physical mass shell of the system.
+
+The ``greater'' superscript is deliberate: $\mathcal{G}^>$ keeps
+$\tau>\tau'$ (time-ordered), in precise analogy with the real-time Greater
+Green's function $G^>(t,t')=\langle A(t)B(t')\rangle$ familiar from
+non-equilibrium field theory. Moreover, it acts as a \emph{generating function} for the ordered kernel moments $C^>_{nm}$ of Sec.~\ref{sec:closure}. This is made transparent by the identification
+\begin{equation}
+\mathcal{G}^>(x,y) = \sum_{n,m} C^>_{nm} x^n y^m
+\end{equation}
+such that the derivatives at the origin recover moments in the usual generating function fashion. The one definitional difference is that the moments are scaled by their combinatorial weights, i.e.
+\begin{equation}
+\partial_x^n \partial_y^m \left.\mathcal{G}^>(x,y)\right|_{x,y=0} = n!m!\, C^>_{nm}.
+\end{equation} 
+
+Having defined $\mathcal{G}^>$, the existence of an anti-time-ordered partner $\mathcal{G}^<$ over the complementary domain $\tau'>\tau$ is immediately implied:
+\begin{equation}
+    \mathcal{G}^<(x,y)
+    =
+    \int_0^\beta d\tau \int_\tau^\beta d\tau'\,
+    K(\tau-\tau')\,e^{x\tau+y\tau'}.
+    \label{eq:Gxy_lesser_def}
+\end{equation}
+The Kubo-Martin-Schwinger (KMS) symmetry $K(-u)=K(u)$ then immediately implies the crossing relation
+\begin{equation}
+    \mathcal{G}^<(x,y)=\mathcal{G}^>(y,x).
+\end{equation}
+
+
+.  The KMS condition further implies a
+fluctuation theorem for $\mathcal{G}^>$ itself,
+\begin{equation}
+    \mathcal{G}^>(x,y) = e^{\beta(x+y)}\,\mathcal{G}^>(-y,-x),
+    \label{eq:KMS_Gxy}
+\end{equation}
+which is the imaginary-time echo of the KMS relation and links
+emission to absorption with the Boltzmann factor $e^{\beta(x+y)}$.
+
+This generating-function perspective pays immediate dividends. Changing variables
+to $u=\tau-\tau'$ and $v=\tau'$ and using \eqref{eq:Ktilde_def}, the double
+integral collapses to the one-dimensional Laplace transform,
+\begin{equation}
+    \mathcal{G}^>(x,y) = \frac{e^{x\beta}\mathcal{K}(y) - \mathcal{K}(x)}{x+y},
+    \label{eq:Gxy_closed}
+\end{equation}
+where we have introduced the \emph{bare Laplace transform} of the bath kernel,
+\begin{equation}
+    \mathcal{K}(\omega) \equiv \int_0^\beta du\, K(u)\,e^{\omega u}.
+    \label{eq:Ktilde_def}
+\end{equation}
+The closed form \eqref{eq:Gxy_closed} is one of the central results of this
+framework: the entire bath response relevant to the qubit, at \emph{all} coupling
+strengths, is encoded in the function $\mathcal{K}(\omega)$ evaluated at just
+three frequencies, $\omega\in\{0,\pm\omega_q\}$.  This is not a weak-coupling
+approximation; it is an exact consequence of the $\mathfrak{su}(2)$ closure and
+persists at arbitrary coupling.
+
+Expressions of this type have appeared in related contexts.  In the Feynman-Vernon
+path-integral formulation \cite{feynmanTheoryGeneralQuantum1963a}, the influence phase
+$\Phi[q,q']$ involves double time-integrals of the form $\iint d\tau\,d\tau'\,
+\eta(\tau)\,K(\tau-\tau')\,\xi(\tau')$ over the forward and backward paths
+$\eta,\xi$; $\mathcal{G}^>(x,y)$ is precisely the generating function of these
+influence-phase matrix elements when the paths are restricted to those of a
+two-level system.  In the language of diagrammatic perturbation theory, $\mathcal{K}(\omega)$ plays the role of the bath \emph{self-energy}
+$\Sigma(\omega)$ on the imaginary frequency axis - a single dressed propagator
+that encodes the renormalisation of the qubit by its environment.
+
+The one case that demands special treatment is the \emph{resonant channel}
+$x+y=0$, where \eqref{eq:Gxy_closed} becomes $0/0$.  Taking the limit carefully
+gives
+\begin{equation}
+    \mathcal{R}(\omega_q)
+    \equiv \mathcal{G}^>(\omega_q,-\omega_q)
+    = \int_0^\beta du\,(\beta-u)\,K(u)\,e^{\omega_q u}.
+    \label{eq:R_resonant_v5}
+\end{equation}
+
+This has a pleasing physical interpretation, due to the factor $(\beta-u)$ in Eq.\eqref{eq:R_resonant_v5}. This is the ``available imaginary time'' after the bath correlation
+at separation $u$ has occurred, so the resonant kernel accumulates bath memory
+over the entire thermal interval, weighted by how much time remains.  In the
+real-time formulation, the analogous resonant contribution would diverge (secular
+growth), but here it is regulated by the finitude of temperature.
+
+From the reflection symmetry $K(\beta-u)=K(u)$, the Laplace
+transform satisfies the detailed-balance identity
+\begin{equation}
+    \mathcal{K}(-\omega)=e^{-\beta\omega}\mathcal{K}(\omega).
+    \label{eq:Ktilde_detailed_balance_v5}
+\end{equation}
+This is, in effect, a statement of the fluctuation-dissipation theorem (FDT) in
+Laplace space: positive and negative frequencies are related by a Boltzmann
+weight, as one expects for a thermal bath.  Defining
+\begin{equation}
+    \mathcal{K}^\pm \equiv \frac{1}{2}\bigl(\mathcal{K}(\omega_q)\pm\mathcal{K}(-\omega_q)\bigr),
+    \label{eq:Ktilde_pm}
+\end{equation}
+the even ($\mathcal{K}^+$) and odd ($\mathcal{K}^-$) combinations satisfy
+\begin{equation}
+    \frac{\mathcal{K}^+}{\mathcal{K}^-}
+    = \frac{1+e^{-\beta\omega_q}}{1-e^{-\beta\omega_q}}
+    = \coth\!\left(\frac{\beta\omega_q}{2}\right),
+    \label{eq:FDT_Ktilde_pm}
+\end{equation}
+precisely the Einstein fluctuation-dissipation kernel.  In the spectral
+representation $\mathcal{K}(\omega_q)=\int d\nu\,J(\nu)\,[\dots]$, one recognises
+$\mathcal{K}^{-}$ as proportional to the \emph{imaginary part} of the bath Green's
+function (dissipation), and $\mathcal{K}^{+}$ as proportional to its \emph{real
+part} (dispersion), with Eq.~\eqref{eq:FDT_Ktilde_pm} playing the role of the
+Kramers-Kronig partner.
+
+Substituting \eqref{eq:Gxy_closed} into \eqref{eq:Sigma_plus_G_v5} and \eqref{eq:Sigma_minus_G_v5}
+and simplifying with KMS gives
+\begin{align}
+    \Sigma_+ &= \frac{cs}{\omega_q}\!\left[\big(1+e^{\beta\omega_q}\big)\mathcal{K}(0)-2\mathcal{K}(\omega_q)\right], \label{eq:Sigma_plus_K_v5}\\
+    \Sigma_- &= \frac{cs}{\omega_q}\!\left[\big(1+e^{-\beta\omega_q}\big)\mathcal{K}(0)-2\mathcal{K}(-\omega_q)\right], \label{eq:Sigma_minus_K_v5}
+\end{align}
+from which the KMS relation between the two off-diagonal amplitudes follows
+immediately:
+\begin{equation}
+    \Sigma_+ = e^{\beta\omega_q}\Sigma_-.
+    \label{eq:Sigma_pm_kms_relation_v5}
+\end{equation}
+This is the propagation of the earlier detailed-balance condition
+\eqref{eq:FDT_Ktilde_pm}, with the ratio of the amplitude for raising to lowering
+ set purely by the Boltzmann factor $e^{\beta\omega_q}$, irrespective of the
+detailed bath spectrum. Translating to the Cartesian Bloch basis via
+$\Sigma_\pm=\Delta_x\pm i\Delta_y$, the final channel amplitudes are
+\begin{align}
+    \Delta_x(\beta)
+    &= \frac{cs}{\omega_q}\!\left[\big(1+\cosh(\beta\omega_q)\big)\mathcal{K}(0)-2\mathcal{K}^+\right],
+    \label{eq:Deltax_final}\\
+    \Delta_y(\beta)
+    &= i\frac{cs}{\omega_q}\!\left[\sinh(\beta\omega_q)\mathcal{K}(0)-2\mathcal{K}^-\right],
+    \label{eq:Deltay_final}\\
+    \Delta_z(\beta)
+    &= s^2\mathcal{R}^-,
+    \label{eq:Deltaz_final}
+\end{align}
+where in analogy with $\mathcal{K}^-$, $\mathcal{R}^-$ is the antisymmetric resonant kernel response:
+\begin{equation}
+\mathcal{R}^-=\frac{1}{2}(\mathcal{R}(\omega_q)-\mathcal{R}(-\omega_q)).
+\end{equation} 
+
+
+The architecture of these expressions reveals the physics clearly.  The
+transverse channels are controlled by $\mathcal{K}(0)$
+and $\mathcal{K}(\omega_q)$ - the bath kernel sampled at zero frequency and
+at the system's natural frequency - while the longitudinal channel $\Delta_z$ is
+set by the \emph{resonant} kernel $\mathcal{R}$.  The separation is not
+accidental: it reflects the distinct sensitivity of commuting versus
+non-commuting coupling sectors to the bath's spectral weight.
+
+At first sight, Eq.~\eqref{eq:Delta_sigma_pm_v5} looks alarming: because $\Sigma_+\neq\Sigma_-$,
+the influence operator $e^\Delta$ is \emph{not} manifestly Hermitian.  The astute
+reader will, however, suspect that a non-Hermitian equilibrium state is a
+contradiction in terms, and they would be right.
+
+The physically relevant quantity is the unnormalised reduced state
+\begin{equation}
+    \bar\rho_Q(\beta)=e^{-\beta H_Q}e^{\Delta(\beta)},
+    \label{eq:rho_bar_v5}
+\end{equation}
+in which the bare Gibbs factor $e^{-\beta H_Q}=\mathrm{diag}(e^{-a},e^{a})$
+(with $a\equiv\beta\omega_q/2$) multiplies from the left.  This thermal prefactor
+is precisely the agent of reconciliation.  Setting
+\begin{equation}
+    M\equiv \Delta_z\sigma_z+\Sigma_+\sigma_+ +\Sigma_-\sigma_-,
+    \qquad
+    \chi\equiv\sqrt{\Delta_z^2+\Sigma_+\Sigma_-},
+    \label{eq:Mchi_v5}
+\end{equation}
+one notes that $M^2=\chi^2\mathbb{I}$ (a pleasing consequence of the $\mathfrak{su}(2)$
+algebra), so the matrix exponential closes exactly:
+\begin{equation}
+    e^\Delta=e^{\Delta_0}\!\left[\cosh\chi\,\mathbb{I}+\frac{\sinh\chi}{\chi}M\right].
+    \label{eq:expDelta_closed_v5}
+\end{equation}
+Factoring $e^{\Delta_0}\cosh\chi$ from $e^{\Delta}$ and defining $\hat{M}\equiv M/\chi$, the unnormalised state reads
+\begin{equation}
+    \bar\rho_Q=e^{\Delta_0}\cosh\chi\,
+    e^{-\beta H_Q}\!\left(\mathbb{I}+\tanh\chi\,\hat{M}\right),
+    \label{eq:rho_bar_factored_v5}
+\end{equation}
+Defining the scaled amplitude $\gamma\equiv\tanh\chi/\chi$, the normalised density matrix is
+\begin{equation}
+    \rho_Q = \frac{1}{Z_Q}
+    \begin{pmatrix}
+        e^{-\beta\omega_q/2}\!\left(1+\gamma\Delta_z\right) & e^{-\beta\omega_q/2}\gamma\Sigma_+ \\
+        e^{\beta\omega_q/2}\gamma\Sigma_- & e^{\beta\omega_q/2}\!\left(1-\gamma\Delta_z\right)
+    \end{pmatrix}.
+    \label{eq:rho_matrix_v5}
+\end{equation}
+with the normalisation
+\begin{equation}
+Z_Q=2\left[\cosh\left(\frac{\beta\omega_q}{2}\right)-\gamma\Delta_z\sinh\left(\frac{\beta\omega_q}{2}\right)\right]
+\end{equation}
+Now the KMS relation \eqref{eq:Sigma_pm_kms_relation_v5} does its work, and we see explicitly that the off-diagonal entries are real and equal.  The apparent ladder asymmetry was a gauge
+artefact of writing the ladder decomposition before recombination with the bare system, and carried no physical content.
+
+With the density matrix \eqref{eq:rho_matrix_v5} in hand, the mean-force Hamiltonian $H_\mathrm{MF} = -\beta^{-1}\ln\rho_Q$ follows directly. Decomposing the state as $\rho_Q = \frac{1}{Z_Q}(A\,\mathbb{I} + h_z\sigma_z + h_x\sigma_x)$, with coefficients
+\begin{align}
+    h_z &= \gamma\Delta_z\cosh\frac{\beta\omega_q}{2} - \sinh\frac{\beta\omega_q}{2}, \\
+    h_x &= \gamma\sqrt{\chi^2-\Delta_z^2},
+\end{align}
+where we used the KMS condition to identify $\sqrt{\Sigma_+\Sigma_-}$ in the transverse component. The identity coefficient $A$ ensures unit trace but drops out of the Hamiltonian. 
+The Bloch vector magnitude simplifies remarkably to $r = 2\chi/Z_Q$.  Substituting this into the matrix logarithm, the normalisation factors $Z_Q$ cancel, leaving the elegant compact form
+\begin{equation}
+    H_\mathrm{MF} = \frac{2}{\beta\chi}\operatorname{arctanh}\!\left(\frac{2\chi}{Z_Q}\right)
+    \left( h_z\sigma_z + h_x\sigma_x \right).
+    \label{eq:HMF_final_clean}
+\end{equation}
+This expression constitutes the exact analytic solution of the problem. It is manifestly Hermitian (all parameters are real) and respects the equilibrium symmetries of the bath.
+
+This little object contains a large amount of physics, but what is arguably most striking is the degree to which the effect of the bath has been compressed into just three numbers, $\mathcal{K}(0)$, $\mathcal{K}(\omega_q)$, and $\mathcal{R}(\omega_q)$. 
+
+\subsection*{Thermal regimes}
+
+With the exact form of the mean-force state, we can precisely characterise the behaviour of the system in different regimes of temperature and bath coupling. To expose the coupling dependence cleanly, we reintroduce an explicit dimensionless strength $g$ by writing the bath kernel as
+\begin{equation}
+    K(u)=g^2 K_0(u).
+\end{equation}
+All response kernels inherit the same quadratic scaling, such that
+\begin{equation}
+    \Delta_z \to g^2 \Delta_{z},
+    \qquad
+    \Sigma_\pm \to g^2 \Sigma_{\pm},
+    \qquad
+    \chi \to g^2 \chi,
+\end{equation}
+The entire non-perturbative recombination of bare Hamiltonian and influence is therefore controlled by the single dimensionless dressing parameter $\chi$ through
+\begin{equation}
+    \gamma(\chi)=\frac{\tanh\chi}{\chi}.
+    \label{eq:gamma_chi_crossover_v5}
+\end{equation}
+This makes the crossover structure immediate: the reduced equilibrium state
+transitions between distinct regimes as $\chi$ passes through unity,
+\begin{equation}
+    \chi(\beta,g,\theta)\sim 1
+    \qquad \Longleftrightarrow \qquad
+    g^2 \sim \chi_0(\beta,\theta)^{-1}.
+    \label{eq:chi_crossover_condition_v5}
+\end{equation}
+Because $\chi_0$ is a functional of the kernel sampled at $0$ and $\omega_q$
+(and of the resonant channel through $\Delta_z$), this defines a temperature-dependent
+crossover scale $g_\star(\beta)$ (or equivalently a coupling-dependent crossover
+temperature $\beta_\star(g)$) without any further approximation.
+
+When $\chi\ll 1$ (achieved either by small $g$ or by temperatures for which the
+kernel functionals entering $\chi_0$ are small), the hyperbolic functions entering
+\eqref{eq:rho_matrix_v5} linearise:
+\begin{equation}
+    \tanh\chi = \chi - \frac{\chi^3}{3}+O(\chi^5),
+    \qquad
+    \gamma(\chi)=1-\frac{\chi^2}{3}+O(\chi^4).
+\end{equation}
+In this regime $e^\Delta$ is close to the identity and the mean-force state is a
+controlled deformation of the bare Gibbs state. The off-diagonal entries in
+\eqref{eq:rho_matrix_v5} scale as $\rho_{01}\propto g^2$ (since $\Sigma_\pm\propto g^2$
+and $\gamma\simeq 1$), while the diagonal dressing enters through $\Delta_z\propto g^2$.
+This is the weak-coupling behaviour emphasised in Ref.~\cite{cresserWeakUltrastrongCoupling2021a}:
+the mean-force Gibbs state deviates perturbatively from the bare Gibbs state, with
+coherences in the bare energy basis appearing generically unless symmetry suppresses
+the transverse sector.
+
+\subsubsection*{Low temperature / ultrastrong dressing: $\chi\gg 1$}
+
+In the opposite regime $\chi\gg 1$ (realised by large $g$, and potentially also by
+low temperature if $\chi_0(\beta,\theta)$ grows with $\beta$ for the chosen spectral
+density), the hyperbolic ratios saturate:
+\begin{equation}
+    \tanh\chi \to 1,
+    \qquad
+    \gamma(\chi)\sim \frac{1}{\chi}=\frac{1}{g^2\chi_0}.
+\end{equation}
+The influence exponential becomes sharply polarised along the direction selected by
+$\hat{M}=M/\chi$, and the reduced equilibrium state is organised primarily by the
+interaction-dressed operator structure rather than by the bare Hamiltonian alone.
+Equivalently, the qubit state becomes diagonal in the basis picked out by the dominant
+coupling sector (the same physics described in Ref.~\cite{cresserWeakUltrastrongCoupling2021a}
+as the ultrastrong-coupling crossover of the mean-force Gibbs state from the energy basis
+to the interaction basis). In this limit the dependence on the microscopic bath details
+enters only through the saturated invariants in $\chi_0$.
+
+\subsubsection*{Interpretation via $\chi$}
+
+The utility of the $\chi$-parametrisation is that it collapses the coupling--temperature
+interplay into a single scalar that controls the nonlinearity of the recombination:
+all hyperbolic structure in \eqref{eq:rho_bar_factored_v5} and hence in
+\eqref{eq:HMF_final_clean} is mediated by $\gamma(\chi)=\tanh\chi/\chi$.
+Thus, while $\Delta_z$ and $\Sigma_\pm$ separately track distinct kernel channels
+(resonant versus transverse sampling), it is the combined invariant
+\begin{equation}
+    \chi^2=\Delta_z^2+\Sigma_+\Sigma_-
+\end{equation}
+that determines when the mean-force state behaves perturbatively ($\chi\ll 1$) or
+exhibits ultrastrong dressing ($\chi\gg 1$). In this precise sense the bath compresses
+its effect on the qubit into a small number of kernel samples---$\mathcal{K}(0)$,
+$\mathcal{K}(\omega_q)$ (equivalently $\mathcal{K}^\pm$), and the resonant channel
+$\mathcal{R}(\omega_q)$---with $\chi$ acting as the scalar order parameter that controls
+the crossover between the regimes identified in Ref.~\cite{cresserWeakUltrastrongCoupling2021a}.
+
+
+

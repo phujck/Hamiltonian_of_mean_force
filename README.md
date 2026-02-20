@@ -38,12 +38,44 @@ Current simulation baseline:
 PRL qubit analytic-bridge benchmark:
 - `py simulations/src/main.py --benchmark prl127_qubit_analytic_bridge`
 - `powershell -ExecutionPolicy Bypass -File .\\run_safe.ps1 simulations/src/main.py --benchmark prl127_qubit_analytic_bridge` (thread-limited safe mode)
-- Uses direct ordered-kernel channel coefficients `(\delta_x,\delta_y,\delta_z)` in the symmetric finite model.
+- Uses ordered-kernel constructions for the noncommuting Gaussian comparator.
 - Ordered comparator controls (optional): `--ordered-time-slices 80 --ordered-kl-rank 5 --ordered-gh-order 3`
 - Primary outputs:
   - `simulations/results/data/prl127_qubit_analytic_bridge_scan.csv`
   - `simulations/results/data/prl127_qubit_analytic_bridge_summary.csv`
   - `simulations/results/figures/prl127_qubit_analytic_bridge_alignment.png`
+
+v5 regime pipeline (ED vs compact `H_MF` from `04_results_v5.tex`):
+- Data generation (safe mode, CPU-limited):
+  - `powershell -ExecutionPolicy Bypass -File .\\run_safe.ps1 simulations/src/hmf_v5_regime_generate.py`
+  - comparator options: `--theory-model ordered` (default) or `compact`
+- Plotting from saved CSVs only:
+  - `py simulations/src/hmf_v5_regime_plot.py`
+- Model/kernels writeup:
+  - `simulations/src/hmf_v5_ordered_model_writeup.md`
+- Primary outputs:
+  - `simulations/results/data/hmf_v5_regime_scan.csv`
+  - `simulations/results/data/hmf_v5_regime_summary.csv`
+  - `simulations/results/data/hmf_v5_regime_halfstep_validation.csv`
+  - `simulations/results/figures/hmf_v5_regime_panels.png`
+  - `simulations/results/figures/hmf_v5_regime_panel_a_geometry.png`
+  - `simulations/results/figures/hmf_v5_regime_panel_b_coherence.png`
+  - `simulations/results/figures/hmf_v5_regime_panel_c_susceptibility.png`
+  - `simulations/results/figures/hmf_v5_regime_panel_d_trace_distance.png`
+  - manuscript copies in `manuscript/figures/` with matching filenames
+
+v5 truncation/mode convergence probe:
+- `powershell -ExecutionPolicy Bypass -File .\\run_safe.ps1 simulations/src/hmf_v5_cutoff_modes_study.py`
+- Outputs:
+  - `simulations/results/data/hmf_v5_cutoff_modes_scan.csv`
+  - `simulations/results/data/hmf_v5_cutoff_modes_summary.csv`
+  - `simulations/results/figures/hmf_v5_cutoff_modes_convergence.png`
+  - `manuscript/figures/hmf_v5_cutoff_modes_convergence.png`
+
+Safe-mode note:
+- `run_safe.ps1` now defaults to 2 threads.
+- You can reduce/increase manually via `SAFE_THREADS`, e.g.:
+  - `$env:SAFE_THREADS='1'; powershell -ExecutionPolicy Bypass -File .\\run_safe.ps1 ...`
 
 All-to-all designability benchmark:
 - `py simulations/src/main.py --benchmark designability_alltoall`

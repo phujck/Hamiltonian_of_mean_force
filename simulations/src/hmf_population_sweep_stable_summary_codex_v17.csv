@@ -1,0 +1,3 @@
+sweep,rmse_naive_vs_ordered,rmse_stable_vs_ordered,max_abs_naive_minus_stable,naive_nonfinite_count,beta_at_ordered_min,beta_at_stable_min
+beta_theta_pi2_g05,0.669706805293963,0.6697068052934441,6.916245354204875e-12,0,5.275,0.5625
+beta_theta_pi4_g05,0.04259796616531365,0.04259796616544943,6.529405488508999e-12,0,9.3875,10.0

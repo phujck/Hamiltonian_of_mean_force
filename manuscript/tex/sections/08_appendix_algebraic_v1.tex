@@ -1,0 +1,81 @@
+\section{Algebraic Construction in the Pauli Basis}
+\label{app:algebraic_closure_qubit}
+
+In the main text (Sec.~\ref{sec:qubit_direct_response_v5}), the exact solution was derived using the ladder basis $\sigma_\pm$, which diagonalises the imaginary-time evolution and leads directly to the response kernels. Here we afford an alternative perspective by working directly in the Pauli basis $\{\sigma_x, \sigma_y, \sigma_z\}$. While algebraically heavier, this route makes the operator closure explicit at the level of structure constants and facilitates the systematic summation of the BCH series.
+
+\subsection{Polylogarithmic decomposition from the adjoint chain}
+\label{appalg:adjoint_chain}
+
+We consider the same transverse coupling model defined by
+\begin{equation}
+    H_Q=\frac{\omega_q}{2}\sigma_z,\qquad
+    f=c\,\sigma_z-s\,\sigma_x,
+    \label{eq:qubit_setup_appalg}
+\end{equation}
+with $c=\cos\theta$, $s=\sin\theta$. The adjoint chain $f_n \equiv \mathrm{ad}_{H_Q}^n(f)$ is given by
+\begin{equation}
+    f_n = \mathbf{v}_n\cdot\boldsymbol{\sigma}, \qquad
+    \mathbf{v}_n = \begin{cases}
+        (-s,0,c) & n=0, \\
+        (-s\omega_q^n,0,0) & n\ge1,\; n\;\text{even}, \\
+        (0,-is\omega_q^n,0) & n\ge1,\; n\;\text{odd}.
+    \end{cases}
+    \label{eq:vn_qubit_appalg}
+\end{equation}
+The recurrence ensures that $f_{n\ge 1}$ alternates between the $x$ and $y$ axes, while $f_0$ contains a persistent $z$-component.
+
+The influence exponent $\Delta(\beta) = \sum_{n,m} C^>_{nm} f_n f_m$ is evaluated using the standard Pauli product rule $(\mathbf{a}\cdot\boldsymbol{\sigma})(\mathbf{b}\cdot\boldsymbol{\sigma}) = (\mathbf{a}\cdot\mathbf{b})\mathbb{I} + i(\mathbf{a}\times\mathbf{b})\cdot\boldsymbol{\sigma}$. Decomposition of the ordered moments into symmetric ($S_{nm}$) and antisymmetric ($A_{nm}$) parts reveals that only the commutator sector $A_{nm}$ contributes to the operator structure:
+\begin{equation}
+    \Delta(\beta) \cong 2i\sum_{n>m} A_{nm}\,(\mathbf{v}_n\times\mathbf{v}_m)\cdot\boldsymbol{\sigma},
+    \label{eq:Delta_Pauli_Anm_appalg}
+\end{equation}
+up to a scalar shift $\Delta_0\mathbb{I}$. The cross products exhibit a strict parity selection rule:
+\begin{itemize}
+    \item For $n,m \ge 1$: $\mathbf{v}_n \times \mathbf{v}_m$ lies along $\hat{\mathbf{z}}$ since both vectors are confined to the $xy$-plane.
+    \item For $m=0$: $\mathbf{v}_n \times \mathbf{v}_0$ generates terms in the $xy$-plane, mixing the longitudinal and transverse directions.
+\end{itemize}
+Explicitly summing these series yields the channel decomposition
+\begin{equation}
+    \Delta = \Delta_0\mathbb{I} + \Delta_x\sigma_x + \Delta_y\sigma_y + \Delta_z\sigma_z,
+    \label{eq:Delta_xyz_form_appalg}
+\end{equation}
+where the coefficients are polylogarithmic series in $\omega_q$:
+\begin{align}
+    \Delta_x &= -2cs\sum_{\ell\ge0}A_{2\ell+1,0}(\beta)\,\omega_q^{2\ell+1}, \label{eq:Deltax_series_appalg}\\
+    \Delta_y &= -2ics\sum_{\ell\ge1}A_{2\ell,0}(\beta)\,\omega_q^{2\ell}, \label{eq:Deltay_series_appalg}\\
+    \Delta_z &= -2s^2\sum_{k\ge1,\ell\ge0}A_{2k,2\ell+1}(\beta)\,\omega_q^{2k+2\ell+1} \notag\\
+             &\quad -2s^2\sum_{\ell\ge0}A_{2\ell+1,0}(\beta)\,\omega_q^{2\ell+1}. \label{eq:Deltaz_series_appalg}
+\end{align}
+These series are the Pauli-basis equivalent of the closed-form expressions obtained in Sec.~\ref{sec:qubit_direct_response_v5}. The connection is established by identifying the sums as Taylor expansions of the kernels $\mathcal{G}^>(0,\pm\omega_q)$ and $\mathcal{G}^>(\pm\omega_q,\mp\omega_q)$.
+
+\subsection{Exact BCH resummation via the nilpotency identity}
+\label{appalg:bch_resummation}
+
+The central challenge in the mean-force construction is the evaluation of the BCH logarithm $-\beta H_{\mathrm{MF}} = \log(e^{-\beta H_Q}e^\Delta)$. While the closure theorem guarantees that this remains within the algebra, a manual summation of the BCH series is laborious. Here we show how the $\mathfrak{su}(2)$ structure allows for an exact, non-perturbative resummation.
+
+Let $M \equiv \Delta - \Delta_0\mathbb{I} = \vec{\Delta}\cdot\boldsymbol{\sigma}$ be the traceless part of the influence operator. The square of this operator satisfies a crucial identity:
+\begin{equation}
+    M^2 = (\vec{\Delta}\cdot\boldsymbol{\sigma})^2 = (\vec{\Delta}\cdot\vec{\Delta})\mathbb{I} \equiv \chi^2 \mathbb{I},
+    \label{eq:M_squared_chi_appalg}
+\end{equation}
+where $\chi^2 = \Delta_x^2 + \Delta_y^2 + \Delta_z^2$ (or $\Delta_z^2 + \Sigma_+\Sigma_-$ in the ladder gauge). This ``generalized nilpotency'' condition truncates the power series for the exponential $e^M$ into even and odd sectors, yielding the exact Euler-like formula:
+\begin{equation}
+    e^\Delta = e^{\Delta_0}\left[ \cosh\chi\,\mathbb{I} + \frac{\sinh\chi}{\chi}\,M \right].
+    \label{eq:expDelta_closed_appalg}
+\end{equation}
+This expression sums the internal structure of the influence operator potential to all orders. The full reduced state is then the product of two $\mathrm{SL}(2,\mathbb{C})$ matrices:
+\begin{equation}
+    \begin{split}
+        \bar{\rho}_Q &= e^{-\beta H_Q}e^\Delta \\
+        &= e^{\Delta_0} \begin{pmatrix} e^{-a} & 0 \\ 0 & e^a \end{pmatrix} 
+        \begin{pmatrix} \cosh\chi + \varphi\Delta_z & \varphi(\Delta_x - i\Delta_y) \\ \varphi(\Delta_x + i\Delta_y) & \cosh\chi - \varphi\Delta_z \end{pmatrix},
+    \end{split}
+\end{equation}
+with $a=\beta\omega_q/2$ and $\varphi=\sinh\chi/\chi$. Since the product of $2\times 2$ matrices is a $2\times 2$ matrix, the BCH series (which is the logarithm of this product) is strictly confined to the Pauli algebra.
+
+Explicitly, for a resulting state $\rho_Q = \frac{1}{2}(\mathbb{I} + \mathbf{r}\cdot\boldsymbol{\sigma})$, the mean-force Hamiltonian is
+\begin{equation}
+    H_{\mathrm{MF}} = c_0\mathbb{I} - \frac{1}{\beta}\frac{\operatorname{arctanh}r}{r}\,\mathbf{r}\cdot\boldsymbol{\sigma}.
+    \label{eq:HMF_exact_log_appalg}
+\end{equation}
+This formula represents the analytic summation of the entire BCH commutator tower. The ``closure'' discussed in Sec.~\ref{sec:closure} manifests here as the fact that $\chi$ is a finite scalar number, preventing the proliferation of independent operator directions. All nonlinearities in the coupling strength are packaged into the transcendental dependence of $\chi$ and $\mathbf{r}$ on the channel coefficients $\Delta_{x,y,z}$.
