@@ -1,0 +1,78 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\title{HMF Omega\_q=1 Fair Diagnostic Suite (Codex v38)}
+\date{}
+\begin{document}
+\maketitle
+\section*{Global Best (Fair Metric)}
+Best point uses window center_d0.80 ($\omega_\min=0.200$, $\omega_\max=1.800$), $n_\mathrm{modes}=2$, $n_\mathrm{cut}=6$ with RMSE$_{\mathrm{ED-disc}}(\rho_{00})$ = 0.011036.
+\section*{Suite Figure}
+\begin{center}
+\includegraphics[width=0.96\textwidth]{hmf_omega1_diagnostic_suite_discretekernel_codex_v38.png}
+\end{center}
+\section*{Top Windows}
+\begin{tabular}{llrrrrrrr}
+\toprule
+window_name & window_family & n_modes & n_cut & omega_min & omega_max & bandwidth & rmse_ed_vs_disc_p00 & rmse_ed_vs_cont_p00 \\
+\midrule
+center_d0.80 & centered & 2 & 6 & 0.2000 & 1.8000 & 1.6000 & 0.0110 & 0.0508 \\
+center_d0.80 & centered & 2 & 5 & 0.2000 & 1.8000 & 1.6000 & 0.0188 & 0.0425 \\
+center_d0.80 & centered & 3 & 6 & 0.2000 & 1.8000 & 1.6000 & 0.0317 & 0.0385 \\
+center_d0.80 & centered & 2 & 4 & 0.2000 & 1.8000 & 1.6000 & 0.0362 & 0.0360 \\
+center_d0.80 & centered & 3 & 5 & 0.2000 & 1.8000 & 1.6000 & 0.0376 & 0.0389 \\
+ratio_r4.0 & ratio & 4 & 6 & 0.0500 & 4.0000 & 3.9500 & 0.0403 & 0.0284 \\
+ratio_r3.0 & ratio & 4 & 6 & 0.0500 & 3.0000 & 2.9500 & 0.0417 & 0.0331 \\
+ratio_r5.0 & ratio & 4 & 6 & 0.0500 & 5.0000 & 4.9500 & 0.0428 & 0.0269 \\
+ratio_r6.0 & ratio & 4 & 6 & 0.0500 & 6.0000 & 5.9500 & 0.0467 & 0.0266 \\
+center_d0.80 & centered & 4 & 6 & 0.2000 & 1.8000 & 1.6000 & 0.0472 & 0.0466 \\
+center_d0.80 & centered & 3 & 4 & 0.2000 & 1.8000 & 1.6000 & 0.0488 & 0.0434 \\
+ratio_r3.0 & ratio & 3 & 6 & 0.0500 & 3.0000 & 2.9500 & 0.0490 & 0.0323 \\
+\bottomrule
+\end{tabular}
+
+\section*{Best Window Per (Modes, Cutoff)}
+\begin{tabular}{rrlrrrr}
+\toprule
+n_modes & n_cut & window_name & omega_min & omega_max & rmse_ed_vs_disc_p00 & rmse_ed_vs_cont_p00 \\
+\midrule
+2 & 4 & center_d0.80 & 0.2000 & 1.8000 & 0.0362 & 0.0360 \\
+2 & 5 & center_d0.80 & 0.2000 & 1.8000 & 0.0188 & 0.0425 \\
+2 & 6 & center_d0.80 & 0.2000 & 1.8000 & 0.0110 & 0.0508 \\
+3 & 4 & center_d0.80 & 0.2000 & 1.8000 & 0.0488 & 0.0434 \\
+3 & 5 & center_d0.80 & 0.2000 & 1.8000 & 0.0376 & 0.0389 \\
+3 & 6 & center_d0.80 & 0.2000 & 1.8000 & 0.0317 & 0.0385 \\
+4 & 4 & center_d0.80 & 0.2000 & 1.8000 & 0.0581 & 0.0531 \\
+4 & 5 & center_d0.80 & 0.2000 & 1.8000 & 0.0508 & 0.0483 \\
+4 & 6 & ratio_r4.0 & 0.0500 & 4.0000 & 0.0403 & 0.0284 \\
+\bottomrule
+\end{tabular}
+
+\section*{Cutoff Convergence Snapshot}
+\begin{tabular}{llrrrrrr}
+\toprule
+window_name & window_family & n_modes & bandwidth & omega_min & omega_max & rmse_cut4_vs_cut6_p00 & rmse_cut5_vs_cut6_p00 \\
+\midrule
+center_d0.15 & centered & 2 & 0.3000 & 0.8500 & 1.1500 & 0.0010 & 0.0003 \\
+center_d0.30 & centered & 2 & 0.6000 & 0.7000 & 1.3000 & 0.0026 & 0.0008 \\
+center_d0.50 & centered & 2 & 1.0000 & 0.5000 & 1.5000 & 0.0113 & 0.0033 \\
+center_d0.80 & centered & 2 & 1.6000 & 0.2000 & 1.8000 & 0.0318 & 0.0127 \\
+ratio_r2.0 & ratio & 2 & 1.9500 & 0.0500 & 2.0000 & 0.0388 & 0.0168 \\
+center_d1.20 & centered & 2 & 2.1500 & 0.0500 & 2.2000 & 0.0402 & 0.0173 \\
+ratio_r3.0 & ratio & 2 & 2.9500 & 0.0500 & 3.0000 & 0.0448 & 0.0191 \\
+ratio_r4.0 & ratio & 2 & 3.9500 & 0.0500 & 4.0000 & 0.0486 & 0.0205 \\
+ratio_r5.0 & ratio & 2 & 4.9500 & 0.0500 & 5.0000 & 0.0507 & 0.0211 \\
+ratio_r6.0 & ratio & 2 & 5.9500 & 0.0500 & 6.0000 & 0.0513 & 0.0212 \\
+center_d0.15 & centered & 3 & 0.3000 & 0.8500 & 1.1500 & 0.0007 & 0.0002 \\
+center_d0.30 & centered & 3 & 0.6000 & 0.7000 & 1.3000 & 0.0015 & 0.0005 \\
+center_d0.50 & centered & 3 & 1.0000 & 0.5000 & 1.5000 & 0.0042 & 0.0013 \\
+center_d0.80 & centered & 3 & 1.6000 & 0.2000 & 1.8000 & 0.0207 & 0.0079 \\
+ratio_r2.0 & ratio & 3 & 1.9500 & 0.0500 & 2.0000 & 0.0256 & 0.0111 \\
+center_d1.20 & centered & 3 & 2.1500 & 0.0500 & 2.2000 & 0.0266 & 0.0115 \\
+ratio_r3.0 & ratio & 3 & 2.9500 & 0.0500 & 3.0000 & 0.0306 & 0.0132 \\
+ratio_r4.0 & ratio & 3 & 3.9500 & 0.0500 & 4.0000 & 0.0354 & 0.0153 \\
+\bottomrule
+\end{tabular}
+
+\end{document}

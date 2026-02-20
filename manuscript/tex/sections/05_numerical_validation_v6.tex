@@ -1,0 +1,170 @@
+% !TEX root = ../main_v2.tex
+\section{Numerical Validation of the Exact Theory}
+\label{sec:numerical_v6}
+
+Even in this simplest possible case, the physics of the reduced system is startlingly rich. The exact solution of the previous section therefore invites a detailed numerical analysis. With the exact form of the mean-force state, we can precisely characterise the behaviour of the system in different regimes of temperature and bath coupling. 
+
+First, to expose the coupling dependence cleanly, we reintroduce an explicit dimensionless strength $g$ by writing the bath kernel as
+\begin{equation}
+    K(u)=g^2 K_0(u).
+\end{equation}
+All response kernels inherit the same quadratic scaling, such that
+\begin{equation}
+    \Delta_z \to g^2 \Delta_{z},
+    \qquad
+    \Sigma_\pm \to g^2 \Sigma_{\pm},
+    \qquad
+    \chi \to g^2 \chi,
+\end{equation}
+The entire non-perturbative recombination of bare Hamiltonian and influence is therefore controlled by the single dimensionless dressing parameter $\chi$ through
+\begin{equation}
+    \gamma(\chi)=\frac{\tanh\chi}{\chi}.
+    \label{eq:gamma_chi_crossover_v5}
+\end{equation}
+
+This apparently innocuous expression encodes the entire non-perturbative recombination of bare Hamiltonian and influence, and functions as an \emph{order} parameter for the crossover between weak and ultrastrong coupling regimes. The reduced equilibrium state transitions between these regimes as $\chi$ passes through unity,
+\begin{equation}
+    \chi(\beta,g,\theta)\sim 1
+    \qquad \Longleftrightarrow \qquad
+    g^2 \sim \chi_0(\beta,\theta)^{-1}.
+    \label{eq:chi_crossover_condition_v5}
+\end{equation}
+
+
+This crossover condition $\chi(\beta,g,\theta)=1$ therefore
+defines a coupling-dependent temperature scale
+\begin{equation}
+  g_\star(\beta) = \chi_0(\beta,\theta)^{-1/2},
+  \label{eq:gstar_def_v6}
+\end{equation}
+and an equivalent crossover temperature $\beta_\star(g)$.  No approximation has
+been made; $g_\star$ is an exact property of the solution.
+
+The function $\gamma(\chi)$ is elementary but worth dwelling on.  It is
+monotone decreasing from $\gamma(0)=1$ to $\gamma(\infty)=0$, with curvature
+that changes sign near $\chi\approx 1.2$.  In the two limiting regimes:
+\begin{align}
+  \chi \ll 1:\quad & \gamma \simeq 1 - \tfrac{\chi^2}{3},
+  \label{eq:gamma_weak}\\
+  \chi \gg 1:\quad & \gamma \simeq \chi^{-1} = (g^2\chi_0)^{-1}.
+  \label{eq:gamma_strong}
+\end{align}
+These two expansions give a quantitative account of the two regimes identified
+qualitatively in Ref.~\cite{cresserWeakUltrastrongCoupling2021a}.
+
+\paragraph{Weak-coupling regime, $\chi\ll 1$.}
+
+When $\chi\ll 1$ (small $g$, or high temperature so that $\chi_0(\beta,\theta)$
+is small), $\gamma\simeq 1$ and the density matrix
+\eqref{eq:rho_matrix_v5} reduces to
+\begin{equation}
+  \rho_Q \approx \frac{1}{\tilde Z}\begin{pmatrix}
+    e^{-a}(1+\Delta_z) & e^{-a}\sqrt{\chi^2-\Delta_z^2}\\
+    e^{a}\sqrt{\chi^2-\Delta_z^2} & e^{a}(1-\Delta_z)
+  \end{pmatrix} + O(\chi^3),
+\end{equation}
+with $a=\beta\omega_q/2$.  The off-diagonal entry---the bare-basis coherence---is
+$O(g^2)$, arising from $\Sigma_\pm\propto g^2$.  The diagonal elements are
+similarly deformed from bare Gibbs at order $g^2$ through $\Delta_z$.  This is
+the perturbative dressing familiar from weak-coupling master equations, now
+derived exactly with no approximation on the spectral density.
+
+\paragraph{Ultrastrong / low-temperature regime, $\chi\gg 1$.}
+
+When $\chi\gg 1$ (large $g$, or very low temperature where $\chi_0$ grows),
+$\tanh\chi\to 1$ and $\gamma\to\chi^{-1}$.  The density matrix is then
+dominated by the normalised influence direction $\hat{M}=M/\chi$:
+\begin{equation}
+  \rho_Q \approx \frac{e^{-\beta H_Q}\!\left(\mathbb{I} + \hat{M}\right)}{Z_Q}.
+\end{equation}
+The state is sharply polarised along the axis defined by $M$, losing
+sensitivity to the bare Gibbs factor beyond what is needed to satisfy the KMS
+boundary conditions.  The specific bath spectral weight matters only through the
+saturated invariants entering $\chi_0$, not through any detailed frequency
+structure.  In this limit the qubit effectively decouples from its own
+Hamiltonian and aligns with the interaction direction, the situation described
+as the ``ultrastrong'' mean-force fixed point in
+Ref.~\cite{cresserWeakUltrastrongCoupling2021a}.
+
+The passage between these regimes is not a phase transition but a smooth
+crossover centered at $\chi\approx 1$. For the mixed coupling studied here,
+the crossover is marked by two distinct signatures in the system's 
+differential response: a peak in the Bloch-angle susceptibility 
+$\partial_g\varphi$ at $g_{\mathrm{peak},\varphi}$ and a peak in the 
+Bloch-radius gradient $\partial_g r$ at $g_{\mathrm{peak},r}$. 
+The location of the observable crossover signatures can be determined 
+analytically by differentiating the exact Bloch-vector components 
+with respect to $g$. Defining $a = \beta \omega_q / 2$ and the 
+dimensionless invariant $\chi = g^2 \chi_0(\beta)$, the components 
+$m_x$ and $m_z$ (fixing $\omega_q=1$) are
+\begin{align}
+  m_x &= \frac{\Sigma \tanh \chi}{\chi \cosh a - \Delta_z \sinh a \tanh \chi}, \\
+  m_z &= \frac{\Delta_z \cosh a \tanh \chi - \chi \sinh a}{\chi \cosh a - \Delta_z \sinh a \tanh \chi},
+\end{align}
+where $\Delta_z = g^2 \Delta_{z0}$ and $\Sigma = g^2 \Sigma_0$. 
+The exact observable gradients are then given by
+\begin{align}
+  \partial_g \varphi &= \frac{2g \Sigma_0 \chi \sinh a\,\mathrm{sech}^2 \chi}{\Sigma^2 \tanh^2 \chi + (\Delta_z \tanh \chi - \chi \tanh a)^2}, 
+  \label{eq:dphi_dg_exact} \\
+   \partial_g r &= \frac{4g\chi_0 \tanh \chi \,\mathrm{sech}^2 \chi}{r Z_Q^2}.
+\end{align}
+The exact location of these crossover signatures can be determined by 
+setting the derivatives of the gradients to zero. Since the 
+$g$-dependence enters solely through the invariant $\chi = (g/g_\star)^2$, 
+we express the gradients as functions of $\chi$ and seek their 
+maxima. In the high-temperature limit ($a \gg 1$), the condition 
+$\frac{d}{dg} (\partial_g \varphi) = 0$ leads to the transcendental 
+equation for the susceptibility peak:
+\begin{equation}
+  1 - 4\chi \tanh \chi + \frac{4\chi c\,\mathrm{sech}^2 \chi}{1 - c\tanh \chi} = 0,
+  \label{eq:peak_condition_phi}
+\end{equation}
+where $c = \Delta_{z0}/\chi_0 \approx 0.7$ for the Ohmic bath at 
+$\theta = \pi/4$. Solving this yields $\chi_{\mathrm{peak},\varphi} \approx 0.42$, 
+pinning the peak at $g_{\mathrm{peak},\varphi} \approx 0.65\, g_\star(\beta)$. 
+Similarly, the purity gradient $\partial_g r$ achieves its maximum when
+\begin{equation}
+  1 + 2\chi \left[ \coth \chi - 3\tanh \chi + \frac{2c\,\mathrm{sech}^2 \chi}{1 - c\tanh \chi} \right] = 0,
+\end{equation}
+which is satisfied at $\chi_{\mathrm{peak},r} \approx 0.85$, or 
+$g_{\mathrm{peak},r} \approx 0.92\, g_\star(\beta)$. Both conditions confirm that the observable signatures are universal 
+multiples of the bath response scale $g_\star(\beta) = \chi_0^{-1/2}$. 
+Indeed, by rescaling the coupling as $\xi = g/g_\star(\beta)$, both 
+crossover signatures are pinned to fixed universal values of the 
+invariant $\chi$, aligning the horizontal peak positions for all 
+temperatures (Fig.~\ref{fig:chi_theory}c,d). This demonstrates that 
+the mean-force crossover is fundamentally governed by the accumulated 
+bath response scale regardless of the environment statistics.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.48\textwidth]{../figures/hmf_fig1_chi_theory.png}
+  \caption{Exact $\chi$-crossover theory for the Ohmic bath~\eqref{eq:J_ohmic_v6} ($\theta=\pi/4$).
+    \textit{Panel~(a)}: Universal crossover function $\gamma(\chi)=\tanh\chi/\chi$
+    between the weak-coupling ($1-\chi^2/3$) and ultrastrong ($1/\chi$) limits.
+    \textit{Panel~(b)}: Map of $\chi(\beta,g)=g^2\chi_0(\beta)$ showing the 
+    low-T divergence of the crossover scale. The white curve marks 
+    the exact center $g_\star(\beta)=\chi_0(\beta)^{-1/2}$.
+    \textit{Panels~(c,d)}: Observable signatures of the crossover in the 
+    Bloch-angle susceptibility $\partial_g\varphi$ and Bloch-radius 
+    gradient $\partial_g r$ plotted against the scaled coupling 
+    $g/g_\star(\beta)$. Rescaling the coupling aligns the peak positions 
+    for all temperatures at the same horizontal markers. Shaded regions 
+    demarcate the weak (blue) and strong (orange) coupling regimes, 
+    with filled circles indicating the analytical peak locations.}
+  \label{fig:chi_theory}
+\end{figure}
+
+
+To make these predictions concrete we commit to a specific bath that 
+permits exact analytic evaluation of all quantities. We choose a windowed Ohmic spectral density
+\begin{equation}
+  J(\omega) = g^2\,\omega\,e^{-\omega/\omega_c},
+  \qquad \omega\in[0, 2\omega_q],
+  \label{eq:J_ohmic_v6}
+\end{equation}
+with cutoff $\omega_c=5\omega_q$. The UV window $[0, 2\omega_q]$ is 
+chosen to match typical numerical simulations where the bath state 
+is truncated, while the exponential cutoff regularises the high-frequency 
+tail. Having specified the bath, we further specialise simulations to $\theta=\pi/4$ and $\omega_q =1$, as all other behaviour follows from the universal scaling. Figure~\ref{fig:chi_theory} shows the exact $\chi$-crossover theory for the Ohmic bath~\eqref{eq:J_ohmic_v6} ($\theta=\pi/4$). With these analytic predictions in hand, we now turn to comparison with numerical approximations. 
+

@@ -257,11 +257,13 @@ is precisely the agent of reconciliation.  Setting
 \begin{equation}
     M\equiv \Delta_z\sigma_z+\Sigma_+\sigma_+ +\Sigma_-\sigma_-,
     \qquad
-    \chi\equiv\sqrt{\Delta_z^2+\Sigma_+\Sigma_-},
+    \chi\equiv\sqrt{\Delta_z^2+\Sigma^2},
     \label{eq:Mchi_v5}
 \end{equation}
-one notes that $M^2=\chi^2\mathbb{I}$ (a pleasing consequence of the $\mathfrak{su}(2)$
-algebra), so the matrix exponential closes exactly:
+where $\Sigma^2={\Sigma_+\Sigma_-}$.
+
+Since $M^2=\chi^2\mathbb{I}$ (a pleasing consequence of the $\mathfrak{su}(2)$
+algebra), the matrix exponential closes exactly:
 \begin{equation}
     e^\Delta=e^{\Delta_0}\!\left[\cosh\chi\,\mathbb{I}+\frac{\sinh\chi}{\chi}M\right].
     \label{eq:expDelta_closed_v5}
@@ -291,9 +293,9 @@ artefact of writing the ladder decomposition before recombination with the bare 
 With the density matrix \eqref{eq:rho_matrix_v5} in hand, the mean-force Hamiltonian $H_\mathrm{MF} = -\beta^{-1}\ln\rho_Q$ follows directly. Decomposing the state as $\rho_Q = \frac{1}{Z_Q}(A\,\mathbb{I} + h_z\sigma_z + h_x\sigma_x)$, with coefficients
 \begin{align}
     h_z &= \gamma\Delta_z\cosh\frac{\beta\omega_q}{2} - \sinh\frac{\beta\omega_q}{2}, \\
-    h_x &= \gamma\sqrt{\chi^2-\Delta_z^2},
+    h_x &= \gamma\Sigma,
 \end{align}
-where we used the KMS condition to identify $\sqrt{\Sigma_+\Sigma_-}$ in the transverse component. The identity coefficient $A$ ensures unit trace but drops out of the Hamiltonian. 
+where we used the KMS condition to identify $\Sigma= \sqrt{\Sigma_+\Sigma_-}$ in the transverse component. The identity coefficient $A$ ensures unit trace but drops out of the Hamiltonian. 
 The Bloch vector magnitude simplifies remarkably to $r = 2\chi/Z_Q$.  Substituting this into the matrix logarithm, the normalisation factors $Z_Q$ cancel, leaving the elegant compact form
 \begin{equation}
     H_\mathrm{MF} = \frac{2}{\beta\chi}\operatorname{arctanh}\!\left(\frac{2\chi}{Z_Q}\right)
@@ -304,91 +306,6 @@ This expression constitutes the exact analytic solution of the problem. It is ma
 
 This little object contains a large amount of physics, but what is arguably most striking is the degree to which the effect of the bath has been compressed into just three numbers, $\mathcal{K}(0)$, $\mathcal{K}(\omega_q)$, and $\mathcal{R}(\omega_q)$. 
 
-\subsection*{Thermal regimes}
-
-With the exact form of the mean-force state, we can precisely characterise the behaviour of the system in different regimes of temperature and bath coupling. To expose the coupling dependence cleanly, we reintroduce an explicit dimensionless strength $g$ by writing the bath kernel as
-\begin{equation}
-    K(u)=g^2 K_0(u).
-\end{equation}
-All response kernels inherit the same quadratic scaling, such that
-\begin{equation}
-    \Delta_z \to g^2 \Delta_{z},
-    \qquad
-    \Sigma_\pm \to g^2 \Sigma_{\pm},
-    \qquad
-    \chi \to g^2 \chi,
-\end{equation}
-The entire non-perturbative recombination of bare Hamiltonian and influence is therefore controlled by the single dimensionless dressing parameter $\chi$ through
-\begin{equation}
-    \gamma(\chi)=\frac{\tanh\chi}{\chi}.
-    \label{eq:gamma_chi_crossover_v5}
-\end{equation}
-This makes the crossover structure immediate: the reduced equilibrium state
-transitions between distinct regimes as $\chi$ passes through unity,
-\begin{equation}
-    \chi(\beta,g,\theta)\sim 1
-    \qquad \Longleftrightarrow \qquad
-    g^2 \sim \chi_0(\beta,\theta)^{-1}.
-    \label{eq:chi_crossover_condition_v5}
-\end{equation}
-Because $\chi_0$ is a functional of the kernel sampled at $0$ and $\omega_q$
-(and of the resonant channel through $\Delta_z$), this defines a temperature-dependent
-crossover scale $g_\star(\beta)$ (or equivalently a coupling-dependent crossover
-temperature $\beta_\star(g)$) without any further approximation.
-
-When $\chi\ll 1$ (achieved either by small $g$ or by temperatures for which the
-kernel functionals entering $\chi_0$ are small), the hyperbolic functions entering
-\eqref{eq:rho_matrix_v5} linearise:
-\begin{equation}
-    \tanh\chi = \chi - \frac{\chi^3}{3}+O(\chi^5),
-    \qquad
-    \gamma(\chi)=1-\frac{\chi^2}{3}+O(\chi^4).
-\end{equation}
-In this regime $e^\Delta$ is close to the identity and the mean-force state is a
-controlled deformation of the bare Gibbs state. The off-diagonal entries in
-\eqref{eq:rho_matrix_v5} scale as $\rho_{01}\propto g^2$ (since $\Sigma_\pm\propto g^2$
-and $\gamma\simeq 1$), while the diagonal dressing enters through $\Delta_z\propto g^2$.
-This is the weak-coupling behaviour emphasised in Ref.~\cite{cresserWeakUltrastrongCoupling2021a}:
-the mean-force Gibbs state deviates perturbatively from the bare Gibbs state, with
-coherences in the bare energy basis appearing generically unless symmetry suppresses
-the transverse sector.
-
-\subsubsection*{Low temperature / ultrastrong dressing: $\chi\gg 1$}
-
-In the opposite regime $\chi\gg 1$ (realised by large $g$, and potentially also by
-low temperature if $\chi_0(\beta,\theta)$ grows with $\beta$ for the chosen spectral
-density), the hyperbolic ratios saturate:
-\begin{equation}
-    \tanh\chi \to 1,
-    \qquad
-    \gamma(\chi)\sim \frac{1}{\chi}=\frac{1}{g^2\chi_0}.
-\end{equation}
-The influence exponential becomes sharply polarised along the direction selected by
-$\hat{M}=M/\chi$, and the reduced equilibrium state is organised primarily by the
-interaction-dressed operator structure rather than by the bare Hamiltonian alone.
-Equivalently, the qubit state becomes diagonal in the basis picked out by the dominant
-coupling sector (the same physics described in Ref.~\cite{cresserWeakUltrastrongCoupling2021a}
-as the ultrastrong-coupling crossover of the mean-force Gibbs state from the energy basis
-to the interaction basis). In this limit the dependence on the microscopic bath details
-enters only through the saturated invariants in $\chi_0$.
-
-\subsubsection*{Interpretation via $\chi$}
-
-The utility of the $\chi$-parametrisation is that it collapses the coupling--temperature
-interplay into a single scalar that controls the nonlinearity of the recombination:
-all hyperbolic structure in \eqref{eq:rho_bar_factored_v5} and hence in
-\eqref{eq:HMF_final_clean} is mediated by $\gamma(\chi)=\tanh\chi/\chi$.
-Thus, while $\Delta_z$ and $\Sigma_\pm$ separately track distinct kernel channels
-(resonant versus transverse sampling), it is the combined invariant
-\begin{equation}
-    \chi^2=\Delta_z^2+\Sigma_+\Sigma_-
-\end{equation}
-that determines when the mean-force state behaves perturbatively ($\chi\ll 1$) or
-exhibits ultrastrong dressing ($\chi\gg 1$). In this precise sense the bath compresses
-its effect on the qubit into a small number of kernel samples---$\mathcal{K}(0)$,
-$\mathcal{K}(\omega_q)$ (equivalently $\mathcal{K}^\pm$), and the resonant channel
-$\mathcal{R}(\omega_q)$---with $\chi$ acting as the scalar order parameter that controls
-the crossover between the regimes identified in Ref.~\cite{cresserWeakUltrastrongCoupling2021a}.
 
 
 
