@@ -27,12 +27,12 @@ any, plays the role of an equilibrium generator for the subsystem once the
 coupling is non-negligible? The Hamiltonian of mean force (HMF) answers this by
 construction and is the standard starting point in strong-coupling
 thermodynamics and the mean-force Gibbs-state program
-\cite{campisiFluctuationTheoremArbitrary2009,talknerColloquiumStatisticalMechanics2020,trushechkinOpenQuantumSystem2022,seifertFirstSecondLaw2016}.
+\cite{campisiFluctuationTheoremArbitrary2009,talknerColloquiumStatisticalMechanics2020,trushechkinOpenQuantumSystem2022,seifertFirstSecondLaw2016,campbellRoadmapQuantumThermodynamics2026,binderThermodynamicsQuantumRegime2018}.
 
 Why care about a mean-force Hamiltonian at all? First, it provides the exact
 reduced equilibrium object that underlies strong-coupling thermodynamic
 identities, including free-energy and work relations that remain valid beyond
-weak coupling\cite{jarzynskiNonequilibriumWorkTheorem2004,campisiFluctuationTheoremArbitrary2009,seifertFirstSecondLaw2016}.
+weak coupling\cite{jarzynskiNonequilibriumWorkTheorem2004,campisiFluctuationTheoremArbitrary2009,seifertFirstSecondLaw2016,millerEntropyProduction2017,lacerdaQuantumThermodynamicsFast2023,BinderVinjanampathyModiGoold2015}.
 Second, it furnishes a consistent equilibrium initialization for open-system
 dynamics when correlations with the bath are unavoidable, a point emphasized in
 the literature on correlated initial states and reduced dynamics
@@ -53,7 +53,7 @@ features in quantum Brownian motion and related models highlight this
 complexity\cite{hanggiFiniteQuantumDissipation2008,ingoldSpecificHeatAnomalies2009}.
 The strong-coupling literature consequently treats the mean-force Gibbs state as
 a distinct equilibrium object, with operational ramifications for heat and
-energy definitions\cite{espositoNatureHeatStrongly2015,rivasStrongCouplingThermodynamics2020}.
+energy definitions\cite{espositoNatureHeatStrongly2015,rivasStrongCouplingThermodynamics2020,strasbergMeasurabilityNonequilibriumThermodynamics2020,millerEntropyProduction2017}.  The HMF can encode interaction-induced operator content absent from $H_Q$~\cite{hanggiFiniteQuantumDissipation2008,ingoldSpecificHeatAnomalies2009,correaPotentialRenormalisationLamb2025}, making explicit representation of this content a primary goal.
 
 The HMF literature itself is broad but structured. Canonical definitions and
 thermodynamic identities are developed in strong-coupling thermodynamics and
@@ -62,7 +62,7 @@ A comprehensive review consolidates the ``static'' mean-force Gibbs perspective
 with the ``dynamical'' return-to-equilibrium perspective in open quantum systems
 \cite{trushechkinOpenQuantumSystem2022}.
 Operational questions such as measurability and thermodynamic consistency at
-strong coupling have also been pursued\cite{strasbergMeasurabilityNonequilibriumThermodynamics2020,rivasStrongCouplingThermodynamics2020}.
+strong coupling have also been pursued\cite{strasbergMeasurabilityNonequilibriumThermodynamics2020,rivasStrongCouplingThermodynamics2020,millerEntropyProduction2017}.
 
 Exact or controlled evaluations exist in special cases. For commuting (QND)
 interactions, the operator algebra closes trivially and the HMF can be written
@@ -75,20 +75,21 @@ Beyond these cases, the mean-force Gibbs state is often accessed through
 systematic limits: Cresser and Anders derive weak- and ultrastrong-coupling
 expressions and show that, in the ultrastrong limit, the mean-force Gibbs state
 becomes diagonal in the interaction basis rather than the system Hamiltonian
-basis\cite{cresserWeakUltrastrongCoupling2021a}. Recent work generalizes the HMF
+basis\cite{cresserWeakUltrastrongCoupling2021a,hovhannisyanHamiltonianMeanForce2020}. Recent work generalizes the HMF
 framework to finite baths by introducing a pair of quantum Hamiltonians of mean
 force that incorporate bath feedback\cite{duGeneralizedHamiltonianMeanforce2025a},
-and structural studies further analyze the operator content of the HMF in
-extended settings\cite{burkeStructureHamiltonianMean2024}.
+and structural studies further analyze the operator content and potential
+renormalization of the HMF in extended settings\cite{burkeStructureHamiltonianMean2024,correaPotentialRenormalisationLamb2025}.
 
 Outside solvable models, most approaches are perturbative or numerical.
-Weak-coupling/high-temperature expansions yield controlled but limited
-series\cite{cresserWeakUltrastrongCoupling2021a}. Imaginary-time path-integral
-methods, stochastic representations, and hierarchical-equations techniques can
-compute $\bar\rho_Q(\beta)$ directly but typically do not provide a compact operator
-form for $H_{\mathrm{MF}}$\cite{moixEquilibriumreducedDensityMatrix2012,chenRigorousStochasticMatrix2014,makriExploitingClassicalDecoherence2014,tanimuraReducedHierarchicalEquations2014,songCalculationCorrelatedInitial2015}.
-Stochastic Liouville and partition-free approaches provide complementary
-numerical access to open-system equilibration without yielding closed-form HMFs
+Weak-coupling expansions yield controlled but limited series~\cite{cresserWeakUltrastrongCoupling2021a,breuerTheoryOpenQuantum2002}.
+Reaction-coordinate mappings\cite{nazirReactionCoordinateMapping2018,IlesSmithDijkstraLambertNazir2016,AntoSztrikacsNazirSegal2023,ShubrookIlesSmithNazir2025}
+and polaron transforms provide approximate local generators applicable at intermediate coupling.
+Imaginary-time path-integral methods, stochastic representations, and hierarchical-equations techniques can
+compute $\bar\rho_Q(\beta)$ directly but typically do not yield compact operator
+forms for $H_{\mathrm{MF}}$\cite{moixEquilibriumreducedDensityMatrix2012,chenRigorousStochasticMatrix2014,makriExploitingClassicalDecoherence2014,tanimuraReducedHierarchicalEquations2014,songCalculationCorrelatedInitial2015,XuVadimovStockburgerAnkerhold2026}.
+Stochastic Liouville and partition-free approaches give complementary
+numerical access without yielding closed-form HMFs
 \cite{stockburgerSimulatingSpinbosonDynamics2004,mccaulPartitionfreeApproachOpen2017c}.
 These methods are indispensable for quantitative predictions but leave open the
 representational question: when does a local or otherwise restricted operator
@@ -118,10 +119,12 @@ general structural criterion is still lacking
 Relative to Ref.~\cite{mccaulMeanForceHamiltoniansInfluence2026}, the present
 manuscript has a narrower but deeper scope. We retain the exact Gaussian
 influence-functional and quenched-field identities, then use adjoint-action and
-Magnus/BCH organisation to study representability in the noncommuting sector.
+Magnus/BCH organisation~\cite{magnusExponentialSolutionDifferential1954a,blanesMagnusExpansionIts2009,weiLieAlgebraicSolution1963} to study representability in the noncommuting sector.
 The central result is an explicit closure criterion: a finite closed-form HMF
 exists only when the operator algebra generated by repeated adjoint action of
 $H_Q$ on the coupling operators closes inside the target ansatz. We then
 instantiate this criterion in a Pauli-closed qubit example, where all bath
 dependence is reduced to scalar kernel moments and the mean-force Hamiltonian
-is written in exact closed form.
+is written in exact closed form. Moreover, it is not often one has the opportunity to say something new about a qubit. 
+
+

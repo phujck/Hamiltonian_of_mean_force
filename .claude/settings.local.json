@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(where:*)",
+      "Bash(python fig4_2d_landscape.py:*)"
+    ]
+  }
+}

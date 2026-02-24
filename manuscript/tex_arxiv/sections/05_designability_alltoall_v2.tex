@@ -1,0 +1,127 @@
+\section{All-to-All 2-Local Designability from a Free-Spin Core}
+\label{sec:alltoall_designability}
+
+The key consequence of the closure framework is constructive control: with a
+free-spin system Hamiltonian and a complete pair-resolved coupling basis, the
+Gaussian mean-force map can be used to synthesize finite-$N$ all-to-all
+2-local Hamiltonians. We make this statement precise and then benchmark it
+numerically via stochastic simulation of the free model.
+
+\subsection{Free-spin closure and operator content}
+
+We fix the bare system Hamiltonian to be strictly non-interacting,
+\begin{equation}
+    H_S=\sum_{i=1}^N\left(\Omega_i^x X_i+\Omega_i^z Z_i\right).
+    \label{eq:designability_hs_free}
+\end{equation}
+For each site, $\mathrm{ad}_{H_S}$ acts only on the local Pauli triplet
+$\{X_i,Y_i,Z_i\}$, so the adjoint chain is finite-dimensional and closes
+sitewise. For pair-resolved channels
+\begin{equation}
+    f_{ij}^{\alpha\beta}
+    =
+    u_{ij}^{\alpha\beta}\sigma_i^\alpha
+    +
+    v_{ij}^{\alpha\beta}\sigma_j^\beta,
+    \qquad i<j,\;\alpha,\beta\in\{x,y,z\},
+\end{equation}
+products of adjoint-generated operators remain in the span of
+0-local, 1-local, and 2-local Pauli strings. Thus, within this channel family,
+Gaussian influence terms do not generate operators beyond 2-local order.
+
+\subsection{Constructive all-to-all map}
+
+At fixed finite $N$, define the target coefficient set
+\begin{equation}
+    H_{\mathrm{tar}}
+    =
+    \sum_i \mathbf h_i\!\cdot\!\boldsymbol{\sigma}_i
+    +
+    \sum_{i<j}\sum_{\alpha,\beta}
+    J_{ij}^{\alpha\beta}\sigma_i^\alpha \sigma_j^\beta.
+\end{equation}
+Using the pair-resolved basis above, the coefficient map is linear after
+flattening:
+\begin{equation}
+    \mathbf J = A\,\boldsymbol{\theta},
+\end{equation}
+where $\mathbf J$ stacks all $J_{ij}^{\alpha\beta}$ and
+$\boldsymbol{\theta}$ stacks channel parameters. In the direct pair-resolved
+basis, $A$ is full rank (identity up to ordering), so inversion is exact at
+finite $N$.
+
+Important scope caveat: ``arbitrary'' means arbitrary within this finite-$N$,
+complete-basis setting. It is not a continuum-limit universality claim.
+
+\subsection{Numerical demonstration}
+
+We ran three complementary tests:
+\begin{enumerate}
+    \item \textbf{Design-map inversion test} (all Pauli-pair channels active):
+    random dense all-to-all targets at $N=6,8,10,12$.
+    \item \textbf{Physics agreement test}:
+    stochastic free-model simulation versus exact thermal ED on
+    $N=6,8,10$ (two random instances each), using a dense all-to-all $ZZ$
+    sector for stable reweighting.
+    \item \textbf{Scaling comparison}:
+    stochastic runtime/memory versus quimb MPO+DMRG runtime/memory
+    \cite{whiteDensityMatrixFormulation1992,schollwockDensityMatrixRenormalization2011}
+    at $N=12,16,20$.
+\end{enumerate}
+Reported values below correspond to the production run
+$(\beta=6,\;N\in\{6,8,10,12,16,20\},\;\text{samples}=192,\;\tau\text{-steps}=96,\;\text{seeds}=2)$.
+
+The reconstruction test shows full-rank maps with machine-precision inversion:
+all sampled instances satisfy $\mathrm{rank}(A)=\dim(\boldsymbol{\theta})$ and
+the relative reconstruction residual is numerically zero in the reported runs
+(Fig.~\ref{fig:designability_reconstruction}).
+
+For stochastic-vs-ED physics checks, the median absolute discrepancies across
+the six overlap runs are
+$|\Delta e|=1.76\times 10^{-2}$ (energy density),
+$|\Delta m_z|=9.76\times 10^{-2}$, and
+$|\Delta \overline{\langle Z_iZ_j\rangle}|=3.61\times 10^{-2}$
+(Fig.~\ref{fig:designability_ed_agreement}). The energy-density relative error
+median is $8.75\%$ at the present sampling/Trotter settings.
+
+The scaling test shows the stochastic solver remains practical across the full
+all-to-all term count while keeping the same free-spin trajectory structure.
+In this run, stochastic wall time increased from $4.48$ s ($N=6$) to
+$53.4$ s ($N=20$), with peak memory from $\sim195$ MB to $\sim741$ MB. The MPO
+baseline (ground-state proxy) scaled from $0.45$ s ($N=12$) to $3.51$ s
+($N=20$), with memory near $734$--$744$ MB
+(Fig.~\ref{fig:designability_scaling}).
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.95\textwidth]{../figures/hmf_designability_alltoall_reconstruction.png}
+    \caption{
+    All-to-all constructive-map diagnostics: rank($A$) versus parameter-space
+    dimension and inverse-map residual across sampled system sizes. The
+    pair-resolved channel basis is full rank at finite $N$ and reconstructs
+    sampled target couplings to numerical precision.
+    }
+    \label{fig:designability_reconstruction}
+\end{figure*}
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.95\textwidth]{../figures/hmf_designability_alltoall_ed_agreement.png}
+    \caption{
+    Stochastic free-model benchmark against exact thermal ED on overlap sizes.
+    Left: energy density. Middle: average $m_z$. Right: average all-to-all
+    $\overline{\langle Z_i Z_j\rangle}$. Error bars show stochastic standard
+    errors.
+    }
+    \label{fig:designability_ed_agreement}
+\end{figure*}
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.95\textwidth]{../figures/hmf_designability_alltoall_scaling.png}
+    \caption{
+    Runtime and peak-memory scaling comparison between the stochastic free-model
+    solver and a tensor-network MPO+DMRG baseline.
+    }
+    \label{fig:designability_scaling}
+\end{figure*}

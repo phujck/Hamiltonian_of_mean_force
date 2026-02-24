@@ -1,15 +1,17 @@
-\documentclass[aps,prl,twocolumn,superscriptaddress,showpacs]{revtex4-2}
+﻿\documentclass[aps,prl,twocolumn,superscriptaddress,showpacs]{revtex4-2}
 
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{hyperref}
+\usepackage{bm}
 
 \newcommand{\Tr}{\mathrm{Tr}}
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
 
 \begin{document}
 
-\title{Hamiltonian of Mean Force Beyond the Commuting Gaussian Benchmark}
+\title{Hamiltonians of mean force}
 \author{Author Name}
 \affiliation{Affiliation}
 \date{\today}
@@ -32,17 +34,29 @@ the non-Gaussian extension program.
 
 \maketitle
 
-\input{sections/01_introduction_v4}
-\input{sections/02_model}
-\input{sections/03_influence_functional_v2}
-\input{sections/04_results}
-\input{sections/05_designability_alltoall}
-\input{sections/05_numerical_validation}
-\input{sections/05_discussion}
+\input{sections/01_introduction}
+% \input{sections/02_model_v2} % Dropped as redundant cruft
+\input{sections/02_influence_functional}
+\input{sections/03_hmf}
+\input{sections/04_closure}
+% \input{sections/04_results}
+% \input{sections/04_results_v2}
+\input{sections/05_results}
+\input{sections/06_numerical_validation}
+\input{sections/07_numerical_results}
+% \\input{sections/05_designability_alltoall_v2}
+% \input{sections/05_numerical_validation_v2}
+\input{sections/08_discussion}
 
 \appendix
-\input{sections/06_appendix}
+\setcounter{secnumdepth}{2}
+\input{sections/09_appendix}
+\input{sections/10_appendix_algebraic}
+% \input{sections/07_appendix_universal_v1}
+
+\input{sections/11_acknowledgments}
 
 \bibliography{../../literature/references_new}
 
 \end{document}
+

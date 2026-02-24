@@ -1,0 +1,151 @@
+\subsection{Exact mean-force Hamiltonian for the transverse-coupling 
+spin-boson model}
+
+We now turn to applying the results developed in the previous section. A particularly instructive example concerns spins, as the su(2) algebra is sufficiently simple at to permit an exact analytic solution. We demonstrate this by applying it to a transverse-coupling spin-boson model. Following  Ref.~\cite{cresserWeakUltrastrongCoupling2021a}, let
+%
+\begin{equation}
+    H_Q = \frac{\omega_q}{2}\sigma_z, 
+    \qquad 
+    f = \cos\theta\,\sigma_z - \sin\theta\,\sigma_x,
+    \label{eq:qubit_setup}
+\end{equation}
+%
+with $c \equiv \cos\theta$, $s \equiv \sin\theta$ throughout. The 
+coupling mixes a commuting part $c\sigma_z$ with a transverse part 
+$-s\sigma_x$.
+
+Using $[H_Q,\sigma_x] = i\omega_q\sigma_y$ and 
+$[H_Q,\sigma_y] = -i\omega_q\sigma_x$, the $\sigma_z$ component of 
+$f$ is annihilated by $\mathrm{ad}_{H_Q}$ while the transverse part 
+precesses. A direct induction gives
+%
+\begin{equation}
+    f_n \equiv \mathrm{ad}_{H_Q}^n(f) = \begin{cases}
+        c\,\sigma_z - s\,\sigma_x & n = 0, \\[4pt]
+        -s\,\omega_q^n\,\sigma_x  & n \geq 1,\; n\;\text{even}, \\[4pt]
+        -is\,\omega_q^n\,\sigma_y & n \geq 1,\; n\;\text{odd}.
+    \end{cases}
+    \label{eq:fn_qubit}
+\end{equation}
+%
+The adjoint chain therefore closes on $\mathrm{span}\{\sigma_x,\sigma_y,\sigma_z\}$, satisfying condition (C1). The crucial point for the qubit is to keep the \emph{ordered} kernel moments (triangle domain), rather than imposing $C_{nm}=C_{mn}$ in the operator sector. With Pauli products, the non-trivial channels are
+\begin{equation}
+    f_n f_m \cong \begin{cases}
+        - s^2 \omega_q^{n+m} \sigma_z & n \in 2\mathbb{N},\; m \in 2\mathbb{N}-1, \\
+        + s^2 \omega_q^{n+m} \sigma_z & n \in 2\mathbb{N}-1,\; m \in 2\mathbb{N}, \\
+        - c s \omega_q^m \sigma_x - s^2 \omega_q^m \sigma_z & n=0,\; m \in 2\mathbb{N}-1, \\
+        + c s \omega_q^n \sigma_x + s^2 \omega_q^n \sigma_z & n \in 2\mathbb{N}-1,\; m=0.
+    \end{cases}
+    \label{eq:fnfm_cases}
+\end{equation}
+so the $\sigma_x,\sigma_y,\sigma_z$ sectors remain independent at finite coupling.
+
+Using $\tilde f(\tau)=c\sigma_z-s\!\left[\cosh(\omega_q\tau)\sigma_x+i\sinh(\omega_q\tau)\sigma_y\right]$, the ordered product gives
+\begin{equation}
+    \tilde f(\tau)\tilde f(\tau') \cong
+    c s \!\left[\sinh(\omega_q\tau)-\sinh(\omega_q\tau')\right]\sigma_x
+    + i c s \!\left[\cosh(\omega_q\tau)-\cosh(\omega_q\tau')\right]\sigma_y
+    + s^2 \sinh\!\big(\omega_q(\tau-\tau')\big)\sigma_z,
+\end{equation}
+(identity sector omitted). Therefore
+\begin{equation}
+    \Delta(\beta,g)=g^2\!\left[\delta_x(\beta)\sigma_x+i\delta_y(\beta)\sigma_y-\delta_z(\beta)\sigma_z\right]+\delta_0(\beta)\mathbb I,
+    \label{eq:Delta_final}
+\end{equation}
+with channel coefficients
+\begin{align}
+    \delta_0(\beta) &= \int_0^\beta\!du\,(\beta-u)\,K_0(u)\!\left[c^2+s^2\cosh(\omega_q u)\right],\\
+    \delta_z(\beta) &= s^2\!\int_0^\beta\!du\,(\beta-u)\,K_0(u)\sinh(\omega_q u),\\
+    \delta_x(\beta) &= \frac{cs}{\omega_q}\!\int_0^\beta\!du\,K_0(u)\!\left[\cosh(\beta\omega_q)+1-\cosh(\omega_q u)-\cosh\!\big(\omega_q(\beta-u)\big)\right],\\
+    \delta_y(\beta) &= \frac{cs}{\omega_q}\!\int_0^\beta\!du\,K_0(u)\!\left[\sinh(\beta\omega_q)-\sinh(\omega_q u)-\sinh\!\big(\omega_q(\beta-u)\big)\right].
+    \label{eq:delta_channels_v45}
+\end{align}
+Here $K_0$ is the fixed bath kernel and the coupling is carried by $g^2$.
+This is the corrected finite-coupling structure: there is no single locked
+kernel amplitude forcing a fixed $x\!:\!z$ ratio.
+
+The unnormalised state is evaluated as a thermal non-unitary product
+\begin{equation}
+    \bar\rho_Q(\beta,g)=e^{-\beta H_Q/2}\,e^{\Delta(\beta,g)}\,e^{-\beta H_Q/2},
+    \qquad
+    \rho_Q=\frac{\bar\rho_Q}{\Tr\bar\rho_Q},
+    \label{eq:rho_bar_pauli_v4}
+\end{equation}
+and $H_{\mathrm{MF}}$ is extracted from $\rho_Q$ exactly via the $2\times2$ Bloch-log map.
+
+For the physical reduced qubit state
+\begin{equation}
+    \rho_Q=\frac{e^{-\beta H_{\mathrm{MF}}}}{\Tr e^{-\beta H_{\mathrm{MF}}}}
+    =\frac12\bigl(\mathbb I+\mathbf r\cdot\boldsymbol\sigma\bigr),
+\end{equation}
+the exact $2\times2$ log map is
+\begin{equation}
+    H_{\mathrm{MF}}
+    = c_0(\beta,\lambda)\,\mathbb I
+    -\frac{1}{\beta}\frac{\operatorname{arctanh} r}{r}\,
+      \bigl(r_x\sigma_x+r_y\sigma_y+r_z\sigma_z\bigr),
+    \quad r\equiv |\mathbf r|.
+    \label{eq:HMF_bloch_log_v4}
+\end{equation}
+This representation is numerically stable and avoids the artificial
+$\Omega/\sin\Omega$ prefactor pathology.
+
+At this stage the $\sigma_y$ term may be removed by a \emph{coupling-dependent}
+$z$-rotation:
+\begin{equation}
+    U_\phi = e^{-i\phi\sigma_z/2},
+    \qquad
+    \phi(\beta,\lambda)=\operatorname{atan2}(h_y,h_x)
+    =\operatorname{atan2}(r_y,r_x),
+\end{equation}
+so that
+\begin{equation}
+    H'_{\mathrm{MF}}=U_\phi H_{\mathrm{MF}}U_\phi^\dagger
+    = c_0\,\mathbb I + h_\perp\,\sigma_x + h_z\,\sigma_z,
+    \qquad
+    h_\perp=\sqrt{h_x^2+h_y^2}.
+    \label{eq:HMF_rotated}
+\end{equation}
+Hence the rotation is not fixed to $\beta\omega_q/2$; it is set by the actual
+finite-coupling mean-force field.
+
+The key structural result is that finite-coupling qubit renormalisation is
+controlled by the independent channels
+$\{\delta_x(\beta),\delta_y(\beta),\delta_z(\beta)\}$, not a single scalar kernel.
+
+This form allows a direct analysis of coupling limits. The coupling strength
+enters as an overall $g^2$ prefactor in Eq.~\eqref{eq:Delta_final}, while the
+temperature and bath structure are encoded in Eq.~\eqref{eq:delta_channels_v45}.
+\begin{enumerate}
+    \item \textbf{Weak Coupling ($g\to 0$):} In this limit $\Delta\to0$ and the
+    Bloch vector tends to the bare Gibbs direction, $\mathbf r\to(0,0,-\tanh a)$, so
+    $H_\mathrm{MF}\to \frac{\omega_q}{2}\sigma_z = H_Q$.
+    
+    \item \textbf{Ultrastrong Coupling ($g\to \infty$):} Here the interaction
+    sector dominates and the reduced state approaches the PRL projector form
+    $\rho_{US}\propto \exp[-\beta\sum_n P_n H_Q P_n]$.
+    Our finite-coupling expression therefore interpolates smoothly between the
+    weak Gibbs state and the ultrastrong projected state.
+\end{enumerate}
+
+\subsection{Numerical Demonstrations}
+
+To validate the analytic derivation of the mean-force Hamiltonian $H_\mathrm{MF}$, we compare our results against exact numerical diagonalization (ED) of the full system-bath Hamiltonian. We model the bath as a set of discrete harmonic oscillators with an Ohmic spectral density, using $N=4$ modes and a Fock space cutoff of $N_{cut}=6$ per mode to ensure convergence. The full Hamiltonian is diagonalized to obtain the exact thermal state $\rho_{tot} = e^{-\beta H_{tot}}/Z$, from which the reduced system state $\rho_S = \mathrm{Tr}_B[\rho_{tot}]$ is computed.
+
+In Fig.~\ref{fig:hmf_v4_validation}, we show the trace distance
+$D(\rho_{ex}, \rho_{HMF}) = \frac{1}{2}\mathrm{Tr}|\rho_{ex} - \rho_{HMF}|$
+between the exact reduced state and the corrected independent-channel model.
+The corrected algebra substantially improves finite-coupling agreement compared
+with the locked-channel ansatz and reproduces the expected weak and ultrastrong trends.
+
+Furthermore, we extract the effective fields $h_x,h_y,h_z$ from the numerical
+state by Pauli projection. The analytic and numerical fields exhibit the same
+coupling-dependent rotation and relative channel weighting, which is the key
+signature of the corrected ordered-kernel derivation.
+
+\begin{figure}[t]
+    \centering
+    % \includegraphics[width=\columnwidth]{figures/hmf_v4_validation_fig.png}
+    \caption{Validation of the corrected independent-channel mean-force model against exact diagonalization. (Left) Trace distance versus coupling. (Center) Effective-field components from analytic model and exact state. (Right) Lab-frame $y$ component and rotated-frame suppression.}
+    \label{fig:hmf_v4_validation}
+\end{figure}

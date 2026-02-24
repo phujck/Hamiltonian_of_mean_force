@@ -87,7 +87,7 @@ ALPHA     = 1.0   # Ohmic spectral weight (matching manuscript)
 OMEGA_C   = 5.0   # cutoff (matching manuscript)
 OMEGA_MIN = 0.0   # IR edge: INCLUDE zero-frequency so Delta_z channel is active
 OMEGA_MAX = 2.0   # UV edge  (in units of omega_q)
-THETA     = np.pi / 4  # mixing angle -- LOCKED
+THETA     = 3 * np.pi / 8  # mixing angle -- Shifted closer to pi/2 for low-T visibility
 
 
 # ── Ohmic spectral density ─────────────────────────────────────────────────────
@@ -306,6 +306,106 @@ def bloch_ohmic(g_arr, beta):
     r   = np.sqrt(mx**2 + mz**2)
     phi = np.arctan2(mx, -mz)        # angle from −z toward +x
     return phi, r, mx, mz
+
+
+def exact_qubit_geometry_point(g, beta, theta=THETA):
+    """
+    Exact qubit geometry at one point (g, beta) in the coupling-plane gauge.
+
+    Plane-gauge vectors use basis (hat{r}_perp, n_s), i.e. x = +hat{r}_perp and
+    z = n_s. For the locked mixed-coupling convention in bloch_ohmic() this differs
+    by a sign from the physical sigma_x axis, so mx = -v_x^(plane), mz = v_z^(plane).
+    """
+    g = float(g)
+    beta = float(beta)
+    theta = float(theta)
+    a = beta * OMEGA_Q / 2.0
+    c = float(np.cos(theta))
+    s = float(np.sin(theta))
+
+    if abs(theta - THETA) < 1e-14:
+        chi0, dz0, sx0 = get_chi0(beta)
+    else:
+        chi0, dz0, sx0 = chi0_spectral(beta, theta=theta)
+
+    g2 = g * g
+    chi = g2 * chi0
+    gam = float(np.tanh(chi) / chi) if chi > 1e-14 else 1.0
+    gstar = float(1.0 / np.sqrt(chi0)) if chi0 > 1e-14 else np.inf
+
+    # Coupling-plane gauge for the derivation figure
+    r_par = c
+    r_perp = abs(s)
+    r_vec_plane = np.array([r_perp, r_par], dtype=float)
+
+    # Plane-gauge symmetrised influence vector from the physical sigma_x/sigma_z
+    # coefficients used by bloch_ohmic(): M = g^2 (sx0 sigma_x - dz0 sigma_z).
+    h_eff = np.array([-g2 * sx0, -g2 * dz0], dtype=float)
+
+    eps = 1e-14
+    b_nr = float(-h_eff[0] / (r_par * r_perp)) if abs(r_par * r_perp) > eps else 0.0
+    b_r = float(h_eff[1] / (r_perp * r_perp)) if abs(r_perp) > eps else 0.0
+
+    a_b = np.array([b_r * r_perp, b_nr * r_par], dtype=float)
+    h_tilde = h_eff / r_perp if r_perp > eps else np.zeros(2, dtype=float)
+
+    u = gam * h_eff
+    u_par = float(u[1])
+    denom = float(np.cosh(a) - u_par * np.sinh(a))
+    if abs(denom) < 1e-14:
+        denom = 1e-14 if denom >= 0 else -1e-14
+
+    v = np.array([
+        float(u[0] / denom),
+        float((u_par * np.cosh(a) - np.sinh(a)) / denom),
+    ], dtype=float)
+    v_th = np.array([0.0, -float(np.tanh(a))], dtype=float)
+
+    # Convert back to physical sigma_x/sigma_z components for validation/reporting.
+    mx = -float(v[0])
+    mz = float(v[1])
+
+    if abs(theta - THETA) < 1e-14:
+        _, _, mx_ref, mz_ref = bloch_ohmic(np.array([g]), beta)
+        mx_ref = float(mx_ref[0])
+        mz_ref = float(mz_ref[0])
+        if not (abs(mx - mx_ref) < 1e-9 and abs(mz - mz_ref) < 1e-9):
+            raise RuntimeError(
+                "exact_qubit_geometry_point mismatch with bloch_ohmic: "
+                f"(mx,mz)=({mx:.12e},{mz:.12e}) vs ({mx_ref:.12e},{mz_ref:.12e})"
+            )
+
+    def _embed(v2):
+        return np.array([float(v2[0]), 0.0, float(v2[1])], dtype=float)
+
+    return {
+        "a": float(a),
+        "chi0": float(chi0),
+        "gstar": float(gstar),
+        "chi": float(chi),
+        "gamma": float(gam),
+        "theta": float(theta),
+        "b_r": float(b_r),
+        "b_nr": float(b_nr),
+        "r_par": float(r_par),
+        "r_perp": float(r_perp),
+        "r_vec_plane": r_vec_plane,
+        "a_b": a_b,
+        "h_tilde": h_tilde,
+        "h_eff": h_eff,
+        "u": u,
+        "v": v,
+        "v_th": v_th,
+        "mx": float(mx),
+        "mz": float(mz),
+        "n_s_vec": np.array([0.0, 0.0, 1.0], dtype=float),
+        "rhat_perp_vec": np.array([1.0, 0.0, 0.0], dtype=float),
+        "r_vec_3d": _embed(r_vec_plane),
+        "h_eff_3d": _embed(h_eff),
+        "u_3d": _embed(u),
+        "v_3d": _embed(v),
+        "v_th_3d": _embed(v_th),
+    }
 
 
 def dphi_dg(g_arr, beta, dg=1e-4):

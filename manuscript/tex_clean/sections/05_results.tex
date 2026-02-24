@@ -1,0 +1,186 @@
+﻿% !TEX root = ../Hamiltonian_of_mean_force.tex
+\section{Exact Solution of the Spin-Boson Model}
+\label{sec:qubit_direct_response_v5}
+
+We now put the machinery of Secs.~\ref{sec:generating_function}--\ref{sec:qubit_closure} to work
+in the transverse-coupling spin-boson model. The $\mathfrak{su}(2)$ algebra is rich enough
+to generate non-trivial dynamics while remaining analytically tractable at every coupling strength,
+and the qubit is the prototypical rank-1 case of the general framework.
+
+Following Refs.~\cite{cresserWeakUltrastrongCoupling2021a,hovhannisyanHamiltonianMeanForce2020}, we take as our starting point an arbitrary system-bath coupling operator:
+\begin{equation}
+    H_Q=\frac{\omega_q}{2}\sigma_z,\qquad f = \boldsymbol{r} \cdot \boldsymbol{\sigma} = r_x\sigma_x + r_y\sigma_y + r_z\sigma_z,
+    \label{eq:qubit_setup_closure}
+\end{equation}
+where $\boldsymbol{r} = (r_x, r_y, r_z) \in \mathbb{R}^3$ describes the coupling vector. The eigenbasis of $H_Q$ has two levels with energies $\pm\omega_q/2$ and transition energies $\omega_{\pm}=\pm\omega_q$. 
+To compute the influence exponent efficiently, we first express the coupling operator in the imaginary-time interaction picture, $\tilde{f}(\tau) = e^{\tau H_Q} f e^{-\tau H_Q}$. Introducing the standard raising and lowering operators $\sigma_\pm = (\sigma_x \pm i\sigma_y)/2$, we write $f = r_z\sigma_z + r_-\sigma_+ + r_+\sigma_-$ with $r_\pm \equiv r_x \pm ir_y$. The Heisenberg-picture evolution $e^{\tau H_Q}\sigma_\pm e^{-\tau H_Q} = e^{\pm\omega_q\tau}\sigma_\pm$ then yields
+\begin{equation}
+    \tilde{f}(\tau) = r_z\sigma_z + r_- e^{\omega_q\tau}\sigma_+ + r_+ e^{-\omega_q\tau}\sigma_-.
+    \label{eq:ftilde_tau}
+\end{equation}
+The ladder representation perfectly matches the required matrix algebra. Applying $\sigma_+\sigma_- = (\mathbb{I}+\sigma_z)/2$, $\sigma_-\sigma_+ = (\mathbb{I}-\sigma_z)/2$, and $\sigma_\pm^2 = 0$, the two-time product expands as
+\begin{equation}
+\begin{split}
+    \tilde{f}(\tau)\tilde{f}(\tau')
+    &= \Big[ r_z^2 + r_\perp^2 \cosh\!\big(\omega_q(\tau-\tau')\big) \Big] \mathbb{I} \\
+    &\quad + r_\perp^2 \sinh\!\big(\omega_q(\tau-\tau')\big) \sigma_z \\
+    &\quad + r_z r_- \!\left(e^{\omega_q\tau'} - e^{\omega_q\tau}\right) \sigma_+ \\
+    &\quad + r_z r_+ \!\left(e^{-\omega_q\tau} - e^{-\omega_q\tau'}\right) \sigma_-,
+\end{split}
+\label{eq:ff_product}
+\end{equation}
+where $r_\perp^2 \equiv r_+ r_- = r_x^2 + r_y^2$. Because the bath enters only through the Green function $G^{>}(\omega_1,\omega_2)$ evaluated at the three possible transition frequencies $\omega_{1/2} =\left\{0,\pm\omega_q\right\}$, the influence exponent decomposes cleanly into bare channel integrals. Let us define the primitive integrals
+\begin{align}
+    \Sigma_\pm &= \frac{1}{\omega_q}\!\left[\big(1+e^{\pm\beta\omega_q}\big)\mathcal{K}(0)-2\mathcal{K}(\pm\omega_q)\right], \label{eq:primitive_Sigma_pm} \\
+    \Sigma_z &= \frac{1}{2}\!\left[R(\omega_q)-R(-\omega_q)\right], \label{eq:primitive_Sigma_z}
+\end{align}
+which depend only on the bath spectrum and temperature. The full influence exponent expands naturally in the ladder basis $\Delta(\beta) = \Delta_0\mathbb{I} + \Delta_+\sigma_+ + \Delta_-\sigma_- + \Delta_z\sigma_z$, where the specific coupling vector geometry purely scales these primitive channels into the interaction coefficients:
+\begin{align}
+    \Delta_\pm &= -2r_z r_\mp \Sigma_\pm, \label{eq:Delta_plus_expanded} \\
+    \Delta_z &= r_\perp^2 \Sigma_z, \label{eq:Delta_z_expanded} \\
+    \Delta_0 &= r_z^2 R(0) +\frac{r_\perp^2}{2}\!\left[R(\omega_q)+R(-\omega_q)\right].
+\end{align}
+The unnormalised reduced state $\bar\rho_Q=e^{-\beta H_Q}e^{\Delta}$ is the product of two $\mathrm{SL}(2,\mathbb{C})$ elements. Its exact properties are most cleanly revealed by transitioning to a manifestly symmetric decomposition:
+\begin{equation}
+    \bar{\rho}_Q = \Pi^{1/2} e^S \Pi^{1/2}, \qquad S \equiv \Pi^{1/2} \Delta \Pi^{-1/2},
+    \label{eq:rho_symmetric_decomp}
+\end{equation}
+where $\Pi \equiv e^{-\beta H_Q}$ is the bare Gibbs operator. The adjoint action of the projection $\Pi^{1/2} = e^{-\beta\omega_q\sigma_z/4}$ leaves the diagonal components ($\mathbb{I}$, $\sigma_z$) invariant, but scales the transverse ladder operators symmetrically as $\Pi^{1/2} \sigma_\pm \Pi^{-1/2} = e^{\mp \beta\omega_q/2} \sigma_\pm$. Applying the projection to the transverse section of the raw influence exponent shifts the prefactors exponentially:
+\begin{equation}
+    \Pi^{1/2} \big( \Delta_\pm \sigma_\pm \big) \Pi^{-1/2} = -r_z r_\mp \big( 2 e^{\mp \beta\omega_q/2}\Sigma_\pm\big) \sigma_\pm.
+\end{equation}
+Invoking the KMS relation for the bath spectral density, the factor in parenthesis is perfectly real and symmetric. We may assign this macroscopic quantity $\bar{\Sigma} \equiv 2 e^{-\beta\omega_q/2}\Sigma_+ = 2 e^{\beta\omega_q/2}\Sigma_-$. Factoring out $-\bar{\Sigma}r_z$ and recombining the ladder operators back into the Cartesian basis via $r_- \sigma_+ + r_+ \sigma_- = r_x\sigma_x + r_y\sigma_y$, the complete symmetrised exponent evaluates to:
+\begin{equation}
+    S = \Delta_0\mathbb{I} + r_\perp^2 \Sigma_z \sigma_z - \bar{\Sigma} r_z (r_x\sigma_x + r_y\sigma_y).
+\end{equation}
+This expression demonstrates that geometrically, despite generic $y$-axis support in the raw $\Delta(\beta)$ operator, the symmetrised influence $S$ naturally zeroes out its imaginary phase due to microscopic detailed balance.
+Defining the traceless part vectorially as $M \equiv \boldsymbol{h}_{\mathrm{eff}} \cdot \boldsymbol{\sigma}$ with effective field components $\boldsymbol{h}_{\mathrm{eff}} = (- \bar{\Sigma} r_z r_x, - \bar{\Sigma} r_z r_y, r_\perp^2\Sigma_z)$, we define the \emph{influence magnitude} as 
+\begin{equation}
+\chi = |\boldsymbol{h}_{\mathrm{eff}}| = |r_{\perp}|\sqrt{r_\perp^2\Sigma_z^2 + \bar{\Sigma}^2 r_z^2}.
+\end{equation}
+such that $M^2 = \chi^2\mathbb{I}$. From this, we can construct the effective influence unit vector $\hat{\boldsymbol{h}}_{\mathrm{eff}} = \boldsymbol{h}_{\mathrm{eff}} / \chi$. Projecting this influence axis onto the original interaction direction $\hat{\boldsymbol{r}} = \boldsymbol{r} / |\boldsymbol{r}|$ measures the extent to which the bath's self-generated field aligns with the coupling geometry. Dividing the vectors by their magnitudes, the geometric dot product evaluates to:
+\begin{equation}
+    \begin{split}
+        \hat{\boldsymbol{h}}_{\mathrm{eff}} \cdot \hat{\boldsymbol{r}} &= \frac{1}{\chi |\boldsymbol{r}|} \Big[ (- \bar{\Sigma} r_z r_x) r_x + (- \bar{\Sigma} r_z r_y) r_y + (r_\perp^2 \Sigma_z) r_z \Big] \\
+        &= \frac{r_z r_\perp^2}{\chi |\boldsymbol{r}|} (\Sigma_z - \bar{\Sigma}).
+    \end{split}
+\end{equation}
+This projection is generally non-zero. Since the geometric prefactor $r_z r_\perp^2 / (\chi |\boldsymbol{r}|)$ never changes sign in the upper hemisphere ($r_z > 0$), the geometric correlation between the bath's self-generated field and the coupling axis is completely determined by the difference $\Sigma_z - \bar{\Sigma}$. Whether the environment 'pushes' the state along or away from the interaction axis depends purely on the competition between the longitudinal ($\Sigma_z$) and transverse ($\bar{\Sigma}$) fluctuation kernels of the bath. 
+
+The $\mathfrak{su}(2)$ Casimir identity then provides an algebraic expression for the matrix exponential:
+\begin{equation}
+    e^S = e^{\Delta_0} \cosh\chi \left[ \mathbb{I} + \gamma(\chi) M \right],
+    \label{eq:expS_general}
+\end{equation}
+where we have further defined 
+\begin{equation}
+    \gamma(\chi) \equiv \tanh\chi / \chi
+\end{equation}
+We may now recombine the influence with the bare system according to Eq.~\eqref{eq:rho_symmetric_decomp} to expose the explicit matrix structure. Since the projection operators act as $\Pi^{1/2} = e^{-\beta\omega_q\sigma_z/4}$, they thermally weight the diagonal components of the influence while preserving the transverse phase. Defining the transverse influence weight $\Delta_\perp \equiv - \bar{\Sigma} r_z r_\perp$ and the interaction phase $\phi_r \equiv \operatorname{arg}(r_x + i r_y)$, the normalised state evaluates to:
+\begin{equation}
+    \begin{split}
+        \rho_Q &= \Pi^{1/2} e^S \Pi^{1/2} \\
+        &= \frac{1}{Z_Q}\begin{pmatrix}
+            e^{-\beta\omega_q/2}(1+\gamma \Delta_z) & \gamma \Delta_\perp e^{-i\phi_r} \\
+            \gamma \Delta_\perp e^{i\phi_r} & e^{\beta\omega_q/2}(1-\gamma \Delta_z)
+        \end{pmatrix}.
+    \end{split}
+\end{equation}
+where we have absorbed the overall scalar $e^{\Delta_0} \cosh\chi$ into the partition function, which is given by:
+\begin{equation}
+        Z_Q = e^{-\beta\omega_q/2}(1+\gamma \Delta_z) + e^{\beta\omega_q/2}(1-\gamma \Delta_z).
+\end{equation}
+To simplify the matrix elements, we introduce the longitudinal dressing angle $\theta_\Delta \equiv \operatorname{arctanh}(\gamma \Delta_z)$. This choice allows the diagonal influence weights to be expressed in exponential form, $1 \pm \gamma \Delta_z = \frac{e^{\pm\theta_\Delta}}{\cosh\theta_\Delta}$. Substituting these into $Z_Q$ yields
+\begin{equation}
+    \begin{split}
+        Z_Q &= \frac{e^{\theta_\Delta - \beta\omega_q/2} + e^{-(\theta_\Delta - \beta\omega_q/2)}}{\cosh\theta_\Delta} \\
+        &= \frac{2 \cosh(\theta_\Delta - \beta\omega_q/2)}{\cosh\theta_\Delta}.
+    \end{split}
+    \label{eq:partition_function_general}
+\end{equation}
+If we further define our \emph{effective} angle
+\begin{equation}
+\Theta \equiv \theta_\Delta - \beta\omega_q/2
+\end{equation}
+we find that in the computational $z$ basis
+\begin{equation}
+\rho_{11,22} = \frac{1}{2}[1 \pm \tanh \Theta].
+\end{equation}
+The angle $\Theta$ therefore quantifies how the bare thermal energy scale is modified by the longitudinal component of the influence operator. The off-diagonal terms can be similarly expressed through $\Theta$, after defining the coherence strength $\kappa \equiv \gamma \Delta_\perp \cosh \theta_\Delta$. The exact reduced density matrix thus evaluates to:
+\begin{equation}
+    \rho_Q = \frac{1}{2} \begin{pmatrix} 
+        1 + \tanh\Theta & \kappa \operatorname{sech}\Theta e^{-i\phi_r} \\
+        \kappa \operatorname{sech}\Theta e^{i\phi_r} & 1 - \tanh\Theta
+    \end{pmatrix}.
+    \label{eq:rho_matrix_general}
+\end{equation}
+This representation reveals the reduced state $\rho_Q$ as dependent on a renormalised thermal scale set by $\Theta$ (and implicitly the resonant component of the bath response), with its coherence dependent on the off-resonant bath response via $\kappa$. 
+
+From this, we may decompose the reduced state $\rho_Q$ into its Bloch vector components $\boldsymbol{v} = (v_\perp \cos\phi_v, v_\perp \sin\phi_v, v_z)$. Note here that the state phase $\phi_v$ is not necessarily identical to the interaction phase $\phi_r$. Specifically, identifying $v_\perp e^{i\phi_v} = \kappa \operatorname{sech}\Theta e^{i\phi_r}$, we see that $\phi_v = \phi_r$ only if $\kappa \operatorname{sech}\Theta > 0$. More generally, since $\kappa \propto \gamma \Delta_\perp \propto -\bar{\Sigma}r_z$, the state phase is given by $\phi_v = \phi_r + \pi \mathcal{H}(\bar{\Sigma}r_z)$ where $\mathcal{H}$ is the Heaviside step function. Depending on the sign of the bath kernel $\bar{\Sigma}$ (set by temperature and spectral density), the coherence is either perfectly aligned or diametrically opposed to the interaction axis. For the following geometric derivation, we define $v_\perp \equiv |\kappa \operatorname{sech}\Theta|$ as a magnitude:
+\begin{equation}
+    v_z = \tanh\Theta, \qquad v_\perp = |\kappa \operatorname{sech}\Theta|.
+    \label{eq:bloch_components}
+\end{equation}
+The tilt angle $\psi$ of the state relative to the bare $z$-axis follows as:
+\begin{equation}
+    \tan \psi = \frac{v_\perp}{v_z} = \frac{\kappa}{\sinh\Theta}.
+    \label{eq:state_tilt}
+\end{equation}
+The magnitude of the Bloch vector, $v = |\boldsymbol{v}|$, follows directly as
+\begin{equation}
+    v = \sqrt{1 - (1 - \kappa^2) \operatorname{sech}^2\Theta},
+    \label{eq:bloch_magnitude}
+\end{equation}
+which determines the purity of the reduced state ($v \to 1$ for a pure state). Moreover, the geometric alignment between the system's equilibrium polarization $\hat{\boldsymbol{v}}$ and the original coupling axis $\hat{\boldsymbol{r}} = (\sin\theta\cos\phi_r, \sin\theta\sin\phi_r, \cos\theta)$ is captured by the normalized dot product. Direct expansion yields:
+\begin{equation}
+    \hat{\boldsymbol{v}} \cdot \hat{\boldsymbol{r}} = \cos\psi\cos\theta + \sin\psi\sin\theta \cos(\phi_v - \phi_r).
+    \label{eq:state_alignment}
+\end{equation}
+The relative phase $\cos(\phi_v - \phi_r) = \operatorname{sgn}(\kappa \operatorname{sech}\Theta)$ is determined entirely by the sign of the dissipative bath response. If $\bar{\Sigma} r_z < 0$, the transverse influence is positive and the phases align perfectly ($\phi_v = \phi_r$); if $\bar{\Sigma} r_z > 0$, the state phase is shifted by $\pi$, resulting in an 'anti-alignment' in the transverse plane. The total geometric alignment $\hat{\boldsymbol{v}} \cdot \hat{\boldsymbol{r}}$ thus becomes:
+\begin{equation}
+    \hat{\boldsymbol{v}} \cdot \hat{\boldsymbol{r}} = \frac{r_z \tanh\Theta + \kappa \operatorname{sech}\Theta r_\perp}{|\boldsymbol{r}| v}.
+\end{equation}
+Substituting our definitions for $\Theta$ and $\kappa$, this simplifies to the stable angular distance:
+\begin{equation}
+    \hat{\boldsymbol{v}} \cdot \hat{\boldsymbol{r}} = \frac{r_z \sinh\Theta + r_\perp \kappa}{|\boldsymbol{r}| \sqrt{\sinh^2\Theta + \kappa^2}}.
+\end{equation}
+This expression quantifies how the 'attractor' state is pulled by the bath relative to the bare coupling vector, where the sign of $\kappa$ explicitly encodes whether the transverse sector undergoes a synchronous or asynchronous rotation.
+This expression quantifies the proximity of the steady-state attractor to the original coupling geometry as a function of temperature and coupling strength.
+
+\subsection{A Geometric Picture of the Reduced State}
+
+To conceptualize the rich crossover physics described above, we parameterize the problem in terms of three defining vectors in the pertinent $x-z$ interaction plane. This exact geometric picture makes the emergent physics, particularly the delicate non-commutativity of the temperature and coupling limits, strikingly transparent. 
+
+First, we define the \emph{state vector} $\boldsymbol{v} = (v_\perp, v_z)$, which tracks the steady-state polarization of the qubit. 
+Second, the bare coupling geometry is captured by the interaction unit vector $\hat{\boldsymbol{r}} = (\sin\theta, \cos\theta)$. The orthogonal unit vector in this interaction plane, toward which the bath initially attempts to rotate the system's eigenbasis, is organically expressed as the cross product with the $y$-axis: $\hat{\boldsymbol{n}}_\perp = \hat{\boldsymbol{y}} \times \hat{\boldsymbol{r}} = (-\cos\theta, \sin\theta)$.
+Third, we construct a temperature-dependent \emph{bath vector} $\boldsymbol{\Sigma}(\beta) \equiv (\bar{\Sigma}, \Sigma_z)$, tracking the macroscopic off-resonant and resonant response channels without trivial geometric coefficients.
+
+The influence of the environment is cleanly cast as an anisotropic scaling of this cross-product geometry. Rather than acting isotropically, the bath differentially scales the components of $\hat{\boldsymbol{n}}_\perp$ through the bath vector $\boldsymbol{\Sigma}$, bending the influence away from a pure orthogonal rotation. The resulting mean-force \emph{influence vector} $\boldsymbol{\eta}$ is constructed by taking this asymmetrically deformed unit vector and scaling it by the overall coupling magnitude $r$ and its transverse projection $r_\perp$:
+\begin{equation}
+    \boldsymbol{\eta} = r r_\perp \left( \boldsymbol{\Sigma} \circ (\hat{\boldsymbol{y}} \times \hat{\boldsymbol{r}}) \right) = r r_\perp (-\bar{\Sigma} \cos\theta, \Sigma_z \sin\theta) \equiv (\Delta_\perp, \Delta_z).
+\end{equation}
+The magnitude $\chi = |\boldsymbol{\eta}|$ drives the strength of the crossover, while its orientation sets the effective steady-state attractor. The alignment angle $\phi_\eta \equiv \operatorname{atan2}(\eta_\perp, \eta_z)$ satisfies the remarkably simple geometric ratio:
+\begin{equation}
+    \tan\phi_\eta = -\frac{\bar{\Sigma}(\beta)}{\Sigma_z(\beta)} \cot\theta.
+    \label{eq:attractor_angle_ratio}
+\end{equation}
+
+Crucially, the anisotropy ratio $\bar{\Sigma}/\Sigma_z$ is a profound and dynamical function of the inverse temperature $\beta$. The longitudinal kernel $\Sigma_z \propto R(\omega_q)$ is dominated by resonant fluctuations that scale reliably with $\coth(\beta\omega_q/2)$. In contrast, the transverse kernel $\bar{\Sigma}$ integrates over off-resonant, virtual processes modulated by asymmetric exponential thermal weights across the full spectral bandwidth. This ensures that their respective magnitudes scale differently at any finite temperature, making the 'refraction' of the interaction axis explicitly behave as a geometric thermometer, regardless of the precise structure of the bath spectral density.
+
+This formulation powerfully illuminates the deeply non-commutative nature of the ultrastrong and absolute-zero limits:
+
+\begin{itemize}
+    \item \textbf{The Ultrastrong Limit ($g \to \infty$ at finite $T$):} As the overall dimensionless coupling $g$ diverges, the influence magnitude $\chi = g^2 \chi^0$ overwhelms the bare thermal constraint $a = \beta\omega_q/2$. The state vector strictly locks into alignment with the influence attractor: $\boldsymbol{v} \to \hat{\boldsymbol{\eta}}$. However, because of the dynamical ratio $\bar{\Sigma}/\Sigma_z$ embedded in Eq.~\eqref{eq:attractor_angle_ratio}, this asymptotic orientation \emph{retains an explicit and permanent memory of the finite bath temperature}. 
+    
+    This insight neatly contextualizes previous theoretical predictions. The standard perturbative ultrastrong assumption—that the state rigidly locks to the bare interaction axis ($\boldsymbol{v} \to \hat{\boldsymbol{r}}$)---is only mathematically recovered when $\tan\phi_\eta = \tan\theta$, or equivalently, when analyzing exclusively longitudinal ($\theta=0$) or pure transverse ($\theta=\pi/2$) couplings. In the general misaligned geometric case, restoring $\boldsymbol{v} \to \hat{\boldsymbol{r}}$ strictly requires the isotropy condition $\bar{\Sigma} \approx -\Sigma_z \tan^2 \theta$, which typically manifests only in specific high-temperature 'white' noise regimes where overwhelming thermal fluctuations eclipse the structural asymmetry of the response kernels. At generic finite temperatures, the highly anisotropic bath vector $\boldsymbol{\Sigma}(\beta)$ enforces a persistent geometric misalignment, locking the ultrastrong limit state into a temperature-dependent, non-trivial rotation.
+    
+    \item \textbf{The Absolute Zero Limit ($T \to 0$ at finite $g$):} Conversely, taking $\beta \to \infty$ exposes the fundamental rigidity of the bare thermal Splitting $a = \beta\omega_q/2$. As the system cools toward absolute zero, vacuum fluctuations cause the individual bath components of $\boldsymbol{\Sigma}(\beta)$ to either saturate to constants or grow slower than linearly. However, the bare thermal penalty $a \propto \beta$ diverges unconditionally. This divergent bare geometric parameter brutally crushes the finite influence vector dressing $\boldsymbol{\eta}$, forcing the effective angle $\Theta \to -\infty$. Consequently, the state vector inevitably snaps back to the isolated bare energy minimum: $\boldsymbol{v} \to (0, -1)$.
+\end{itemize}
+
+The non-commutativity is total: ramping the coupling to infinity locks the system into a bath-distorted orientation that remembers the steady-state temperature, whereas cooling the system unconditionally 'unfolds' the transverse environmental influence and returns the resilient qubit to its unperturbed vacuum void.
+
+Finally, this geometric displacement directly translates back into the bare system basis ($\sigma_z$) as a global unitary rotation. Because any state with a Bloch severity $v < 1$ is mixed, the environment's entire influence can be repackaged as a generic unitary rotation $U(\psi) = \exp(-i \frac{\psi}{2} \hat{\boldsymbol{n}} \cdot \boldsymbol{\sigma})$ acting on a diagonal, 'temperature-shifted' reference state:
+\begin{equation}
+    \rho_Q = U(\psi) \begin{pmatrix} \frac{1+v}{2} & 0 \\ 0 & \frac{1-v}{2} \end{pmatrix} U^\dagger(\psi), 
+\end{equation}
+where $\hat{\boldsymbol{n}}$ is the normal vector orthogonal to the $x-z$ plane. In this picture, the bath vector $\boldsymbol{\Sigma}$ and coupling vector $\boldsymbol{r}$ conspire to physically rotate the system's eigenbasis by the influence angle $\psi$, while the magnitude $v$ quantifies the simultaneous depletion of the state's purity down to an effective 'hotter' thermal distribution. The environment, therefore, acts locally as a coherent rotation intermixed with an effective depolarization in the displaced basis.

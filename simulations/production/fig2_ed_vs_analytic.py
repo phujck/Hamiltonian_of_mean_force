@@ -58,8 +58,8 @@ def get_stars():
 G_STAR, B_STAR = get_stars()
 print(f"Calculated crossover scales: g_star={G_STAR:.3f}, beta_star={B_STAR:.3f}")
 
-fig, axes = plt.subplots(2, 1, figsize=(3.2, 5.2), sharex=True)
-fig.subplots_adjust(hspace=0.2)
+fig, axes = plt.subplots(2, 1, figsize=(3.2, 5.2))
+fig.subplots_adjust(hspace=0.38)
 
 SWEEPS = ["coupling", "temperature"]
 X_STARS = [G_STAR, B_STAR]
@@ -93,7 +93,10 @@ for row, (sw, x_star, x_lab, fix_lab, theta) in enumerate(zip(SWEEPS, X_STARS, X
     ax.set_xlim(0.1, 10.0)
     ax.set_ylabel(r"$p_{11}$")
     ax.set_xlabel(x_lab) # Add to both
-    ax.text(0.05, 0.9, ["(a)", "(b)"][row], transform=ax.transAxes, fontweight="bold")
+    ax.text(0.05, 0.96, ["(a)", "(b)"][row], transform=ax.transAxes,
+            fontweight="bold", va="top")
+    ax.text(0.97, 0.96, fix_lab, transform=ax.transAxes,
+            fontsize=6, ha="right", va="top", color="gray", style="italic")
     
     # Weak/Strong labels
     ax.text(0.15, 0.08, "Weak", transform=ax.transAxes, fontsize=7, color="#2c7fb8", fontweight="bold")

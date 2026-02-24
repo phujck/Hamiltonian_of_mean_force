@@ -1,0 +1,104 @@
+﻿% !TEX root = ../Hamiltonian_of_mean_force.tex
+\section{Averaging of the Time-Ordered Gaussian Propagator}
+\label{app:gaussian_averaging}
+
+We provide the explicit derivation of the identity in Eq.~\eqref{eq:Wbar_cumulant_T}, which relates the expectation value of a time-ordered exponential driven by Gaussian noise to a bilocal influence phase. Consider the time-ordered propagator
+\begin{equation}
+    W_\xi(\beta) = \mathcal{T}_\tau \exp\left[ -\int_0^\beta d\tau \, \xi(\tau) \tilde{f}(\tau) \right],
+\end{equation}
+where $\xi(\tau)$ is a centered Gaussian stochastic field with covariance $\langle \xi(\tau)\xi(\tau')\rangle = K(\tau-\tau')$, and $\tilde{f}(\tau)$ is a system operator. We wish to prove that
+\begin{equation}
+    \begin{split}
+        \langle W_\xi(\beta) \rangle_\xi &= \exp\bigg[ \frac{1}{2} \int_0^\beta d\tau \int_0^\beta d\tau' \, K(\tau-\tau') \\
+        &\quad \times \mathcal{T}_\tau \left[ \tilde{f}(\tau) \tilde{f}(\tau') \right] \bigg].
+    \end{split}
+\end{equation}
+
+The Dyson expansion of the time-ordered exponential is given by
+\begin{equation}
+    \begin{split}
+        W_\xi(\beta) &= \sum_{n=0}^\infty \frac{(-1)^n}{n!} \int_0^\beta d\tau_1 \cdots d\tau_n \\
+        &\quad \times \mathcal{T}_\tau \left[ \xi(\tau_1)\tilde{f}(\tau_1) \cdots \xi(\tau_n)\tilde{f}(\tau_n) \right].
+    \end{split}
+\end{equation}
+Because each $\xi(\tau_i)$ is a scalar (c-number), the time-ordering operator acts only on the operator factors. Thus, we may pull the stochastic fields out of the ordering:
+\begin{equation}
+    \mathcal{T}_\tau \left[ \xi_1 \tilde{f}_1 \cdots \xi_n \tilde{f}_n \right] = (\xi_1 \cdots \xi_n) \mathcal{T}_\tau \left[ \tilde{f}_1 \cdots \tilde{f}_n \right],
+\end{equation}
+where $\xi_i \equiv \xi(\tau_i)$ and $\tilde{f}_i \equiv \tilde{f}(\tau_i)$. Taking the stochastic average over $\xi$ and noting that centered Gaussian noise has vanishing odd moments, the expansion becomes
+\begin{equation}
+    \langle W_\xi \rangle = \sum_{p=0}^\infty \frac{1}{(2p)!} \int d^{2p}\tau \, \langle \xi_1 \cdots \xi_{2p} \rangle \mathcal{T}_\tau \left[ \tilde{f}_1 \cdots \tilde{f}_{2p} \right].
+    \label{eq:app_lhs_expanded}
+\end{equation}
+By Wick's theorem, the even moments are given by the sum over all pairings $P$:
+\begin{equation}
+    \langle \xi_1 \cdots \xi_{2p} \rangle = \sum_P \prod_{(i,j) \in P} K(\tau_i - \tau_j).
+\end{equation}
+
+We now consider the expansion of the claimed exponential result. Define the bilocal operator
+\begin{equation}
+    X \equiv \frac{1}{2} \int_0^\beta d\tau \int_0^\beta d\tau' \, K(\tau-\tau') \mathcal{T}_\tau \left[ \tilde{f}(\tau) \tilde{f}(\tau') \right].
+\end{equation}
+The $p$-th term in the series for $e^X$ is $(1/p!) X^p$. Introducing $p$ independent pairs of integration variables $(\tau_{2r-1}, \tau_{2r})$, we write
+\begin{equation}
+    X^p = \left( \frac{1}{2} \right)^p \int d^{2p}\tau \prod_{r=1}^p \left[ K_{(2r-1)(2r)} \mathcal{T}_\tau \left[ \tilde{f}_{2r-1} \tilde{f}_{2r} \right] \right],
+\end{equation}
+so that the full series is
+\begin{equation}
+    \begin{split}
+        e^X &= \sum_{p=0}^\infty \frac{1}{p!} \left( \frac{1}{2} \right)^p \int d^{2p}\tau \left[ \prod_{r=1}^p K_{(2r-1)(2r)} \right] \\
+        &\quad \times \left[ \prod_{r=1}^p \mathcal{T}_\tau \left[ \tilde{f}_{2r-1} \tilde{f}_{2r} \right] \right].
+    \end{split}
+    \label{eq:app_rhs_series}
+\end{equation}
+
+To relate this to Eq.~\eqref{eq:app_lhs_expanded}, we exploit the property of time ordering on the hypercube $[0,\beta]^{2p}$. apart from a set of measure zero, the integration domain can be partitioned into $(2p)!$ disjoint regions $R_\pi$ defined by the strict total ordering $\tau_{\pi(1)} > \tau_{\pi(2)} > \cdots > \tau_{\pi(2p)}$. On each such region, the global time ordering satisfies $\mathcal{T}_\tau [\tilde{f}_1 \cdots \tilde{f}_{2p}] = \tilde{f}_{\pi(1)} \cdots \tilde{f}_{\pi(2p)}$. Similarly, each pairwise time-ordering $\mathcal{T}_\tau [\tilde{f}_{2r-1} \tilde{f}_{2r}]$ collapses to the correctly oriented product according to the same strict ordering. It follows that the product of pair-ordered operators coincides with the global ordering almost everywhere:
+\begin{equation}
+    \prod_{r=1}^p \mathcal{T}_\tau \left[ \tilde{f}_{2r-1} \tilde{f}_{2r} \right] = \mathcal{T}_\tau \left[ \tilde{f}_1 \cdots \tilde{f}_{2p} \right].
+\end{equation}
+Substituting this into Eq.~\eqref{eq:app_rhs_series}, we may pull the global time ordering out of the products.
+
+The final step requires counting the occurrences of each Wick pairing. The expansion of $X^p$ utilizes $p$ labelled slots $r=1, \dots, p$, each containing an ordered pair. A Wick contraction $P$ is a set of $p$ unordered pairs. For any fixed Wick pairing $P$, there are $p!$ ways to assign the pairs to the $p$ slots and $2^p$ ways to orient each pair. Each Wick pairing is therefore represented exactly $2^p p!$ times in the integrand. This multiplicity is canceled by the prefactor $(1/p!) (1/2)^p$, yielding
+\begin{equation}
+    e^X = \sum_{p=0}^\infty \frac{1}{(2p)!} \int d^{2p}\tau \left( \sum_P \prod_{(i,j) \in P} K_{ij} \right) \mathcal{T}_\tau \left[ \tilde{f}_1 \cdots \tilde{f}_{2p} \right].
+\end{equation}
+This series matches Eq.~\eqref{eq:app_lhs_expanded} term-by-term, proving the exponentiation of the Gaussian average. Consequently, we may right the influence on the reduced density matrix as
+\begin{equation}
+    \begin{split}
+        \langle W_\xi(\beta)\rangle_\xi &= \exp\bigg[\frac12\int_0^\beta d\tau\int_0^\beta d\tau' K(\tau-\tau') \\
+        &\quad \times \mathcal T_\tau\!\big[\tilde f(\tau)\tilde f(\tau')\big]\bigg].
+    \end{split}
+    \label{eq:Wbar_cumulant_T}
+\end{equation}
+
+\subsection*{Domain Folding and the Triangular Form of the Influence Operator}
+\label{app:triangular_folding}
+
+The influence operator $\Delta(\beta)$ 
+\begin{equation}
+    \Delta(\beta) = \frac{1}{2} \int_0^\beta d\tau \int_0^\beta d\tau' \, K(\tau-\tau') \, \mathcal{T}_\tau \big[ \tilde{f}(\tau) \tilde{f}(\tau') \big].
+\end{equation}
+ admits a simplified representation over a strictly ordered time domain. By definition, the time-ordering operator for two system operators acts as
+\begin{equation}
+    \mathcal{T}_\tau \left[ \tilde{f}(\tau) \tilde{f}(\tau') \right] = \Theta(\tau-\tau') \tilde{f}(\tau) \tilde{f}(\tau') + \Theta(\tau'-\tau) \tilde{f}(\tau') \tilde{f}(\tau).
+\end{equation}
+Substituting this into the integral and splitting the domain yields
+\begin{equation}
+    \begin{split}
+        \Delta(\beta) &= \frac{1}{2} \iint_{\tau > \tau'} d\tau d\tau' \, K(\tau-\tau') \tilde{f}(\tau) \tilde{f}(\tau') \\
+        &\quad + \frac{1}{2} \iint_{\tau' > \tau} d\tau d\tau' \, K(\tau-\tau') \tilde{f}(\tau') \tilde{f}(\tau).
+    \end{split}
+\end{equation}
+In the second term, we perform the swap of dummy variables $(\tau, \tau') \mapsto (\tau', \tau)$. The region $\tau' > \tau$ becomes $\tau > \tau'$, the operator product transforms to $\tilde{f}(\tau) \tilde{f}(\tau')$, and the kernel becomes $K(\tau'-\tau)$. Thus,
+\begin{equation}
+    \begin{split}
+        &\frac{1}{2} \iint_{\tau' > \tau} d\tau d\tau' \, K(\tau-\tau') \tilde{f}(\tau') \tilde{f}(\tau) \\
+        &\quad = \frac{1}{2} \iint_{\tau > \tau'} d\tau d\tau' \, K(\tau'-\tau) \tilde{f}(\tau) \tilde{f}(\tau').
+    \end{split}
+\end{equation}
+Using the symmetry of the equilibrium kernel, $K(\tau-\tau') = K(\tau'-\tau)$, we find that both contributions are identical on the ordered region. Summing them yields the triangular representation used throughout this work:
+\begin{equation}
+    \Delta(\beta) = \int_0^\beta d\tau \int_0^\tau d\tau' \, K(\tau-\tau') \tilde{f}(\tau) \tilde{f}(\tau').
+\end{equation}
+
+
