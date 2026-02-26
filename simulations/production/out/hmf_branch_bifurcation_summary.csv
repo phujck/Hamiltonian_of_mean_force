@@ -1,0 +1,2 @@
+g_ref,g_over_gstar_ref,beta_star,beta_split,theta_ray_chart,theta_ray_manuscript,pi_minus_theta_ray_chart,pi_minus_theta_ray_manuscript,alpha_incoming_at_beta_star,alpha_groundward_beta_max,alpha_zreflected_beta_max,purity_beta_max,purity_branch_diff_max,chi0_monotone_flag,Theta_grid_min,Theta_grid_max
+0.6852027919951648,1.25,0.7212399527350748,25.0,0.7853981633974483,0.7853981633974483,2.356194490192345,2.356194490192345,2.3562013363061642,-7.45330633655783e-06,0.7853981633974483,1.0,0.0,1,-13.551574771347953,-0.026487331845720073

@@ -252,11 +252,12 @@ def chi0_spectral(beta, theta=THETA, omega_q=OMEGA_Q,
 # ── Cache  ─────────────────────────────────────────────────────────────────────
 _chi0_cache = {}
 
-def get_chi0(beta):
+def get_chi0(beta, theta=THETA):
     """Return (chi0, dz0, sx0). Computed via single spectral integral; cached."""
-    if beta not in _chi0_cache:
-        _chi0_cache[beta] = chi0_spectral(beta)
-    return _chi0_cache[beta]
+    cache_key = (beta, theta)
+    if cache_key not in _chi0_cache:
+        _chi0_cache[cache_key] = chi0_spectral(beta, theta=theta)
+    return _chi0_cache[cache_key]
 
 
 # ── Crossover function ─────────────────────────────────────────────────────────
@@ -269,16 +270,16 @@ def gamma(chi_arr):
 
 # ── Exact Bloch vector  ────────────────────────────────────────────────────────
 
-def bloch_ohmic(g_arr, beta):
+def bloch_ohmic(g_arr, beta, theta=THETA):
     """
-    Exact Bloch vector for the Ohmic bath at theta=pi/4.
+    Exact Bloch vector for the Ohmic bath.
 
     Returns (phi, r, mx, mz) where
       phi = arctan2(mx, −mz)  (Bloch angle from −z toward +x)
       r   = |Bloch vector|
     """
     a       = beta * OMEGA_Q / 2.0
-    chi0, dz0, sx0 = get_chi0(beta)
+    chi0, dz0, sx0 = get_chi0(beta, theta=theta)
 
     g_arr = np.asarray(g_arr, dtype=float)
     chi   = np.clip(g_arr**2 * chi0, 0, 300)
