@@ -13,20 +13,6 @@ throughout.  We emphasise here that the choice of spectral shape is not fundamen
 as it only controls the way in which $\chi$ runs
 with temperature. 
 
-To expose the coupling dependence cleanly, we reintroduce an explicit
-dimensionless strength $g$ through $K(u) = g^2 K_0(u)$, so that all response
-kernels scale as $g^2$.  The entire non-perturbative recombination of bare
-Hamiltonian and influence is then governed by the single dimensionless
-parameter
-\begin{equation}
-  \chi(\beta,g,\theta) = g^2\,\chi_0(\beta,\theta),
-\end{equation}
-through the crossover function
-\begin{equation}
-  \gamma(\chi) = \frac{\tanh\chi}{\chi}.
-  \label{eq:gamma_chi}
-\end{equation}
-
 This apparently innocuous expression encodes the entire non-perturbative recombination of bare Hamiltonian and influence, and functions as an \emph{order} parameter for the crossover between weak and strong coupling regimes. The reduced equilibrium state transitions between these regimes as $\chi$ passes through unity,
 \begin{equation}
     \chi(\beta,g,\theta)\sim 1
@@ -57,7 +43,12 @@ from $\gamma(0)=1$ to $\gamma(\infty)=0$ with its inflection near $\chi\approx
 In the weak-coupling regime the state tracks the bare Gibbs thermal state with
 $O(g^2)$ corrections, as expected. Notably, as shown in Fig.~\ref{fig:chi_theory}, the crossover between regimes depends on \emph{both} temperature and coupling strength. This means that two distinct regimes emerge in the limit of scaling $g$ and $\beta$, wholly dependent on which side of the crossover is taken. 
 
-This involutive relationship between temperature and coupling is explored in Fig.~\ref{fig:involutive_map}, which shows how the crossover $\chi=1$ defines a sharp partition in the $(\beta, g)$ plane. This line represents a coupling-dependent temperature scale $\beta_\star(g)$ (or equivalently $g_\star(\beta)$), where different parameter scaling relationships apply. A far more nuanced picture emerges in the limit of $\chi \gg 1$, which we defer to Sec. \ref{subsec:limits}. 
+Notably, these critical temperatures and couplings have an \emph{involutive} relationship, in the sense that
+\begin{equation}
+    \beta_\star(g_\star(\beta)) = \beta, \quad g_\star(\beta_\star(g)) = g.
+    \label{eq:involutive_relationship}
+\end{equation}
+This relationship between temperature and coupling means the crossover can be interpreted as the \emph{self-dual} line in the $(\beta, g)$ plane, as explored in Fig.~\ref{fig:involutive_map}. This line represents a coupling-dependent temperature scale $\beta_\star(g)$ (or equivalently $g_\star(\beta)$), where different parameter scaling relationships apply.
 
 \begin{figure}[t]
   \centering
@@ -128,9 +119,10 @@ Every trajectory lies strictly above its own $r_{\rm bare}$ reference line for
 all $g>0$, confirming~\eqref{eq:purity_bound}. Panel (b) shows the purity excess $\Delta r^2 = r^2 -
 \tanh^2(\beta\omega_q/2)$ over the full $(g,\beta)$ plane.  Enhancement peaks at large $g$
 and high temperature (upper-right corner), and falls to near zero at low
-temperature (left edge) where the bath-independent bare state is already nearly
-pure.  The black dashed contour $\chi=1$ marks the crossover at which purification
+temperature (left edge) where the bare state is already nearly pure.  The black dashed contour $\chi=1$ marks the crossover at which purification
 accelerates steeply. This is an amusingly counterintuitive result - for sufficiently strong coupling, a \emph{hotter} bath is \emph{more} purifiying!
+
+Finally, we note that there is a slight tension in this result when compared to the renormalised perspective. In particular, from Eq.~\eqref{eq:bloch_locking_linear}, where we associate the state radius with an effective inverse temperature $\tilde{\beta} = 2\chi/\omega_q$, a purity decrease would require $\tilde{\beta}$ to fall below its bare value. Should the effective temperature ever cross into the negative regime, this would correspond to a \emph{population inversion} in the renormalised system. However, since the coupling $g$ is measured in inverse units of $\omega_q$, the resonant reinforcement $\Sigma_z$ scales such that for any \emph{finite} coupling and splitting, the influence parameter $\chi = g^2\chi_0$ is strictly positive. This ensures that the effective inverse temperature $\tilde{\beta}$ remains strictly positive and bounded from below by its bare thermal value for all $g>0$. Thus, for any physical bath, no finite coupling can ever induce a population inversion, confirming that the bath serves only to order and purify the qubit state.
 
 \begin{figure}[t]
     \centering
@@ -152,7 +144,7 @@ accelerates steeply. This is an amusingly counterintuitive result - for sufficie
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.48\textwidth]{../figures/hmf_fig1_chi_theory_cd.pdf}
-    \caption{Coherence and purity susceptibilities (Ohmic bath~\eqref{eq:J_ohmic}, $\theta=\pi/4$).
+    \caption{Coherence and purity susceptibilities.
     \textbf{(c)} Bloch-angle susceptibility $\partial_g\varphi$ versus scaled
     coupling $g/g_\star(\beta)$ for three temperatures.  Rescaling collapses the
     peak positions to a universal value $g/g_\star \approx 0.65$, marked by filled
@@ -162,20 +154,117 @@ accelerates steeply. This is an amusingly counterintuitive result - for sufficie
     \label{fig:chi_susceptibility}
 \end{figure}
 
-\subsection{Susceptibility peaks at the crossover}
+\subsection{Quantum Enhancement of Heat Engines}
 An interesting feature of the crossover regime is that it demarcates the region where the state is maximally sensitive to bath coupling. This is easily seen by considering the susceptibilities of the tilt angle $\partial_g\varphi$ and Bloch radius $\partial_g r$. These quantify how rapidly the Bloch vector tilts and how rapidly the state purifies per unit change in $g$. As Fig.~\ref{fig:chi_susceptibility} shows, both peak near the
 crossover $\chi =1$. $\partial_g\varphi$ maximises at $g \approx 0.65\,g_\star$
 (at $\chi_{\rm peak,\varphi}\approx 0.42$) and $\partial_g r$ maximises at $g
 \approx 0.92\,g_\star$ ($\chi_{\rm peak,r}\approx 0.85$).  The locations are
-approximately pinned at universal values of $\chi$ independent of temperature, as demonstrated by the alignment of peaks when plotted as a function of the rescaled coupling $g/g_\star(\beta)$.
-
-The crossover region $\chi\sim 1$ is therefore where bath coupling yields the
+approximately pinned at universal values of $\chi$ independent of temperature, as demonstrated by the alignment of peaks when plotted as a function of the rescaled coupling $g/g_\star(\beta)$. The crossover region $\chi\sim 1$ is therefore where bath coupling yields the
 greatest rate of return: both the onset of coherence (tilt of the Bloch vector
 away from the bare thermal axis) and the onset of purification are most rapid
 here, before both effects saturate as $\chi\to\infty$.  This suggests the
-crossover regime is the most operationally leveragable for state engineering.
+crossover regime is the most operationally leveragable for state engineering. 
 
-While being most expolitable, this regime is simultaneously the most demanding for
+We can immediately demonstrate this phenomenon with a toy model of a heat engine. In particular, we consider an Otto-stroke cycle, with unitary strokes. This can extract at most the system
+\emph{ergotropy} per stroke with respect to the stroke Hamiltonian. The ergotropy of a state $\rho$ with respect to $H_Q$ is
+
+\begin{equation}
+  W_{\rm erg}(\rho,H_Q)
+  = \Tr(\rho H_Q) - \min_{U}\Tr(U\rho U^\dagger H_Q),
+  \label{eq:ergotropy_def}
+\end{equation}
+
+where the minimisation is over all unitaries $U$.  For any qubit the
+minimiser is a \emph{passive rearrangement}. The Bloch vector is simply rotated
+antiparallel to the ground direction $-\hat{\mathbf{n}}_s$ of $H_Q$ at
+fixed spectrum.  The passive state has Bloch vector $\vec{m}^{\,\rm pas}
+= -r\hat{\mathbf{n}}_s$ and energy $-\omega_q r/2$.  
+
+The astute reader may already have noticed that the renormalised perspective already contains within it an implicit quantum advantage, but for the slower thinkers we shall make it explicit. The argument proceeds in two steps. We first define the quantum advantage over an incoherent cycle by the \emph{coherence-enabled ergotropy}. Letting $\delta[\rho]\equiv\operatorname{diag}(\rho)$
+denote the dephased state in the $H_Q$ eigenbasis. From this, the coherent contribution to ergotropy is simply:
+\begin{equation}
+\begin{split}
+  \delta W_{\rm coh} &:= W_{\rm erg}(\rho,H_Q) - W_{\rm erg}(\delta[\rho],H_Q) \\
+  &= \frac{\omega_q}{2}\!\left(\sqrt{m_z^2+m_\perp^2}+m_z\right), \qquad m_z\leq 0,
+\end{split}
+\label{eq:delta_W_coh}
+\end{equation}
+
+Both equalities in Eq.~\eqref{eq:delta_W_coh} warrant justification.
+The physics decomposes cleanly into two independent structural facts. First, \emph{the dephased state is always passive}. Energy dephasing leaves a diagonal state $\delta[\rho]$ with populations
+$p_\pm = (1\pm m_z)/2$.  For $\delta[\rho]$ to be passive one needs the
+larger eigenvalue on the lower-energy level, i.e.\ $p_- \geq p_+$, which
+reduces to $m_z \leq 0$.  This is guaranteed by the bath: $\Sigma_z > 0$
+for any positive spectral density (established in Sec.~\ref{subsec:purity}),
+which forces $m_z < 0$ at all finite $g$ and $\beta$.  An incoherent cycle
+running on $\delta[\rho]$ therefore extracts zero work,
+$W_{\rm erg}(\delta[\rho],H_Q)=0$, and the first equality in
+Eq.~\eqref{eq:delta_W_coh} reduces to
+$\delta W_{\rm coh} = W_{\rm erg}(\rho,H_Q)$.
+
+The second crucial fact is that for any $\theta \neq 0, \pi/2$, the bath tilts the Bloch vector away from the passive direction $-\hat{\mathbf{n}}_s$ through the anisotropy
+$\tan\eta=-\cot\theta\,\Sigma_\perp/\Sigma_z$
+(Eq.~\eqref{eq:theta_eta_params}), generating a non-zero transverse
+magnetisation $\tilde{m}_\perp\propto\Sigma_\perp$
+(Eq.~\eqref{eq:effective_magnetisations}). Then one has $m_\perp\neq 0$ and thus
+$r > |m_z|$.  The ergotropy of the mean-force state is then
+\begin{equation}
+  W_{\rm erg}(\rho,H_Q) = \frac{\omega_q}{2}(r + m_z) > 0,
+  \label{eq:ergotropy_qubit}
+\end{equation}
+with the exact solution $r=\tanh\chi$, $m_z=\tanh\Theta$ giving the
+closed form
+\begin{equation}
+  W_{\rm erg} = \frac{\omega_q}{2}(\tanh\chi + \tanh\Theta).
+  \label{eq:ergotropy_exact}
+\end{equation}
+
+These facts in combination establish quantum advantage as a structural guarantee: $\delta W_{\rm coh}>0$ for any physical
+broadband bath, independently of coupling strength or temperature.It does
+not of course guarantee positive \emph{net} work output from a complete cycle. This will depend on the control cost
+of modulating the coupling $g$, which generates and maintains the
+transverse coherence $m_\perp$. Nevertheless, we may use these results to establish that the ergotropy gain is maximised in the crossover regime $\chi \sim 1$. 
+
+Differentiating Eq.~\eqref{eq:ergotropy_qubit} with respect to coupling,
+\begin{equation}
+  \partial_g W_{\rm erg} = \frac{\omega_q}{2}(\partial_g r + \partial_g m_z),
+  \label{eq:dWerg_dg}
+\end{equation}
+both terms receive contributions from the purity susceptibility $\partial_g r$
+and the tilt susceptibility $\partial_g\varphi$ that peak in the crossover
+band $\chi \sim 1$ (Fig.~\ref{fig:chi_susceptibility}).  The ergotropy
+gradient therefore also peaks within this band. The crossover regime
+$\chi \sim 1$ is where coupling most efficiently converts bath influence
+into extractable work.  Figure~\ref{fig:ergotropy} shows this directly: the susceptibility
+$\partial_g W_{\rm erg}$ peaks near $g\approx g_\star$ at a value that
+grows monotonically with $\beta$, while $\delta W_{\rm coh}$ itself
+turns on at the crossover and saturates at a $\beta$-dependent level.
+The crossover is therefore the operational marker for engine-relevant
+resource generation, and the effect is amplified at lower temperatures
+where the transverse bath channel $\Sigma_\perp$ becomes dominant. This translates into a general design principle for quantum engines - that their efficiency is maximised when the coupling is modulated around the crossover band. 
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{../figures/hmf_ergotropy.pdf}
+  \caption{Coherence-enabled ergotropy of the qubit mean-force state.
+    \textbf{(a)} Ergotropy susceptibility
+    $\partial_g \delta W_{\rm coh}$ versus $g/g_\star(\beta)$.
+    The peak position locks near the crossover $g\approx g_\star$
+    independent of temperature, while the peak height increases
+    monotonically with $\beta$: low temperatures activate the
+    transverse bath channel and make coherence-enabled work extraction
+    increasingly efficient.
+    \textbf{(b)} Coherence-enabled ergotropy
+    $\delta W_{\rm coh}$ versus $g/g_\star(\beta)$ (calculated for $\omega_q=1$).  Since $m_z<0$ throughout,
+    $W_{\rm erg}(\delta[\rho])=0$ and $\delta W_{\rm coh}=W_{\rm erg}$
+    (Proposition~\ref{prop:coh_erg}).  The onset occurs at the
+    crossover and the saturation value grows with $\beta$,
+    reflecting the increasing importance of the transverse bath
+    channel $\Sigma_\perp$ at lower temperatures.}
+  \label{fig:ergotropy}
+\end{figure}
+
+There is a final irony to this result.  While being most expolitable, this regime is simultaneously the most demanding for
 numerical simulation.  Exact Diagonalisation (ED) of the truncated spin-boson
 model faces two convergence requirements that become simultaneously binding
 near $\chi\sim 1$.  On the spectral side, a faithful discretisation of $J(\omega)$
@@ -194,83 +283,156 @@ space into an ED-reliable sector ($\chi\lesssim 1$) and a
 polaron-representability-limited sector ($\chi\gtrsim 1$), with the
 susceptibility peaks sitting squarely on this boundary. 
 
+ 
 \subsection{Temperature-driven and coupling-driven limits}
 \label{subsec:limits}
+We now turn our attention to two\footnote{There is a third limit, but it lies outside the present scope of our discussion} of the limiting cases of the qubit mean-force state: the coupling-driven limit ($g\to\infty$ at fixed $T$) and the temperature-driven limit ($T\to 0$ at fixed $g$). The first observation is that $g\to\infty$ at fixed $T$ and $T\to 0$ at fixed $g$ drive $\chi\to\infty$
+and hence $r\to 1$.  Yet the two limits land at entirely different points on the
+Bloch disk boundary.  The state's location is set by two bath-dependent
+quantities: the tilt-angle parameter $\eta$ [Eq.~\eqref{eq:theta_eta_params}]
+and the effective-temperature shift $\Theta+\beta\omega_q/2 =
+\operatorname{arctanh}(\gamma s^2\Sigma_z)$.  In both limits $\gamma\to 0$, but
+the product $\gamma s^2\Sigma_z$ behaves oppositely, and this is the root of
+the distinction.
 
-The parameter $\chi\to\infty$ can be reached along two qualitatively distinct
-routes through the $(g,\beta)$ plane, and these routes access different corners
-of state space.
-
-\begin{figure*}[!ht]
+\begin{figure}[t!]
     \centering
-    \includegraphics[width=0.95\textwidth]{../figures/hmf_bloch_disk_portrait.pdf}
-    \caption{Trajectories of the mean-force Bloch vector in the coupling plane
-    ($\theta=\pi/4$, Ohmic bath~\eqref{eq:J_ohmic}).  Coordinates: longitudinal
-    polarisation $m_z = \langle\sigma_z\rangle$ vs.\ square-root transverse
-    polarisation $\sqrt{m_x} = \sqrt{\langle\sigma_x\rangle}$ (the
-    square-root resolves the quadratic initial growth).  The dashed line marks
-    the direction $\hat{\mathbf f}_\perp = (\cos\theta, -\sin\theta)$ 
-    perpendicular to the coupling axis.
+    \includegraphics[width=0.8\columnwidth]{../figures/hmf_bloch_disk_portrait.pdf}
+    \caption{Trajectories of the mean-force Bloch vector in the coupling plane.  Coordinates: longitudinal
+    polarisation $m_z = \langle\sigma_z\rangle$ vs.\ transverse
+    polarisation $m_\perp = \langle\sigma_\perp\rangle$, plotted on a square-root scale $\sqrt{m_\perp}$ to resolve the crossover region.  The dashed line marks
+    the direction $\varphi$ of the strong-coupling attractor for the lowest temperature shown.
     \textbf{(a)} Coupling-driven trajectories: fixed $\beta\omega_q \in
     \{0.5,1.0,2.0,3.0\}$, coupling $g$ swept from $0$ to $\infty$.  Circles:
     bare thermal state ($g=0$).  Stars: crossover $g=g_\star$.  Squares:
     strong-coupling attractor ($g\to\infty$).  The squares lie at
     different positions for each $T$, demonstrating temperature memory.
-    \textbf{(b)} Temperature-driven trajectories: fixed coupling values
-    swept over $\beta$.  Circles: $T\to\infty$.  Stars: $T=T_\star(g)$.
+    \textbf{(b)} Temperature-driven trajectories: fixed coupling values $g/\omega_q \in \{0.2, 0.5, 1.0, 2.0\}$
+    swept over $\beta$. To eliminate the exponentially scaling DC component of the non-resonant bath influence, we assume a bath with a small IR cutoff frequency $\omega_{\rm min} = 0.04\omega_q$. Circles: $T\to\infty$.  Stars: $T=T_\star(g)$.
     Squares: $T\to 0$ (all converge to $-\hat{\mathbf n}_s$, the ground state).
     At large $g$ (top curves) the state traces near the disk boundary, a
     precession at near-unit purity as the attractor direction drifts with
     temperature.}
     \label{fig:bloch_disk_portrait}
-\end{figure*}
+\end{figure}
 
 \paragraph{Coupling-driven limit: $g\to\infty$ at fixed $T$.}
-As $g$ increases at fixed temperature, the state locks onto the
-temperature-dependent bath-dressed attractor direction $\hat{\mathbf
-h}_{\rm eff}(\beta)$.  Purity approaches unity, but the direction encodes the
-temperature: the strong-coupling attractors (squares in
-Fig.~\ref{fig:bloch_disk_portrait}(a)) lie at \emph{different} positions for
-each temperature, reflecting the temperature-dependent weights of the resonant
-and non-resonant bath channels.  This is the \emph{temperature memory} of the
-mean-force state: even at arbitrarily strong coupling, the equilibrium state
-carries information about the temperature.
-
-\paragraph{Temperature-driven limit: $T\to 0$ at fixed $g$.}
-As the system cools at fixed coupling, the bare Gibbs factor dominates and the
-state approaches the ground state $-\hat{\mathbf n}_s$ regardless of $g$.
-Panel~(b) of Fig.~\ref{fig:bloch_disk_portrait} shows this route: curves at
-fixed $g$ sweep from near the disk centre (high temperature, $\chi\approx 0$)
-outward to near-unit purity as $\beta$ grows, converging to $-\hat{\mathbf
-n}_s$ (bottom of the disk) in the limit $T\to 0$.  At \emph{large} $g$ the
-state quickly reaches near-unit purity and then drifts along the disk boundary
-as the attractor direction shifts with temperature --- a precession at
-approximately constant purity.  The endpoint of this precession at $T\to 0$ is
-always $-\hat{\mathbf n}_s$, independent of $g$.
-
-\paragraph{Co-moving limit.}
-A third natural route holds the scaled coupling $\xi = g/g_\star(\beta)$ fixed
-as $\beta$ varies, tracing a level set of $\chi = \xi^2$ in the $(g,\beta)$
-plane.  Along such a curve the purity $r = \tanh(\chi) = \tanh(\xi^2)$ is
-constant, while the Bloch vector direction
+Factoring out the coupling as $K(u)=g^2 K_0(u)$ shows that both bath channels
+scale identically with $g$: $\Sigma_z = g^2\Sigma_z^{(0)}$ and
+$\Sigma_\perp = g^2\Sigma_\perp^{(0)}$, so $\chi = g^2\chi_0(\beta)$.  
+The key observation is that any ratio of bath-induced quantities is independent of $g$ in this limit.
+More precisely, for any two observables $A(g), B(g)$ that each scale as $g^2$, an L'Hopital-style argument gives
 \begin{equation}
-  \hat{\mathbf n}(\beta) = \frac{1}{\chi}
-  \bigl(s \Sigma_\perp c,\,s^2 \Sigma_z\bigr)
-  \label{eq:nhat_beta}
+  \lim_{g\to\infty} \frac{A(g)}{B(g)} = \lim_{g\to\infty} \frac{g^2 A^{(0)}}{g^2 B^{(0)}} = \frac{A^{(0)}}{B^{(0)}},
+  \label{eq:ginfty_ratio}
 \end{equation}
-evolves with temperature.  For large $\xi$ (strong coupling), this is an arc at
-near-unit purity sweeping across the Bloch disk boundary: the strong-coupling
-attractor precesses as the bath channels $s \Sigma_\perp c/\chi$ and
-$s^2 \Sigma_z/\chi$ vary with $\beta$.  As $\beta\to 0$ along
-the fixed-$\xi$ curve, the direction approaches the high-temperature value; as
-$\beta\to\infty$, the longitudinal channel dominates ($s^2 \Sigma_z/\chi \to 1$) and $\hat{\mathbf n}\to -\hat{\mathbf n}_s$.
+where $A^{(0)}, B^{(0)}$ are the $g$-independent amplitudes. Although individually
+$\gamma=\tanh\chi/\chi\to 0$ and $\Sigma_z\to\infty$ as $g\to\infty$, their product is an example of this rule:
+\begin{equation}
+  \gamma s^2\Sigma_z = \frac{\tanh(g^2\chi_0)}{g^2\chi_0}\cdot g^2 s^2\Sigma_z^{(0)}
+  \;\xrightarrow{g\to\infty}\; \frac{s^2\Sigma_z^{(0)}}{\chi_0(\beta)},
+  \label{eq:ginfty_dressing}
+\end{equation}
+which is a finite, purely temperature-dependent quantity. Crucially, the tilt-angle ratio
+$\Sigma_\perp/\Sigma_z = \Sigma_\perp^{(0)}/\Sigma_z^{(0)}$ is likewise $g$-independent.
+The entire $g$-dependence of the trajectory therefore enters only through $\gamma(g^2\chi_0)$,
+which controls how far along the trajectory --  from the bare state at $g=0$ to the
+asymptotic attractor -- the state has been driven.  The attractor itself is a fixed
+point in the $(m_\perp, m_z)$ plane whose location is set by $\beta$ alone and is
+independent of how large $g$ is taken.  This is the \emph{temperature memory} of the
+system: the strong-coupling attractors (squares in Fig.~\ref{fig:bloch_disk_portrait}(a))
+label a $\beta$-parameterised curve on the disk boundary.
 
-The two limits $g\to\infty$ (fixed $T$) and $T\to 0$ (fixed $g$) do not
-commute: the former locks to a temperature-dependent attractor with temperature
-memory, the latter approaches the bare ground state and forgets the coupling
-geometry.  The co-moving limit interpolates between these extremes at fixed
-coupling strength.
+\paragraph{The crossover at $g_\star$ and the two regimes.}
+The coupling scale $g_\star$ defined by $\chi(\beta,g_\star)=1$ [Eq.~\eqref{eq:chi_crossover_condition_v5}]
+partitions the trajectory into two qualitatively distinct segments.  For $g<g_\star$
+($\chi<1$), $\gamma>\tanh(1)\approx 0.76$ and the bath dressing is sub-critical: the
+effective temperature $\tilde\beta$ remains close to the bare value and the state
+stays well within the disk, close to the bare thermal state.  For $g>g_\star$
+($\chi>1$), $\gamma$ drops rapidly and the state is driven strongly toward the
+attractor: the purity $r=\tanh\chi$ saturates toward 1 and the effective temperature
+departs significantly from bare $\beta$.  The star markers in panel~(a) mark the
+bend in each trajectory — the onset of the bath-dominated regime — where the
+state leaves the interior of the disk and begins hugging the boundary.  Notably,
+for $g\gg g_\star$ the effective dressing $\gamma s^2\Sigma_z$ saturates to its
+asymptotic value and the state freezes at the attractor, regardless of how much
+further $g$ is increased.
 
+\paragraph{Temperature dependence of the attractor and connection to the Cresser--Anders limit.}
+The attractor location itself shifts with temperature.  From
+Eqs.~\eqref{eq:ginfty_dressing} and~\eqref{eq:theta_eta_params}, the attractor
+direction is governed by
+$\tan\eta^{(\infty)} = -\cot\theta\,\Sigma_\perp^{(0)}/\Sigma_z^{(0)}$,
+which grows with $\beta$ (since $\Sigma_\perp^{(0)}$ grows exponentially and
+$\Sigma_z^{(0)}$ only linearly): as temperature decreases, the attractor drifts to
+larger $m_\perp$, tracing a curve toward the coupling-axis direction $\pi-\theta$.
+This drift is directly visible in panel~(a): the cold attractors (blue squares) lie
+further from the pole than the hot ones (red squares).
+
+This observation connects naturally to the ultrastrong limit studied by Cresser and
+Anders~\cite{cresserWeakUltrastrongCoupling2021a}.  Their argument treats the bare
+qubit Hamiltonian $H_Q$ as a perturbation on the joint system-bath in the limit
+$g\to\infty$ -- in effect taking $g/\omega_q\to\infty$ so that the qubit frequency
+becomes infinitesimal relative to the coupling scale.  From our perspective, this
+corresponds to evaluating both bath channels in the $\omega_q\to 0$ limit, where
+the frequency selectivity between $\Sigma_z$ and $\Sigma_\perp$ is lost and both
+channels probe the same low-frequency spectral weight.  In that limit the ratio
+$\Sigma_\perp/\Sigma_z$ diverges (since $\Sigma_z\propto\omega_q$ vanishes while
+$\Sigma_\perp$ remains finite), driving $\tan\eta^{(\infty)}\to\infty$ and the
+attractor to the direction of the coupling axis $\hat{\mathbf f}$, consistent with
+the Cresser--Anders result.  Our temperature-resolved picture reveals that this
+alignment with $\hat{\mathbf f}$ is the \emph{zero-temperature endpoint} of the
+attractor drift: at any finite temperature the attractor sits at an intermediate
+angle encoding the competition between $\omega_q$ and the bath-induced dressing.
+
+\paragraph{Two $\beta\to\infty$ scenarios: DC bath versus IR gap.}
+The $\Sigma_\perp/\Sigma_z$ ratio is the key object because it determines both $\eta$
+(the attractor direction) and feeds into $\chi$ (which drives $r\to 1$).  Its
+$\beta$-dependence is controlled by the bath's low-frequency spectral structure.
+The longitudinal channel is \emph{universal}:
+\begin{equation}
+  \Sigma_z = \tfrac12[R(\omega_q)-R(-\omega_q)] \;\sim\; \beta\lambda, \qquad
+  \lambda \equiv \int_0^\infty\frac{d\omega\,J(\omega)}{\omega},
+  \label{eq:Sigma_z_linear}
+\end{equation}
+growing \emph{linearly} with $\beta$ for any bath with finite spectral weight at
+$\omega_q$.  This reflects the linear growth of the detailed-balance asymmetry
+$R(\omega) - R(-\omega) = 2\beta\omega\lambda$ with inverse temperature.  In contrast,
+the non-resonant channel [Eq.~\eqref{eq:bath_kernels_direct}]
+\begin{equation}
+  \Sigma_\perp \approx \frac{4}{\omega_q}\Bigl[
+    \cosh\!\left(\tfrac{\beta\omega_q}{2}\right)\mathcal{K}(0)
+    - e^{-\beta\omega_q/2}\mathcal{K}(\omega_q)\Bigr]
+  \label{eq:Sigma_perp_expanded}
+\end{equation}
+exhibits a qualitative bifurcation depending on the bath IR structure:
+
+\begin{itemize}
+  \item \textbf{DC bath} ($\omega_{\min}=0$, finite $\mathcal{K}(0)>0$): the
+  $\cosh(\beta\omega_q/2)$ prefactor drives $\Sigma_\perp\propto e^{\beta\omega_q/2}$
+  \emph{exponentially}, so $\Sigma_\perp/\Sigma_z \propto e^{\beta\omega_q/2}/\beta\to\infty$.
+  Via Eq.~\eqref{eq:theta_eta_params}, $|\tan\eta|\to\infty$ and $\eta\to\pi/2$,
+  precessing the state toward $\pi-\theta$.  Simultaneously $\chi\sim s|c|\Sigma_\perp$
+  grows exponentially, so the crossover $\chi\sim 1$ occurs at a finite $\beta_\star$,
+  after which the state rapidly saturates to a pure state at the coupling-axis attractor.
+
+  \item \textbf{IR-gapped bath} ($\omega_{\min}>0$, so $\mathcal{K}(0)\to 0$ exponentially
+  below $\omega_{\min}$): the DC term is quenched and the surviving term decays,
+  $\Sigma_\perp\sim e^{-\beta\omega_q/2}$.  The ratio $\Sigma_\perp/\Sigma_z\to 0$,
+  and $|\tan\eta|\to 0$: the effective field aligns with $\hat{\mathbf n}_s$ and the
+  coherences are quenched.  With $\gamma s^2\Sigma_z \propto\Sigma_z/\Sigma_\perp\to 0$,
+  the effective-temperature shift vanishes and $m_z\to -\tanh(\beta\omega_q/2)$.
+  At this value the prefactor $m_z\cosh(\beta\omega_q/2)+\sinh(\beta\omega_q/2)$
+  in Eq.~\eqref{eq:bloch_locking_linear} is exactly zero, so $m_\perp=0$ identically:
+  the state collapses to the bare ground state $-\hat{\mathbf n}_s$.
+\end{itemize}
+
+This is why the two panels of Fig.~\ref{fig:bloch_disk_portrait} look so different:
+panel~(a) (fixed $\beta$, $g$-sweep) operates at fixed $\Sigma_\perp/\Sigma_z$ and shows
+trajectories converging to temperature-dependent attractors on the disk boundary;
+panel~(b) (fixed $g$, $\beta$-sweep with $\omega_{\min}>0$) tracks the IR-gapped
+scenario and all trajectories converge to the same south pole, even those that closely
+approach the boundary at intermediate $\beta$.
 
 
 \subsection{Relation to the Cresser--Anders ultrastrong limit}

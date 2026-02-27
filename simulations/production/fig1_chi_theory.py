@@ -252,11 +252,12 @@ def chi0_spectral(beta, theta=THETA, omega_q=OMEGA_Q,
 # ── Cache  ─────────────────────────────────────────────────────────────────────
 _chi0_cache = {}
 
-def get_chi0(beta, theta=THETA):
+def get_chi0(beta, theta=THETA, **kwargs):
     """Return (chi0, dz0, sx0). Computed via single spectral integral; cached."""
-    cache_key = (beta, theta)
+    # Build a stable cache key including any custom parameters
+    cache_key = (float(beta), float(theta), tuple(sorted(kwargs.items())))
     if cache_key not in _chi0_cache:
-        _chi0_cache[cache_key] = chi0_spectral(beta, theta=theta)
+        _chi0_cache[cache_key] = chi0_spectral(beta, theta=theta, **kwargs)
     return _chi0_cache[cache_key]
 
 
@@ -270,16 +271,18 @@ def gamma(chi_arr):
 
 # ── Exact Bloch vector  ────────────────────────────────────────────────────────
 
-def bloch_ohmic(g_arr, beta, theta=THETA):
+def bloch_ohmic(g_arr, beta, theta=THETA, **kwargs):
     """
     Exact Bloch vector for the Ohmic bath.
+    
+    Any kwargs are passed down to get_chi0 and chi0_spectral (e.g., omega_min).
 
     Returns (phi, r, mx, mz) where
       phi = arctan2(mx, −mz)  (Bloch angle from −z toward +x)
       r   = |Bloch vector|
     """
     a       = beta * OMEGA_Q / 2.0
-    chi0, dz0, sx0 = get_chi0(beta, theta=theta)
+    chi0, dz0, sx0 = get_chi0(beta, theta=theta, **kwargs)
 
     g_arr = np.asarray(g_arr, dtype=float)
     chi   = np.clip(g_arr**2 * chi0, 0, 300)

@@ -64,7 +64,7 @@ fig.subplots_adjust(hspace=0.38)
 SWEEPS = ["coupling", "temperature"]
 X_STARS = [G_STAR, B_STAR]
 X_LABS = [r"$g/g_\star$", r"$\beta/\beta_\star$"]
-FIX_LABS = [r"$\beta\omega_q=2, \theta=\pi/4$", r"$g/\omega_q=0.5, \theta=\pi/2$"]
+FIX_LABS = [r"$\beta\omega_q=2$", r"$g/\omega_q=0.5$"]
 THE_STARS = [np.pi/2.56, np.pi/2]
 
 for row, (sw, x_star, x_lab, fix_lab, theta) in enumerate(zip(SWEEPS, X_STARS, X_LABS, FIX_LABS, THE_STARS)):

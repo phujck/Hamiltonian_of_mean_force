@@ -312,27 +312,6 @@ def make_figure() -> tuple[Path, Path]:
     theta_lab_r = 0.84
     hub_lab_r = 0.84
     twotheta_lab_r = 0.62
-    axA.text(
-        theta_lab_r * np.sin(float(d["plot_alpha_theta"])) + 0.02,
-        -theta_lab_r * np.cos(float(d["plot_alpha_theta"])) - 0.03,
-        r"$\theta$",
-        fontsize=7.4,
-        color="#8b2a2a",
-    )
-    axA.text(
-        hub_lab_r * np.sin(float(d["plot_alpha_hub"])) + 0.02,
-        -hub_lab_r * np.cos(float(d["plot_alpha_hub"])) + 0.01,
-        r"$\pi-\theta$",
-        fontsize=7.4,
-        color="#8b2a2a",
-    )
-    axA.text(
-        twotheta_lab_r * np.sin(float(d["plot_alpha_2theta"])) + 0.02,
-        -twotheta_lab_r * np.cos(float(d["plot_alpha_2theta"])) + 0.01,
-        r"$2\theta$",
-        fontsize=7.1,
-        color="#9a5d14",
-    )
 
     # Compact legend rather than long in-panel prose.
     legend_handles = [
@@ -382,15 +361,8 @@ def make_figure() -> tuple[Path, Path]:
     axB.set_xlabel(r"$\beta\omega_q$")
     axB.set_ylabel(r"Branch angle (rad)")
     axB.set_ylim(min(-0.10, y_min - 0.10), y_max + 0.12)
-    tick_pairs = [
-        (0.0, r"$0$"),
-        (float(d["plot_alpha_theta"]), r"$\theta$"),
-        (float(d["plot_alpha_2theta"]), r"$2\theta$"),
-        (float(d["plot_alpha_hub"]), r"$\pi-\theta$"),
-    ]
-    tick_pairs.sort(key=lambda t: t[0])
-    axB.set_yticks([p[0] for p in tick_pairs])
-    axB.set_yticklabels([p[1] for p in tick_pairs])
+    axB.set_yticks([])
+    axB.set_yticklabels([])
     axB.grid(True, which="both", alpha=0.12, lw=0.35)
     axB.legend(handles=angle_handles, loc="lower left", framealpha=0.92, fontsize=6.3, handlelength=2.2)
     _panel_label(axB, "(b)")

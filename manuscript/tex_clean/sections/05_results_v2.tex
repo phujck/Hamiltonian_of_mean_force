@@ -1,8 +1,8 @@
-\section{Exact Solution: Geometric Representation}
+\section{Spin-Boson Model}
 \label{subsec:qubit_exact_geometry}
 
 We now put the machinery of Secs.~\ref{sec:generating_function}--\ref{sec:qubit_closure} to work
-in the transverse-coupling spin-boson model. The qubit is the prototypical rank-1 case of the general framework, yet its $\mathfrak{su}(2)$ algebra is rich enough to generate all the essential non-perturbative physics. As illustrated in Fig.~\ref{fig:bloch_overview}, the exact qubit mean-force state $\mathbf{r}$ lives in a three-dimensional Bloch sphere, but is geometrically locked to the \emph{coupling plane} (shaded) spanned by the system axis $\hat{\mathbf{n}}_s$ and the interaction axis $\hat{\mathbf{f}}$. The orientation of this plane is defined by the interaction phase $\phi$, which directly determines the phase of the induced coherences in the reduced state. 
+in the prototypical case of an open quantum system - the Spin-Boson model. This couples a single spin to the environment, and its $\mathfrak{su}(2)$ algebra is rich enough to generate non-trivial corrections, while being simple enough to yield easily tractable results. Critically however, this latter feature is \emph{convenient} for our purposes, and not reflective of a limitation of the general framework. As illustrated in Fig.~\ref{fig:bloch_overview}, the exact qubit mean-force state $\mathbf{r}$ lives in a three-dimensional Bloch sphere, but is geometrically locked to the \emph{coupling plane} (shaded) spanned by the system axis $\hat{\mathbf{n}}_s$ and the interaction axis $\hat{\mathbf{f}}$. The orientation of this plane is defined by the interaction phase $\phi$, which directly determines the phase of the induced coherences in the reduced state. 
 
 We first define our system Hamiltonian and coupling via
 \begin{equation}
@@ -17,7 +17,7 @@ covariantly in terms of $\hat{\mathbf{n}}_s$ and $\hat{\mathbf{f}}_\perp$.
 \begin{figure}[t]
     \centering
     \includegraphics[width=\columnwidth]{../figures/hmf_bloch_3d_overview.pdf}
-    \caption{3D geometric overview of the exact qubit mean-force state. The system is defined by the bare axis $\hat{\mathbf{n}}_s$ and the interaction axis $\hat{\mathbf{f}}$ at polar angle $\theta$ and azimuthal angle $\phi$. The exact reduced-state Bloch vector $\mathbf r$ is constrained to the shaded coupling plane. The interaction phase $\phi$ rotates the coupling plane and sets the phase of the steady-state coherences.}
+    \caption{3D geometric overview of the qubit mean-force state. The bare system is defined by the axis $\hat{\mathbf{n}}_s$ at the north pole, with the bare thermal state vector pointing towards the south pole with length $r(\beta)$. The interaction axis $\hat{\mathbf{f}}$ is also shown. The exact reduced state $\mathbf{r}$ has magnitude $r(\tilde{\beta})$ and is tilted by the effective angle $\tilde{\varphi}$ relative to the bare state. The state remains geometrically locked to the shaded coupling plane.}
     \label{fig:bloch_overview}
 \end{figure}
 
@@ -62,6 +62,9 @@ Using the response kernels, the entirety of the bath's influence is compressed i
     \end{split}
     \label{eq:bath_kernels_direct}
 \end{equation}
+To expose the coupling dependence cleanly, we reintroduce an explicit
+dimensionless strength $g$ through $K(u) = g^2 K_0(u)$, so that all response
+kernels scale as $g^2$. In the interests of brevity, we shall subsume this factor into the definition of parameters, except in those cases where physically relevant effects depend on it. 
 
 The reduced system's $\mathfrak{su}(2)$ algebra means both the influence exponent and the final reduced state may be calculated exactly. After some algebraic gymnastics (done without harness in App~\ref{app:qubit_ladder_derivation}), the exact reduced density matrix $\rho_Q$ takes the form:
 \begin{equation}
@@ -76,37 +79,52 @@ Both the definition and the interpretation of the Bloch vector component magneti
     \chi = s \sqrt{c^2 \Sigma_\perp^2 + s^2 \Sigma_z^2},
     \label{eq:chi_factored}
 \end{equation}
-which - as we will see shortly - acts as the essential determinant for the different regimes of behaviour for the system. It is the \emph{norm} of the influence exponent $\|\Delta(\beta)\|^2 \equiv \chi^2$. The reduced state's Bloch vectorradius $r$ is then given by 
+which - as we will see shortly - acts as the essential determinant for the different regimes of behaviour for the system. It is equivalent to the \emph{norm} of the influence exponent $\|\Delta(\beta)\|^2 \equiv \chi^2$, up to the sign of $\sin(\theta)$. This sign has significant consequences, but like $g$ we shall work under the assumption $\sin(\theta)>0$ except for those cases where this sign is relevant. The reduced state's Bloch vector radius $r$ is then given by 
 \begin{equation}
-r = \tanh\chi =\sqrt{m_z^2+m_\perp^2}.
+r = \left|\tanh\chi\right| =\sqrt{m_z^2+m_\perp^2}.
 \end{equation}
-Finally, if we further define the factor $\gamma$
-\begin{equation}
-    \gamma = \tanh\chi / \chi,
-\end{equation}
-then it is possible to write the Bloch vector components as
-\begin{equation}
-    \begin{split}
-        m_z &= \tanh\Theta, \\
-        m_\perp &= \tan\eta \left( m_z \cosh\frac{\beta\omega_q}{2} + \sinh\frac{\beta\omega_q}{2} \right), 
-    \end{split}
-    \label{eq:bloch_locking_linear}
-\end{equation}
-with the controlling parameters being given through $\gamma$ as
-\begin{equation}
-    \begin{split}
-        \Theta &\equiv \operatorname{arctanh}(\gamma s^2 \Sigma_z) - \frac{\beta\omega_q}{2}, \\
-        \tan\eta &\equiv - \cot\theta \frac{\Sigma_\perp}{\Sigma_z}.
-    \end{split}
-    \label{eq:theta_eta_params}
-\end{equation}
-These final quantities are directly interpretable. $\Theta$ is the renormalised effective temperature for the reduced system, and $\tan\eta$ captures the anisotropy of the bath's influence in its longitudinal and transverse components. Notably in the special case of purely transverse coupling $\theta =\frac{\pi}{2}$, the reduced system is simply a renormalised copy of the bare system with $\frac{\beta\omega_q}{2} \to \Theta$.
+If we define the parameters
+\begin{align}
+    \Theta &\equiv \operatorname{arctanh}(\gamma s^2 \Sigma_z) - \frac{\beta\omega_q}{2}, \label{eq:theta_param} \\
+    \tan\eta &\equiv - \cot\theta \frac{\Sigma_\perp}{\Sigma_z}, \label{eq:eta_param} \\
+    \gamma &= \tanh\chi / \chi, \label{eq:gamma_param}
+\end{align}
+then the Bloch vector components are expressed via
+\begin{align}
+    m_z &= \tanh\Theta, \label{eq:m_z_solution} \\
+    m_\perp &= \tan\eta \left( m_z \cosh\frac{\beta\omega_q}{2} + \sinh\frac{\beta\omega_q}{2} \right), \label{eq:bloch_locking_linear} \\
+    \tan\varphi &= m_\perp / m_z. \label{eq:tilt_angle_def}
+\end{align}
+From this, we see that the reduced state is confined to the common plane of $\hat{\mathbf{n}}_s$ and $\hat{\mathbf{f}}$, with its radius given by $r$ and a \emph{tilt-angle} $\varphi$ away from the bare system's axis $\hat{\mathbf{n}}_s$. The parameter $\tan\eta$ then encodes the anisotropy of the bath's influence as a function of $\theta$.  In particular, when $\theta<\pi/2$, $\tan\eta<0$ and the state tilts toward the ground-state hemisphere. for $\theta>\pi/2$, the sign of $\tan\eta$ reverses and the state is dragged
+toward the \emph{excited}-state hemisphere, corresponding to a bath-induced population
+inversion relative to the bare Hamiltonian eigenbasis.  The special cases $\cos(\theta)=0$
+(purely transverse coupling) has $\tan\eta=0$ identically.
 
-Since the reduced state is confined to the common plane of $\hat{\mathbf{n}}_s$ and $\hat{\mathbf{f}}$, it is most useful to describe it in terms of its radius $r$, and its \emph{tilt-angle} $\varphi$ away from the bare system's axis $\hat{\mathbf{n}}_s$. We write this explicitly in terms of the mixing angle $\theta$ as 
+The importance of this anisotropy is made clear when we consider the interpretation of $\Theta$, which serves as an effective \emph{renormalisation} of temperature. We may justify this interpretation by first noting the special case of a purely transverse coupling $\theta =\frac{\pi}{2}$. In this case the influence operator aligns with $\hat{n}_s$ the reduced system is simply a copy of the bare system with $\frac{\beta\omega_q}{2} \to \Theta$. This immediately implies that we may describe the system via an \emph{effective} temperature $\tilde{\beta}$:
 \begin{equation}
-\tan\varphi = - \frac{m_\perp}{m_z} = \frac{\cot\theta \Sigma_\perp}{\cosh \frac{\beta\omega_q}{2} \Sigma_z - \frac{\sinh \frac{\beta\omega_q}{2}}{\gamma s^2}}
-    \label{eq:tilt_angle}
+\beta \to \tilde{\beta}= \frac{2\Theta}{\omega_q}.
+\end{equation} 
+This temperature renormalisation is a universal feature holding at any coupling angle $\theta$. Critically though, whether this renormalisation maps to a higher or lower temperature depends on the \emph{relative sign} of $\Theta$ and $\sin(\theta)$. Switching the sign of either corresponds to $m_z\to-m_z$ and population inversion.  The only contribution of the coupling angle beyond this is simply to \emph{rotate} the temperature renormalised thermal state relative to the bare orientation. We can see this most clearly by returning to Eq.\eqref{eq:bloch_locking_linear}. Defining the factor 
+\begin{equation}
+\kappa =\sinh(\mathrm{arctanh}(\gamma s^2 \Sigma_z)),
 \end{equation}
+after rearrangement, $m_\perp$ takes the form
+\begin{equation}
+m_\perp = -\kappa\frac{\Sigma_\perp}{\Sigma_z}\tan(\theta-\frac{\pi}{2})\cosh^{-1}\left(-\frac{\tilde{\beta}\omega_q}{2}\right).
+\end{equation}
+This formulation provides a natural definition for the effective longitudinal and transverse magnetisations of the dressed qubit:
+\begin{equation}
+    \tilde{m}_{z} \equiv \frac{\Sigma_z \sinh\left(-\frac{\tilde{\beta}\omega_q}{2}\right)}{\tilde{r}}, \qquad \tilde{m}_{\perp} \equiv \frac{\kappa \Sigma_\perp}{\tilde{r}}.
+    \label{eq:effective_magnetisations}
+\end{equation}
+where $\tilde{r}(\beta)=r(\tilde{\beta})$ is the renormalised radius. This means the renormalised angle at $\tilde{\beta}$ is given by
+\begin{equation}
+\tan\tilde{\varphi} = \frac{\kappa \Sigma_\perp \tan(\theta-\frac{\pi}{2})}{\Sigma_z\sinh\frac{\tilde{\beta}\omega_q}{2}}.
+\end{equation}
+In this representation, the effective tilt angle $\tilde{\varphi}$ reflects the competition between the resonant reinforcement of the ground state and the non-resonant generation of coherence. A non-zero $\tilde{\varphi}$ signifies that the bath's influence has rotated the reduced state away from the bare energy basis, endowing the equilibrium state with apparent ``vacuum-induced'' coherences with magnitude $|\tilde{m}_\perp|$.  For $\theta>\pi/2$ the tilt is toward the excited-state direction, so the bath-induced rotation and any strong-coupling purity enhancement act together to favour excited-state population: the reduced state can be effectively population-inverted.
+
+
+
 
 
 
