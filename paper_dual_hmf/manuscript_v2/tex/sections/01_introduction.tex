@@ -1,0 +1,69 @@
+\section{Introduction}
+\label{sec:introduction}
+
+Dualities are one of the most pervasive organizing ideas in physics: they connect weak and strong
+descriptions, high and low scales, and complementary parametrizations of the same underlying
+phenomenon.
+The Hamiltonian of mean force (HMF) is the exact equilibrium generator for an open quantum subsystem
+\cite{gelinThermodynamicsSubensembleCanonical2009a,hiltHamiltonianMeanForce2011,talknerColloquiumStatisticalMechanics2020,rivasStrongCouplingThermodynamics2020,burkeStructureHamiltonianMean2024}.
+The challenge is not definition but use: once subsystem-bath coupling is finite, physically relevant
+limits are often controlled by different small parameters in different parts of the same phase plane.
+In practice this makes one branch easy and its partner hard.
+
+In this setting, the most sought-after target is typically the ground-state sector (\(\beta\to\infty\)),
+which is often the least numerically forgiving.
+
+This paper is built around a simple operational question:
+\emph{when a target limit is hard in one representative, can we map it to an easier one while
+keeping the same underlying state family?}
+Our answer is yes, provided one works at the level of representative labels rather than
+parameter-level state identities.
+
+\paragraph{Physical framing.}
+Start from
+\begin{equation}
+  H_{\mathrm{tot}}=H_Q+H_X+H_{\mathrm{int}},
+\end{equation}
+and define
+\begin{equation}
+  \bar{\rho}_Q(\beta)=\Tr_X e^{-\beta H_{\mathrm{tot}}}.
+\end{equation}
+The HMF is exactly the operator satisfying
+\begin{equation}
+  \frac{\bar{\rho}_Q(\beta)}{Z_X(\beta)}=e^{-\beta H_{\mathrm{MF}}(\beta)}.
+\end{equation}
+The key structural move is to split this into a bare thermal factor and an influence factor.
+That split exposes two independent discrete freedoms:
+\begin{enumerate}
+  \item a strong-weak representative reflection across crossover, and
+  \item an orientation-gauge choice of mean-force eigenaxis labeling.
+\end{enumerate}
+
+\paragraph{Main message.}
+These maps do not claim physical-state equality under inversion.
+They define a \emph{duality geometry}: they exchange asymptotic work between partner representatives.
+In concrete terms, a low-\(T\), strong-influence calculation can be rewritten as a weak-influence
+calculation at a dual representative, plus a separate orientation-gauge transformation for directed
+observables. This maps the numerically hard ground-state limit to a numerically trivial dual regime.
+
+\paragraph{Why this viewpoint is useful.}
+The framework turns qualitative statements like ``strong coupling behaves differently'' into
+explicit, testable map identities.
+It also clarifies which observables are gauge-even (radial/purity sector) and which are gauge-odd
+(oriented sector), which matters for fitting and collapsing data across control regimes.
+
+\paragraph{Theory-first structure.}
+The next framework sections develop representative geometry in model-independent terms.
+Only then do we introduce the spin-boson qubit as Example~1, where closure formulas allow direct demonstrations:
+closure-level spectral-class thresholds, dual-branch entropy formulas, and quantitative error
+diagnostics.
+Formal theorem-level statements and proofs are collected in the Appendix.
+
+To avoid overclaiming, we explicitly separate closure-level representative statements from established
+full-model spin-boson critical phenomenology
+\cite{leggettDynamicsDissipativeTwostate1987,weissQuantumDissipativeSystems2012,bullaQuantumPhaseTransitionSubohmic2003,winterQuantumPhaseTransitionSubohmic2009}.
+
+Relative to the closure-focused manuscript \cite{mccaulMeanForceHamiltoniansInfluence2026}, the
+present work shifts emphasis from ``deriving one exact model'' to ``organizing a broad class of
+mean-force calculations by dual representative structure''
+\cite{jarzynskiNonequilibriumWorkTheorem2004,campisiFluctuationTheoremArbitrary2009,trushechkinOpenQuantumSystem2022}.

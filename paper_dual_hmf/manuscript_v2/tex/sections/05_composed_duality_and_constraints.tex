@@ -1,0 +1,58 @@
+\section{Composed Duality Action and Observable Constraints}
+\label{sec:composed_duality}
+
+\paragraph{Two independent reflections.}
+The strong-weak map acts on crossover strength \(\chi\), while orientation gauge acts on directed
+labels.
+Together they define a composed representative action
+\begin{equation}
+  \mathcal{D}_{\mathrm{comp}}:=\mathcal{G}\circ\mathcal{D}_{\mathrm{sw}}.
+\end{equation}
+On radial observables these operations commute trivially because orientation leaves \(\chi\)
+unchanged.
+On oriented observables they commute when orientation parity is preserved under strong-weak mapping.
+
+\paragraph{Constraint for effective-temperature collapse.}
+Suppose a saturated regime is parameterized as \(r=r(\beff)\).
+Orientation pairing then requires
+\begin{equation}
+  r' = r(2\beta-\beff),
+\end{equation}
+so any empirical collapse in terms of \(\beff\) must satisfy the diagnostic ratio
+\begin{equation}
+  R(\beta,\vartheta):=\frac{r(2\beta-\beff)}{r(\beff)}.
+\end{equation}
+This provides a direct consistency check for representative fits in directional sectors.
+
+\paragraph{Classical-to-quantum control exchange.}
+Assume
+\begin{equation}
+  \chi(\beta,g,\theta)=g^2\chi_0(\beta,\theta),
+\end{equation}
+and endpoint behavior
+\begin{equation}
+  \chi_0(\beta,\theta)\to0\ (\beta\to0),
+  \qquad
+  \chi_0(\beta,\theta)\to\infty\ (\beta\to\infty).
+\end{equation}
+At fixed \(g\), this implies
+\begin{align}
+  \beta\to0 &: \chi\to0,\quad g^\vee\to\infty, \\
+  \beta\to\infty &: \chi\to\infty,\quad g^\vee\to0.
+\end{align}
+So high-temperature weak influence and low-temperature strong influence are dual control sectors.
+This exchange is computationally useful because asymptotics can be evaluated on whichever branch is
+better conditioned.
+
+\paragraph{Interpretive summary.}
+The composed map is best viewed as a bookkeeping device that preserves physics while changing
+computational viewpoint:
+\begin{enumerate}
+  \item strong-weak map exchanges the radial control branch,
+  \item orientation gauge aligns directed representatives,
+  \item composed action enables branch transfer with explicit parity tracking.
+\end{enumerate}
+
+\paragraph{Formal statements.}
+Group-structure and involution formulations are provided in
+the Appendix.

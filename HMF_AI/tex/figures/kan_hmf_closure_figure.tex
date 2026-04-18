@@ -1,0 +1,213 @@
+\begin{tikzpicture}[
+    x=1cm,
+    y=1cm,
+    >=Latex,
+    font=\small,
+    line cap=round,
+    line join=round,
+    header/.style={font=\bfseries\small, align=center},
+    layerlab/.style={font=\scriptsize, text=black!68, anchor=east},
+    phimark/.style={font=\normalsize\bfseries, text=accent},
+    plainarrow/.style={-{Latex[length=2mm]}, thin},
+    corresp/.style={densely dashed, -{Latex[length=2mm]}, thin, draw=black!58},
+    orbitnode/.style={
+        draw,
+        rounded corners=1pt,
+        inner sep=2pt,
+        minimum width=1.05cm,
+        minimum height=0.55cm,
+        fill=white
+    },
+    box/.style={
+        draw,
+        rounded corners=2pt,
+        thin,
+        fill=white,
+        inner sep=4pt,
+        align=center
+    },
+    smalllab/.style={font=\scriptsize, inner sep=1pt}
+]
+\colorlet{accent}{blue!70!black}
+\colorlet{muted}{black!68}
+
+\def\xL{2.55}
+\def\xC{8.55}
+\def\xR{14.65}
+\def\yIn{0.70}
+\def\yAtoms{2.15}
+\def\yAgg{5.05}
+\def\yOuter{7.78}
+\def\yOut{10.05}
+\def\yHead{11.25}
+
+% Headers
+\node[header] at (\xL,\yHead) {Kolmogorov--Arnold\\representation};
+\node[header] at (\xC,\yHead) {Mean-force\\representation};
+\node[header] at (\xR,\yHead) {Spin-boson qubit\\(exact closure)};
+
+% Stratum labels
+\node[layerlab] at (0.15,\yAtoms) {Atoms};
+\node[layerlab] at (0.15,\yAgg) {Aggregation};
+\node[layerlab] at (0.15,\yOuter) {Outer composition};
+
+% Horizontal correspondence arrows
+\draw[corresp] (4.85,\yAtoms+0.15) -- (6.45,\yAtoms+0.15);
+\draw[corresp] (4.85,\yAgg) -- (6.45,\yAgg);
+\draw[corresp] (4.85,\yOuter) -- (6.45,\yOuter);
+\draw[corresp] (11.20,\yAtoms+0.15) -- (13.00,\yAtoms+0.15);
+\draw[corresp] (11.20,\yAgg) -- (13.00,\yAgg);
+\draw[corresp] (11.20,\yOuter) -- (13.00,\yOuter);
+\node[font=\scriptsize\bfseries, text=muted] at (12.15,\yAtoms+0.47) {$C_1$};
+\node[font=\scriptsize\bfseries, text=muted] at (12.15,\yAgg+0.33) {$C_2$};
+\node[font=\scriptsize\bfseries, text=muted] at (12.15,\yOuter+0.33) {$C_3$};
+
+% Left column: KAN inputs
+\node[box, text width=2.20cm] (outL) at (\xL,\yOut) {$f(\mathbf{x})$};
+\node[smalllab, text=muted] at (\xL+1.88,8.90) {$\vdots$};
+\node[smalllab, text=muted] at (\xL+1.88,6.70) {$\vdots$};
+
+\coordinate (LPhi) at (\xL,\yOuter);
+\draw[accent, line width=1.05pt]
+    ($(LPhi)+(-0.80,-0.12)$)
+    .. controls +(0.35,0.55) and +(-0.40,-0.25) ..
+    ($(LPhi)+(-0.14,0.42)$)
+    .. controls +(0.38,0.28) and +(-0.24,-0.38) ..
+    ($(LPhi)+(0.30,0.03)$)
+    .. controls +(0.20,0.32) and +(-0.24,-0.10) ..
+    ($(LPhi)+(0.80,0.30)$);
+\draw[accent, line width=0.8pt]
+    ($(LPhi)+(-0.74,-0.34)$)
+    .. controls +(0.28,0.20) and +(-0.22,-0.24) ..
+    ($(LPhi)+(-0.08,-0.08)$)
+    .. controls +(0.28,0.18) and +(-0.22,-0.16) ..
+    ($(LPhi)+(0.60,-0.24)$);
+\node[phimark] at ($(LPhi)+(0,-0.67)$) {$\Phi_q$};
+\node[smalllab, text=muted] at ($(LPhi)+(0,0.73)$) {learned};
+\draw[plainarrow] ($(LPhi)+(0,0.62)$) -- (outL.south);
+\node[smalllab, text=muted] at (\xL+0.92,8.55) {$\sum_q$};
+
+\node[box, text width=3.10cm] (LAgg) at (\xL,\yAgg)
+    {$\displaystyle \sum_p \phi_{q,p}(x_p)$};
+\draw[plainarrow] (LAgg.north) -- ($(LPhi)+(0,-0.22)$);
+
+\coordinate (x1) at (0.95,\yIn);
+\coordinate (x2) at (1.85,\yIn);
+\coordinate (x3) at (2.75,\yIn);
+\coordinate (xn) at (4.15,\yIn);
+\coordinate (p1) at (0.95,\yAtoms);
+\coordinate (p2) at (1.85,\yAtoms);
+\coordinate (p3) at (2.75,\yAtoms);
+\coordinate (pn) at (4.15,\yAtoms);
+
+\node[smalllab] at (x1) {$x_1$};
+\node[smalllab] at (x2) {$x_2$};
+\node[smalllab] at (x3) {$x_3$};
+\node[smalllab] at (3.38,\yIn) {$\cdots$};
+\node[smalllab] at (xn) {$x_n$};
+
+\foreach \pt/\lbl in {p1/{\phi_{q,1}},p2/{\phi_{q,2}},p3/{\phi_{q,3}},pn/{\phi_{q,n}}}{
+    \draw[accent, line width=0.75pt]
+        ($(\pt)+(-0.24,-0.05)$)
+        .. controls +(0.10,0.16) and +(-0.14,-0.10) ..
+        ($(\pt)+(0.03,0.18)$)
+        .. controls +(0.10,0.12) and +(-0.12,-0.08) ..
+        ($(\pt)+(0.24,0.00)$);
+    \node[smalllab, accent] at ($(\pt)+(0,0.36)$) {$\lbl$};
+}
+
+\draw[plainarrow] (x1) -- (p1);
+\draw[plainarrow] (x2) -- (p2);
+\draw[plainarrow] (x3) -- (p3);
+\draw[plainarrow] (xn) -- (pn);
+\draw[plainarrow] (p1) -- ($(LAgg.south)+(-1.02,0.02)$);
+\draw[plainarrow] (p2) -- ($(LAgg.south)+(-0.33,0.02)$);
+\draw[plainarrow] (p3) -- ($(LAgg.south)+(0.33,0.02)$);
+\draw[plainarrow] (pn) -- ($(LAgg.south)+(1.02,0.02)$);
+
+% Center column: HMF
+\node[box, text width=4.80cm, font=\scriptsize] (outC) at (\xC,\yOut)
+    {$\begin{aligned}
+        H_{\mathrm{MF}}(\beta) &= H_Q-\frac{1}{\beta}
+        {\color{accent}\Phi}\!\big(-\beta\,\mathrm{ad}_{H_Q}\big)\Delta \\
+        &\quad + O(\Delta^2)
+    \end{aligned}$};
+
+\coordinate (CG) at (7.70,\yOuter);
+\draw[muted, thin] ($(CG)+(-0.70,-0.56)$) -- ($(CG)+(0.86,-0.56)$);
+\draw[muted, thin] ($(CG)+(0,-0.76)$) -- ($(CG)+(0,0.96)$);
+\draw[accent, line width=1.0pt]
+    plot[smooth] coordinates {
+        ($(CG)+(-0.56,-0.44)$)
+        ($(CG)+(-0.34,-0.27)$)
+        ($(CG)+(-0.12,-0.05)$)
+        ($(CG)+(0.08,0.18)$)
+        ($(CG)+(0.30,0.47)$)
+        ($(CG)+(0.52,0.78)$)
+        ($(CG)+(0.74,1.10)$)
+    };
+\node[phimark] at (8.28,\yOuter+0.76) {$\Phi$};
+\node[smalllab, text=muted] at (8.92,\yOuter+0.92) {fixed};
+\node[align=left, anchor=west, font=\scriptsize] (PhiText) at (8.55,\yOuter+0.05)
+    {$\textcolor{accent}{\Phi(x)}=\dfrac{x}{1-e^{-x}}$\\[2pt]
+     $\textcolor{accent}{\Phi(x)}=B_0 + B_1(-x) + \dfrac{B_2}{2!}x^2$};
+\draw[plainarrow] ($(CG)+(0.10,0.78)$) -- (outC.south);
+
+\draw[thin, rounded corners=2pt] (6.35,4.28) rectangle (10.85,5.86);
+\node[align=left, text width=2.95cm] at (8.08,\yAgg)
+    {$\displaystyle \Delta(\beta)=\sum_{n,m} C^>_{nm}(\beta)\,f_n f_m$};
+\foreach \i/\x in {0/9.90,1/10.12,2/10.34}{
+    \foreach \j/\y/\shade in {
+        0/5.42/20,
+        1/5.20/35,
+        2/4.98/55
+    }{
+        \pgfmathtruncatemacro{\mix}{\shade + 10*\i}
+    \fill[accent!\mix, draw=white] (\x,\y) rectangle ++(0.18,0.18);
+    }
+}
+\draw[thin] (9.90,4.98) rectangle (10.48,5.56);
+\node[smalllab] at (10.19,4.72) {$C^>_{nm}$};
+\draw[plainarrow] (8.90,5.86) -- ($(CG)+(0,-0.66)$);
+
+\node[orbitnode] (f0) at (\xC,0.88) {$f_0=f$};
+\node[orbitnode] (f1) at (\xC,1.86) {$f_1$};
+\node[orbitnode] (f2) at (\xC,2.84) {$f_2$};
+\node[smalllab, text=muted] at (\xC,3.64) {$\vdots$};
+\draw[plainarrow] (f0) -- (f1);
+\draw[plainarrow] (f1) -- (f2);
+\draw[plainarrow] (f2) -- (\xC,3.35);
+\node[smalllab, rotate=90, text=muted] at (9.64,2.36) {$\mathrm{ad}_{H_Q}$};
+\draw[plainarrow] (\xC,3.88) -- (8.90,4.28);
+
+% Right column: exact qubit closure
+\node[box, text width=3.05cm] (outR) at (\xR,\yOut)
+    {$H_{\mathrm{MF}}^{\mathrm{qb}}(\beta)$\\[-1pt]
+    \scriptsize closed Bloch-plane generator};
+
+\node[orbitnode, minimum width=0.75cm, minimum height=0.75cm] (Mnode) at (\xR,\yOuter) {$M$};
+\draw[plainarrow] ($(Mnode)+(0.82,0)$) arc[start angle=0,end angle=330,radius=0.82];
+\node[smalllab, anchor=west] at (\xR+0.72,\yOuter+0.18) {$M^2=\chi^2\mathbb I$};
+\draw[plainarrow] (Mnode.north) -- (outR.south);
+
+\coordinate (qsq) at (\xR,\yAgg);
+\node[orbitnode, minimum width=0.78cm] (Id) at (\xR-0.56,\yAgg+0.50) {$\mathbb I$};
+\node[orbitnode, minimum width=0.78cm] (Sz) at (\xR+0.56,\yAgg+0.50) {$\sigma_z$};
+\node[orbitnode, minimum width=0.78cm] (Sx) at (\xR-0.56,\yAgg-0.50) {$\sigma_x$};
+\node[orbitnode, minimum width=0.78cm] (Sy) at (\xR+0.56,\yAgg-0.50) {$\sigma_y$};
+\draw[thin] (Id) -- (Sz) -- (Sy) -- (Sx) -- cycle;
+\node[smalllab, align=center, text width=3.00cm] at (\xR,\yAgg-1.08)
+    {$\Delta \in \mathrm{span}\{\mathbb I,\sigma_x,\sigma_y,\sigma_z\}$};
+\draw[plainarrow] (\xR,\yAgg+0.94) -- (Mnode.south);
+
+\node[orbitnode] (q0) at (\xR,0.82) {$f_0$};
+\node[orbitnode, text width=1.48cm, minimum width=1.55cm] (qe) at (\xR,1.72)
+    {$f_{2k}\!\sim\!\sigma_x$};
+\node[orbitnode, text width=1.48cm, minimum width=1.55cm] (qo) at (\xR,2.92)
+    {$f_{2k+1}\!\sim\!\sigma_y$};
+\draw[plainarrow] (q0) -- (qe);
+\draw[plainarrow] (qe) to[bend left=40] node[right=2pt, smalllab] {$\mathrm{ad}_{H_Q}$} (qo);
+\draw[plainarrow] (qo) to[bend left=40] (qe);
+\draw[plainarrow] (qo.north) -- (\xR,4.28);
+
+\end{tikzpicture}

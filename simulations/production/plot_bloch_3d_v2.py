@@ -16,27 +16,27 @@ def plot_bloch_3d_v2():
     ax = fig.add_subplot(111, projection='3d')
     ax.set_box_aspect([1,1,1])
 
-    # Parameters for visualization (Exaggerated for clarity)
-    theta = np.pi/3     # Exaggerated theta
-    phi_f = 0           
-    beta_wq = 1.3       # Lowered beta to make bare vector shorter
-    r_bare_mag = np.tanh(beta_wq / 2)
-    
-    # Dressed parameters
-    r_dressed_mag = 0.98 # Exaggerated length
-    phi_tilt = np.pi/4   # Exaggerated tilde phi
-    
+    # Geometric parameters (chosen for readability)
+    theta = np.pi / 4.5      # shallower f hat (~40 deg from +z)
+    beta_wq = 1.3
+    r0_mag = np.tanh(beta_wq / 2)
+    rS_mag = 0.78
+    rQ_mag = 0.96
+    varphi_S = np.pi / 4.8   # added ~5 deg more arc
+    varphi_Q = np.pi / 2.6   # added ~9 deg more arc
+
     # Vectors (n_s is +z)
     n_s = np.array([0, 0, 1.0])
-    
+
     # Bare state vector (pointing South)
-    r_bare_vec = np.array([0, 0, -r_bare_mag])
-    
+    r0_vec = np.array([0, 0, -r0_mag])
+
     # Interaction axis f
     f_axis = np.array([np.sin(theta), 0, np.cos(theta)])
-    
-    # Dressed state vector
-    r_dressed_vec = r_dressed_mag * np.array([np.sin(phi_tilt), 0, -np.cos(phi_tilt)])
+
+    # Symmetrised influence state and final reduced state (in coupling plane)
+    rS_vec = rS_mag * np.array([np.sin(varphi_S), 0, -np.cos(varphi_S)])
+    rQ_vec = rQ_mag * np.array([np.sin(varphi_Q), 0, -np.cos(varphi_Q)])
 
     # Sphere Surface (Ultra-Frosted)
     u_s, v_s = np.mgrid[0:2*np.pi:40j, 0:np.pi:20j]
@@ -71,20 +71,44 @@ def plot_bloch_3d_v2():
     # Drawing the key vectors
     draw_arrow(n_s, '#222222', r'$\hat{\mathbf{n}}_s$', label_offset=1.15)
     draw_arrow(f_axis, '#2ca02c', r'$\hat{\mathbf{f}}$', label_offset=1.2)
-    
-    # Bare state vector (South)
-    draw_arrow(r_bare_vec, '#1f77b4', r'', lw=5, label_offset=1.1, arrow_ratio=0.2)
-    ax.text(r_bare_vec[0], r_bare_vec[1], r_bare_vec[2]*1.2, r'$r_{\rm bare}(\beta)$', color='#1f77b4', fontsize=24, ha='center', va='top', zorder=20)
-    
-    # Dressed state vector
-    draw_arrow(r_dressed_vec, '#d62728', r'', lw=5, label_offset=1.1, arrow_ratio=0.15)
-    ax.text(r_dressed_vec[0]*1.1, r_dressed_vec[1], r_dressed_vec[2]*1.1, r'$r(\beta) = r_{\rm bare}(\tilde{\beta})$', color='#d62728', fontsize=24, ha='left', va='top', zorder=20)
+
+    # Bare / influence / reduced Bloch vectors
+    draw_arrow(r0_vec, '#1f77b4', r'', lw=5, label_offset=1.1, arrow_ratio=0.2)
+    ax.text(r0_vec[0], r0_vec[1], r0_vec[2]*1.22, r'$r_0$', color='#1f77b4', fontsize=24, ha='center', va='top', zorder=20)
+
+    draw_arrow(rS_vec, '#9467bd', r'', lw=5, label_offset=1.08, arrow_ratio=0.17)
+    ax.text(rS_vec[0]*1.25, 0, rS_vec[2]*1.20, r'$r_S$', color='#9467bd', fontsize=24, ha='left', va='bottom', zorder=20)
+
+    draw_arrow(rQ_vec, '#d62728', r'', lw=5, label_offset=1.08, arrow_ratio=0.15)
+    ax.text(rQ_vec[0]*1.20, 0, rQ_vec[2]*1.22, r'$r_Q$', color='#d62728', fontsize=24, ha='left', va='top', zorder=20)
 
     # Angle labels
-    # 2. tilde phi (between bare and dressed)
-    phi_vals = np.linspace(np.pi, np.pi - phi_tilt, 30)
-    ax.plot(0.5*np.sin(phi_vals), 0, 0.5*np.cos(phi_vals), color='black', alpha=0.7, lw=2, zorder=5)
-    ax.text(0.6*np.sin(np.pi - phi_tilt/2), 0, 0.6*np.cos(np.pi - phi_tilt/2), r'$\tilde{\varphi}$', fontsize=24, zorder=10)
+    # varphi_S and varphi_Q are measured from the bare south axis (-z)
+    vals_S = np.linspace(np.pi, np.pi - varphi_S, 40)
+    vals_Q = np.linspace(np.pi, np.pi - varphi_Q, 40)
+    ax.plot(0.38*np.sin(vals_S), 0, 0.38*np.cos(vals_S), color='#9467bd', alpha=0.9, lw=2.2, zorder=6)
+    ax.plot(0.54*np.sin(vals_Q), 0, 0.54*np.cos(vals_Q), color='#d62728', alpha=0.9, lw=2.2, zorder=6)
+    
+    # Shift labels: phi_S towards south (0.35 offset), phi_Q towards vector (0.65 offset)
+    ax.text(0.48*np.sin(np.pi - 0.35*varphi_S), 0, 0.48*np.cos(np.pi - 0.35*varphi_S), 
+            r'$\varphi_S$', color='#9467bd', fontsize=21, ha='center', zorder=11)
+    ax.text(0.68*np.sin(np.pi - 0.65*varphi_Q), 0, 0.68*np.cos(np.pi - 0.65*varphi_Q), 
+            r'$\varphi_Q$', color='#d62728', fontsize=21, ha='center', zorder=11)
+
+    # Relative angle between S and Q: moved inward and shortened to avoid arrow tips
+    vals_rel = np.linspace(np.pi - varphi_Q + 0.08, np.pi - varphi_S - 0.08, 36)
+    ax.plot(0.70*np.sin(vals_rel), 0, 0.70*np.cos(vals_rel), color='black', alpha=0.7, lw=2, zorder=6)
+    ax.text(0.78*np.sin(np.pi - (varphi_S + varphi_Q)/2), 0, 0.78*np.cos(np.pi - (varphi_S + varphi_Q)/2),
+            r'$\Delta\varphi$', fontsize=19, zorder=11)
+
+    # Theta angle: arc between n_s (+z) and f_axis in the xz-plane
+    vals_theta = np.linspace(np.pi/2, np.pi/2 - theta, 40)  # from +z down to f_axis
+    arc_r = 0.45
+    ax.plot(arc_r*np.cos(vals_theta), 0, arc_r*np.sin(vals_theta),
+            color='#2ca02c', alpha=0.85, lw=2.2, zorder=6)
+    theta_mid = np.pi/2 - theta/2
+    ax.text(0.54*np.cos(theta_mid), 0, 0.54*np.sin(theta_mid),
+            r'$\theta$', color='#2ca02c', fontsize=22, ha='center', va='center', zorder=12)
 
     # Axes limits and style
     scale_lim = 1.15

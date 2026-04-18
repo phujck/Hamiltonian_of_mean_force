@@ -149,7 +149,7 @@ ax.set_xscale("log")
 ax.set_xlim(1e-2, 10)
 ax.set_ylim(0, 1.05)
 ax.set_xlabel(r"$g / g_\star(\beta)$")
-ax.set_ylabel(r"$r$")
+ax.set_ylabel(r"$r_Q$")
 ax.text(0.04, 0.96, "(a)", transform=ax.transAxes,
         fontweight="bold", va="top", fontsize=9)
 
@@ -166,7 +166,7 @@ pcm = ax.pcolormesh(GG, BB, delta_purity,
                     vmin=0.0, vmax=vmax_dp,
                     shading="auto", rasterized=True)
 cbar = fig.colorbar(pcm, ax=ax, fraction=0.046, pad=0.03)
-cbar.set_label(r"$\Delta r^2 = r^2 - \tanh^2(\beta\omega_q/2)$", fontsize=7.5)
+cbar.set_label(r"$\Delta r_Q^2 = r_Q^2 - r_0^2$", fontsize=7.5)
 cbar.ax.tick_params(labelsize=6.5)
 
 # chi=1 crossover locus (black dashed for contrast)
@@ -177,7 +177,7 @@ ax.clabel(cs_chi, fmt=r"$\chi=1$", fontsize=7.0, colors="black",
           inline=True, inline_spacing=4)
 
 # Annotations (moved and recolored black)
-ax.text(0.06, 0.18, r"$\Delta r^2 \approx 0$",
+ax.text(0.06, 0.18, r"$\Delta r_Q^2 \approx 0$",
         transform=ax.transAxes, fontsize=5.8,
         color="black", ha="left", va="center")
 ax.annotate(r"bath purifies",

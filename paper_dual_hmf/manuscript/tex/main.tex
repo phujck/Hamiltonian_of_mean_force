@@ -1,0 +1,63 @@
+\documentclass[aps,prl,twocolumn,superscriptaddress,floatfix]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{mathtools}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\beff}{\beta_{\mathrm{eff}}}
+
+\begin{document}
+
+\title{Dual Representatives of Mean-Force Equilibrium}
+\author{Author Name}
+\affiliation{Affiliation}
+\date{\today}
+
+\begin{abstract}
+We formulate a theory of dual representatives for mean-force equilibrium in which asymptotic control
+is exchanged by discrete transformations on representative labels. The first transformation is a
+strong-weak involution acting on the crossover coordinate \(y=\log\chi\), yielding
+\(\chi\mapsto\chi^{-1}\) and, in single-channel scaling, \(g^\vee=g_\star^2/g\). The second is an
+\(Z_2\) orientation gauge on the mean-force eigenaxis, inducing an affine reflection on effective
+temperature representatives, \(\beff'=2\beta-\beff\). We prove the involutive and affine identities,
+state the admissible observable class for asymptotic exchange, and derive representative constraints
+for effective-temperature parameterisations. Only after the formal theory is established do we
+instantiate it in a spin-boson qubit as Example~1, where the \(g\to\infty\) sector is analytically
+easy in the influence-operator representation \(e^S\), and is used to access hard low-temperature
+control through the dual map. We conclude with a minimal validation protocol centered on a single
+\(y=\log\chi\) figure and identity checks.
+\end{abstract}
+
+\maketitle
+
+\input{sections/01_introduction}
+\input{sections/02_general_duality_framework}
+\input{sections/03_strong_weak_involution}
+\input{sections/04_orientation_gauge_and_affine_reflection}
+\input{sections/05_composed_duality_and_constraints}
+\input{sections/05b_normal_duality_geometrization}
+\input{sections/06_spin_boson_first_example}
+\input{sections/07_numerical_validation_protocol}
+\input{sections/08_discussion_outlook}
+
+\appendix
+\input{sections/09_appendix_proofs}
+
+\bibliography{../../../literature/references_new}
+
+\end{document}

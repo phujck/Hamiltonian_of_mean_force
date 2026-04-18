@@ -1,0 +1,35 @@
+\section{Proof Skeletons and Derivation Bookkeeping}
+\label{sec:appendix_proofs}
+
+\subsection{Proof sketch: strong-weak involution theorem}
+With \(\chi=g^2\chi_0\), \(\chi_0>0\), define \(g^\vee=1/(\chi_0 g)\). Then
+\begin{equation}
+  \chi^\vee=\chi_0(g^\vee)^2=\frac{1}{\chi_0 g^2}=\chi^{-1}.
+\end{equation}
+Applying the map twice gives
+\begin{equation}
+  (g^\vee)^\vee=\frac{1}{\chi_0 g^\vee}=g.
+\end{equation}
+Hence \(y=\log\chi\) reflects as \(y^\vee=-y\).
+
+\subsection{Proof sketch: affine reflection lemma}
+Let \(\beff=\beta-\delta\beta\), with
+\begin{equation}
+  \delta\beta=\frac{2}{\omega_q}\operatorname{arctanh}(u).
+\end{equation}
+Under orientation gauge, \(u\mapsto -u\), so
+\begin{equation}
+  \delta\beta'=-\delta\beta.
+\end{equation}
+Therefore
+\begin{equation}
+  \beff'=\beta-\delta\beta'=\beta+\delta\beta=2\beta-\beff.
+\end{equation}
+
+\subsection{Proof sketch: even/odd observable split}
+The gauge map acts as \((\chi,u)\mapsto(\chi,-u)\). For \(O_{\mathrm{rad}}=F(\chi)\),
+\(O_{\mathrm{rad}}'=F(\chi)=O_{\mathrm{rad}}\). For odd \(O_{\mathrm{odd}}=H(\chi,u)\) with
+\(H(\chi,-u)=-H(\chi,u)\), one has \(O_{\mathrm{odd}}'=-O_{\mathrm{odd}}\).
+
+\subsection{Equation bookkeeping index}
+Maintain one-to-one mapping with \texttt{paper\_dual\_hmf/notes/equation\_registry.md}.

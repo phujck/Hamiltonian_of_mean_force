@@ -1,0 +1,55 @@
+% !TEX root = ../Hamiltonian_of_mean_force.tex
+\section{Exact Qubit Solution in the Ladder Basis}
+\label{app:qubit_ladder_derivation}
+
+We provide the manual derivation of the exact qubit mean-force state using the ladder basis $\sigma_\pm$. Starting from the interaction-picture operator product
+\begin{equation}
+\begin{aligned}
+    \tilde{f}(\tau)\tilde{f}(\tau')
+    &= \Big[c^2 + s^2\cosh\big(\omega_q(\tau-\tau')\big)\Big]\mathbb{I} \\
+    &\quad + s^2\sinh\big(\omega_q(\tau-\tau')\big)\sigma_z \\
+    &\quad + c f_- \left(e^{\omega_q\tau'} - e^{\omega_q\tau}\right)\sigma_+ \\
+    &\quad + c f_+ \left(e^{-\omega_q\tau} - e^{-\omega_q\tau'}\right)\sigma_-,
+\end{aligned}
+\end{equation}
+the influence exponent $\Delta = \int_0^\beta d\tau \int_0^\tau d\tau' K(\tau-\tau') \tilde{f}(\tau)\tilde{f}(\tau')$ evaluates to
+\begin{equation}
+    \Delta = \Delta_0 \mathbb{I} + \Delta_z \sigma_z + \Delta_+ \sigma_+ + \Delta_- \sigma_-,
+\end{equation}
+with coefficients
+\begin{align}
+    \Delta_z &= s^2 \Sigma_z, \\
+    \Delta_\pm &= -2 c f_\mp \Sigma_\pm,
+\end{align}
+where $f_\pm = s e^{\pm i \phi_f}$ and the primitive integrals are
+\begin{align}
+    \Sigma_z &= \frac{1}{2}\left[R(\omega_q) - R(-\omega_q)\right], \\
+    \Sigma_\pm &= \frac{1}{\omega_q} \left[\big(1 + e^{\pm\beta\omega_q}\big)\mathcal{K}(0) - 2\mathcal{K}(\pm\omega_q)\right].
+\end{align}
+The unnormalised state is $\bar\rho_Q = e^{-(\beta\omega_q/2) \sigma_z} e^\Delta$. To find the normalized state and its Bloch vector, we perform a symmetric decomposition
+\begin{equation}
+    \bar\rho_Q = \Pi^{1/2} e^S \Pi^{1/2}, \qquad S = \Pi^{1/2} \Delta \Pi^{-1/2}
+\end{equation}
+where $\Pi = e^{-\beta \omega_q \sigma_z / 2}$. Using $\Pi^{1/2} \sigma_\pm \Pi^{-1/2} = e^{\mp \beta\omega_q/2} \sigma_\pm$, the symmetric influence operator $S$ becomes
+\begin{equation}
+    S = \Delta_0 \mathbb{I} + \Delta_z \sigma_z + (\Delta_+ e^{-\beta\omega_q/2} \sigma_+ + \Delta_- e^{\beta\omega_q/2} \sigma_-).
+\end{equation}
+Substituting the expressions for $\Delta_\pm$ and using the KMS relation
+\begin{equation}
+    \Sigma_- = e^{-\beta\omega_q} \Sigma_+,
+    \label{eq:kms_sigma_relation}
+\end{equation}
+we define the real symmetrised transverse response
+\begin{equation}
+    \Sigma_\perp \equiv 2 e^{-\beta\omega_q/2} \Sigma_+ = 2 e^{\beta\omega_q/2} \Sigma_-.
+\end{equation}
+The transverse coefficients then simplify to
+\begin{equation}
+    \Delta_+ e^{-\beta\omega_q/2} = -c s e^{-i \phi_f} (2 e^{-\beta\omega_q/2} \Sigma_+) = -c s e^{-i\phi_f} \Sigma_\perp,
+\end{equation}
+with $\Delta_\perp \equiv -c s \Sigma_\perp$. 
+Recombining the ladder operators into Cartesian form, we obtain
+\begin{equation}
+    S = \Delta_0 \mathbb{I} + \Delta_z \sigma_z + \Delta_\perp (\sigma_x \cos\phi_f + \sigma_y \sin\phi_f),
+\end{equation}
+which is the generator of a rotation around an axis in the coupling plane. The influence magnitude $\chi = \sqrt{\Delta_z^2 + \Delta_\perp^2}$ determines the exponential $e^S = \cosh\chi (\mathbb{I} + \gamma M)$ with $\gamma = \tanh\chi/\chi$ and $M = S - \Delta_0 \mathbb{I}$. The final state $\rho_Q = Z_Q^{-1} \Pi^{1/2} e^S \Pi^{1/2}$ follows by direct matrix multiplication, yielding Eq.~\eqref{eq:rho_matrix_general} in the main text.

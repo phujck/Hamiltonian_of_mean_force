@@ -1,0 +1,166 @@
+\section{Formal Statements and Proofs}
+\label{sec:appendix_proofs}
+
+This appendix collects theorem-level formulations used in the main text.
+The body of the manuscript keeps the same results in interpretation-first form.
+
+\subsection{Strong-weak involution and asymptotic transfer}
+
+\begin{theorem}[Strong-weak representative involution]
+\label{thm:strong_weak_involution_app}
+Assume one-channel scaling
+\begin{equation}
+  \chi(\beta,g,\vartheta)=g^2\chi_0(\beta,\vartheta),\qquad \chi_0(\beta,\vartheta)>0.
+\end{equation}
+Define
+\begin{equation}
+  g_\star(\beta,\vartheta):=\chi_0(\beta,\vartheta)^{-1/2},
+  \qquad
+  g^\vee:=\frac{g_\star^2}{g}=\frac{1}{\chi_0 g}.
+\end{equation}
+Then
+\begin{align}
+  \chi(\beta,g^\vee,\vartheta) &= \chi(\beta,g,\vartheta)^{-1}, \\
+  (g^\vee)^\vee &= g, \\
+  y(\beta,g^\vee,\vartheta) &= -y(\beta,g,\vartheta),\qquad y:=\log\chi.
+\end{align}
+\end{theorem}
+\begin{proof}
+Direct substitution gives
+\begin{equation}
+  \chi(\beta,g^\vee,\vartheta)
+  =\chi_0\left(\frac{1}{\chi_0 g}\right)^2
+  =\frac{1}{\chi_0 g^2}
+  =\chi(\beta,g,\vartheta)^{-1}.
+\end{equation}
+Applying the map again,
+\begin{equation}
+  (g^\vee)^\vee=\frac{1}{\chi_0 g^\vee}=\frac{1}{\chi_0}\,(\chi_0 g)=g.
+\end{equation}
+Taking logarithms yields \(y\mapsto-y\).
+\end{proof}
+
+\begin{proposition}[Asymptotic exchange for admissible observables]
+\label{prop:asymptotic_exchange_app}
+Let \(Q\) satisfy Definition~\ref{def:admissible_class}, and let each building block
+\(\phi_j\) admit weak and strong asymptotic expansions at \(\chi\to0\) and \(\chi\to\infty\).
+Then the strong-\(\chi\) asymptotic expansion of \(Q\) at \((\beta,g,\vartheta)\) is obtained by
+evaluating the weak-\(\chi\) expansion at \((\beta,g^\vee,\vartheta)\), and conversely.
+\end{proposition}
+\begin{proof}
+By Theorem~\ref{thm:strong_weak_involution_app},
+\(\chi(\beta,g^\vee,\vartheta)=\chi(\beta,g,\vartheta)^{-1}\).
+Hence a weak expansion
+\(\phi_j(\chi)\sim\sum_n a_{j,n}\chi^n\) at \(g^\vee\) becomes
+\(\sum_n a_{j,n}\chi^{-n}\) at \(g\), i.e. a strong expansion.
+The reverse direction is identical.
+\end{proof}
+
+\subsection{Orientation gauge and affine reflection}
+
+\begin{lemma}[Affine effective-temperature reflection]
+\label{lem:affine_reflection_app}
+Let
+\begin{equation}
+  \beff=\beta-\delta\beta,
+  \qquad
+  \delta\beta:=\frac{2}{\omega_q}\operatorname{arctanh}(u),
+\end{equation}
+with \(|u|<1\).
+Under orientation gauge \(u\mapsto-u\),
+\begin{equation}
+  \beff' = 2\beta-\beff.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Because \(\operatorname{arctanh}\) is odd,
+\begin{equation}
+  \delta\beta'=
+  \frac{2}{\omega_q}\operatorname{arctanh}(-u)
+  =-\delta\beta.
+\end{equation}
+Therefore
+\begin{equation}
+  \beff' = \beta-\delta\beta' = \beta+\delta\beta = 2\beta-\beff.
+\end{equation}
+\end{proof}
+
+\begin{lemma}[Even/odd observable split]
+\label{lem:even_odd_split_app}
+If \(O_{\mathrm{rad}}=F(\chi)\), then orientation gauge leaves it invariant.
+If \(O_{\mathrm{odd}}=H(\chi,u)\) and \(H(\chi,-u)=-H(\chi,u)\), then
+\(O_{\mathrm{odd}}\mapsto -O_{\mathrm{odd}}\).
+\end{lemma}
+\begin{proof}
+Orientation gauge acts as \((\chi,u)\mapsto(\chi,-u)\).
+Substituting into \(F\) and \(H\) gives the parity statements.
+\end{proof}
+
+\subsection{Composed action structure}
+
+\begin{proposition}[Composed map and commuting radial action]
+\label{prop:composed_action_app}
+Let \(\mathcal{D}_{\mathrm{sw}}\) denote strong-weak reflection and
+\(\mathcal{G}\) orientation gauge.
+Both are involutions.
+On radial sectors,
+\begin{equation}
+  (\mathcal{G}\circ\mathcal{D}_{\mathrm{sw}})\chi
+  =(\mathcal{D}_{\mathrm{sw}}\circ\mathcal{G})\chi
+  =\chi^{-1}.
+\end{equation}
+On oriented sectors they commute whenever strong-weak mapping preserves orientation parity.
+\end{proposition}
+\begin{proof}
+Involution of \(\mathcal{D}_{\mathrm{sw}}\) follows from
+Theorem~\ref{thm:strong_weak_involution_app}, and involution of \(\mathcal{G}\) is immediate from
+sign flip.
+Orientation acts trivially on \(\chi\), so radial commutation follows.
+The parity-preserving condition is sufficient for commutation on oriented labels.
+\end{proof}
+
+\subsection{Normal-duality existence and involution}
+
+\begin{definition}[Normal-dual map]
+\label{def:normal_dual_app}
+Fix \(\theta\), define \(y(\beta,g,\theta)=\log\chi(\beta,g,\theta)\), and
+\(\mathcal{C}_\theta:=\{(\beta,g):y=0\}\).
+Assume \(y\in C^2\), \(\nabla y\neq0\) on \(\mathcal{C}_\theta\), and a tubular neighborhood where each
+point \(p\) has unique projection \(\pi(p)\in\mathcal{C}_\theta\).
+Writing
+\begin{equation}
+  p=\pi(p)+\lambda\hat\nu(\pi(p)),
+\end{equation}
+with \(\hat\nu\) unit normal, define \(p^\perp\) on the same normal ray by
+\begin{equation}
+  y(p^\perp)=-y(p).
+\end{equation}
+\end{definition}
+
+\begin{theorem}[Local existence and involution of normal duality]
+\label{thm:normal_duality_app}
+Under Definition~\ref{def:normal_dual_app}, there exists \(\delta>0\) such that for
+\(|\lambda|<\delta\):
+\begin{enumerate}
+  \item \(p^\perp\) exists and is unique,
+  \item the map is involutive, \((p^\perp)^\perp=p\),
+  \item the segment connecting \(p\) and \(p^\perp\) is orthogonal to
+  \(\mathcal{C}_\theta\) at \(\pi(p)\).
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+For fixed \(c\in\mathcal{C}_\theta\), define
+\(\Phi_c(\lambda):=y(c+\lambda\hat\nu(c))\).
+Since \(\Phi_c(0)=0\) and
+\(\Phi_c'(0)=\nabla y(c)\cdot\hat\nu(c)=\|\nabla y(c)\|>0\),
+\(\Phi_c\) is strictly monotone on a sufficiently small interval.
+Hence \(\Phi_c(\lambda^\perp)=-\Phi_c(\lambda)\) has a unique solution.
+Applying the construction twice gives
+\(\Phi_c(\lambda^{\perp\perp})=\Phi_c(\lambda)\), so
+\(\lambda^{\perp\perp}=\lambda\) by injectivity.
+Orthogonality is immediate because both points lie on one normal ray through \(c\).
+\end{proof}
+
+\subsection{Equation bookkeeping index}
+Maintain one-to-one mapping with
+\path{paper_dual_hmf/notes/equation_registry.md}.

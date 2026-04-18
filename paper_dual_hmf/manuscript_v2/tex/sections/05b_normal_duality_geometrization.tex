@@ -1,0 +1,53 @@
+\section{Normal Duality and Geometrization}
+\label{sec:normal_duality}
+
+\paragraph{From fixed-\(\beta\) reflection to geometric reflection.}
+The map \(g\mapsto g^\vee\) at fixed \(\beta\) already reflects the scalar coordinate
+\(y=\log\chi\).
+A natural extension is to ask whether both \(\beta\) and \(g\) can change simultaneously so that
+partner points are connected by a direction normal to the crossover curve.
+
+\paragraph{Crossover manifold as a geometric object.}
+At fixed \(\theta\), define
+\begin{equation}
+  y(\beta,g,\theta)=\log\chi(\beta,g,\theta),
+  \qquad
+  \mathcal{C}_\theta:=\{(\beta,g):y=0\}.
+\end{equation}
+In one-channel scaling,
+\begin{equation}
+  y=2\log g+\log\chi_0(\beta,\theta),
+  \qquad
+  \nabla y=\left(\partial_\beta\log\chi_0,\frac{2}{g}\right).
+\end{equation}
+So \(\nabla y\) defines the local normal direction to the self-dual contour.
+
+\paragraph{Normal dual representative.}
+Given a point \(p=(\beta,g)\) near \(\mathcal{C}_\theta\), project it to the closest crossover
+point \(\pi(p)\) and follow the local normal ray through \(\pi(p)\).
+The normal-dual partner \(p^\perp=(\beta^\perp,g^\perp)\) is defined as the point on the same ray
+satisfying
+\begin{equation}
+  y(p^\perp)=-y(p).
+\end{equation}
+Thus normal duality is the geometric analogue of strong-weak inversion, now in two coordinates.
+
+\paragraph{What this adds physically.}
+The fixed-\(\beta\) involution is recovered when the normal is nearly vertical.
+Away from that limit, normal duality encodes how temperature and coupling should be co-varied to keep
+branch distance symmetric around crossover.
+This is useful when experiments or numerics sweep both controls simultaneously.
+
+\paragraph{Practical construction recipe.}
+For numerical implementation:
+\begin{enumerate}
+  \item compute the crossover contour \(\mathcal{C}_\theta\) from \(\chi=1\),
+  \item estimate local normal \(\hat\nu\propto\nabla y\),
+  \item for each point \(p\), solve along the normal ray for \(p^\perp\) with \(y(p^\perp)=-y(p)\).
+\end{enumerate}
+This produces a simultaneous \((\beta,g)\)-dual map without introducing any additional model
+assumption beyond smoothness of \(y\).
+
+\paragraph{Formal statement.}
+A local existence/involution theorem for this map is stated and proved in
+the Appendix.

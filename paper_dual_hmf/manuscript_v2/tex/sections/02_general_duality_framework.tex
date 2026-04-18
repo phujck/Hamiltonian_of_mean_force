@@ -1,0 +1,110 @@
+\section{General Duality Framework}
+\label{sec:general_framework}
+
+\paragraph{Subsystem equilibrium with finite coupling.}
+Consider
+\begin{equation}
+  H_{\mathrm{tot}} = H_Q + H_X + H_{\mathrm{int}}, \qquad
+  H_{\mathrm{int}} = g\,f\otimes B.
+\end{equation}
+Here \(g\) is a coupling amplitude, \(f\) is a subsystem operator, and \(B\) is a bath operator.
+Define
+\begin{equation}
+  Z_X(\beta):=\Tr_X e^{-\beta H_X}, \qquad
+  Z_Q(\beta):=\Tr_Q e^{-\beta H_Q},
+\end{equation}
+and the reduced equilibrium operator
+\begin{equation}
+  \bar{\rho}_Q(\beta):=\Tr_X e^{-\beta H_{\mathrm{tot}}},
+\end{equation}
+with normalized reduced state
+\begin{equation}
+  \rho_Q(\beta)=\frac{\bar{\rho}_Q(\beta)}{\Tr_Q \bar{\rho}_Q(\beta)}.
+\end{equation}
+The Hamiltonian of mean force is the exact generator satisfying
+\begin{equation}
+  e^{-\beta H_{\mathrm{MF}}(\beta)}
+  := \frac{\bar{\rho}_Q(\beta)}{Z_X(\beta)}.
+\end{equation}
+No perturbative approximation is used in this definition
+\cite{gelinThermodynamicsSubensembleCanonical2009a,hiltHamiltonianMeanForce2011,talknerColloquiumStatisticalMechanics2020,rivasStrongCouplingThermodynamics2020}.
+
+\begin{definition}[Influence operator and thermal-influence partition]
+\label{def:influence_operator}
+Define \(S_\beta\) by
+\begin{equation}
+  e^{S_\beta}
+  := e^{+\beta H_Q/2}\,\frac{\bar{\rho}_Q(\beta)}{Z_X(\beta)}\,e^{+\beta H_Q/2}.
+\end{equation}
+Equivalently,
+\begin{equation}
+  \frac{\bar{\rho}_Q(\beta)}{Z_X(\beta)}
+  = e^{-\beta H_Q/2}\,e^{S_\beta}\,e^{-\beta H_Q/2}.
+\end{equation}
+With \(\rho_Q^{\mathrm{th}}=Z_Q^{-1}e^{-\beta H_Q}\), this becomes
+\begin{equation}
+  \rho_Q(\beta)
+  = \frac{Z_Q(\beta)}{Z_{\mathrm{MF}}(\beta)}
+  \big(\rho_Q^{\mathrm{th}}(\beta)\big)^{1/2}
+  e^{S_\beta}
+  \big(\rho_Q^{\mathrm{th}}(\beta)\big)^{1/2},
+\end{equation}
+where \(Z_{\mathrm{MF}}(\beta):=\Tr_Q e^{-\beta H_{\mathrm{MF}}(\beta)}\).
+\end{definition}
+
+\paragraph{Physical meaning of the partition.}
+The bare Gibbs factor carries the reference equilibrium geometry set by \(H_Q\), while
+\(e^{S_\beta}\) carries all coupling-induced dressing.
+The duality maps introduced below act on representatives of this dressed family.
+They do not change the underlying family itself. This thermal-plus-influence split is the
+operator-level equilibrium analogue of influence-functional dressing
+\cite{feynmanTheoryGeneralQuantum1963a,mccaulMeanForceHamiltoniansInfluence2026}.
+
+\begin{definition}[Representative family]
+\label{def:rep_family}
+Let \(\mathcal{P}\) be a parameter manifold and \(\mathcal{O}\) a set of observables.
+A representative family is a map
+\begin{equation}
+  \mathcal{R}: \mathcal{P}\to \mathcal{O}, \qquad
+  p \mapsto \{O_k(p)\}_{k\in K},
+\end{equation}
+where each \(O_k\) is evaluated from one fixed analytic functional form, while \(p\) can be
+re-labeled by discrete representative transformations.
+\end{definition}
+
+\paragraph{Crossover coordinate as influence strength.}
+Assume there is a positive scalar \(\chi\) that controls crossover in the closed solution and define
+\begin{equation}
+  y:=\log\chi.
+\end{equation}
+The surface \(\chi=1\) (equivalently \(y=0\)) is the self-dual crossover manifold separating weak
+(\(\chi<1\)) and strong (\(\chi>1\)) influence branches.
+For one dominant channel,
+\begin{equation}
+  \chi(\beta,g,\vartheta)=g^2\chi_0(\beta,\vartheta),\qquad \chi_0>0,
+\end{equation}
+so the moving self-dual scale is
+\begin{equation}
+  g_\star(\beta,\vartheta)=\chi_0(\beta,\vartheta)^{-1/2}.
+\end{equation}
+
+\begin{definition}[Observable class used for regime transfer]
+\label{def:admissible_class}
+An observable \(Q\) is admissible if
+\begin{equation}
+  Q(\beta,g,\vartheta)=F\!\bigl(\beta,\vartheta;\phi_1(\chi),\ldots,\phi_n(\chi),u\bigr),
+\end{equation}
+where \(F\) is smooth in its arguments, each \(\phi_j\) has asymptotic expansions for
+\(\chi\to0\) and \(\chi\to\infty\), and \(u\) is an oriented scalar (possibly absent) that flips
+sign under orientation-gauge transformation.
+\end{definition}
+
+\paragraph{Why this class is sufficient.}
+If a transformation acts only on \((\chi,u)\), then the same closed function \(F\) is reused.
+This is the mechanism behind regime transfer: one does not alter the analytic form, only the
+argument regime where it is evaluated.
+
+\paragraph{Roadmap from framework to physics.}
+The next sections introduce strong-weak representative reflection, orientation gauge, and their
+composition into a duality geometry.
+The spin-boson realization is treated only after this framework is complete.

@@ -1,0 +1,65 @@
+\documentclass[aps,prl,twocolumn,superscriptaddress,floatfix]{revtex4-2}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{mathtools}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\beff}{\beta_{\mathrm{eff}}}
+
+\begin{document}
+
+\title{Dual Representatives of Mean-Force Equilibrium as a Duality Geometry}
+\author{Author Name}
+\affiliation{Affiliation}
+\date{\today}
+
+\begin{abstract}
+The Hamiltonian of mean force is exact but often difficult to use in practice because low-temperature
+and strong-coupling limits are not equally tractable in one parameter representation.
+We present a physical duality-geometry view in which two discrete representative maps reorganize this
+difficulty without changing the underlying state family.
+The first map is a strong-weak reflection of the crossover coordinate \(y=\log\chi\), yielding
+\(\chi\mapsto\chi^{-1}\) and, for one-channel scaling, \(g^\vee=g_\star^2/g\).
+The second map is an orientation-gauge flip of the mean-force axis that induces an affine reflection
+of effective-temperature representatives, \(\beff'=2\beta-\beff\).
+In the main text we emphasize physical interpretation, concrete control logic, and observable
+consequences; formal theorem-level statements and full proofs are collected in the Appendix.
+The spin-boson qubit is used as a first worked example after the general framework is established,
+including closure-level spectral-class thresholds and a closed entropy map.
+Numerical diagnostics confirm that asymptotic reconstructions are inaccurate only near crossover and
+rapidly become quantitatively precise deep in the target branch.
+\end{abstract}
+
+\maketitle
+
+\input{sections/01_introduction}
+\input{sections/02_general_duality_framework}
+\input{sections/03_strong_weak_involution}
+\input{sections/04_orientation_gauge_and_affine_reflection}
+\input{sections/05_composed_duality_and_constraints}
+\input{sections/05b_normal_duality_geometrization}
+\input{sections/06_spin_boson_first_example}
+\input{sections/07_numerical_validation_protocol}
+\input{sections/08_discussion_outlook}
+
+\appendix
+\input{sections/09_appendix_proofs}
+
+\bibliography{../../../literature/references_new}
+
+\end{document}

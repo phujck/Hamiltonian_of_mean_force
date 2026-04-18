@@ -1,0 +1,73 @@
+\section{Strong-Weak Involution}
+\label{sec:strong_weak_involution}
+
+\paragraph{Involution on the crossover coordinate.}
+Let
+\begin{equation}
+  y = \log \chi, \qquad \chi > 0.
+\end{equation}
+Define
+\begin{equation}
+  \mathcal{D}_{\mathrm{sw}}: y \mapsto -y
+  \quad \Longleftrightarrow \quad
+  \chi \mapsto \chi^{-1}.
+\end{equation}
+
+\begin{theorem}[Strong-weak involution]
+\label{thm:strong_weak_involution}
+Assume one-channel scaling
+\begin{equation}
+  \chi(\beta,g,\vartheta)=g^2\chi_0(\beta,\vartheta), \qquad \chi_0(\beta,\vartheta)>0.
+\end{equation}
+Define the self-dual scale
+\begin{equation}
+  g_\star(\beta,\vartheta):=\chi_0(\beta,\vartheta)^{-1/2},
+\end{equation}
+and the dual representative
+\begin{equation}
+  g^\vee(\beta,\vartheta;g):=\frac{g_\star(\beta,\vartheta)^2}{g}
+  =\frac{1}{\chi_0(\beta,\vartheta)\,g}.
+\end{equation}
+Then:
+\begin{align}
+  \chi(\beta,g^\vee,\vartheta) &= \chi(\beta,g,\vartheta)^{-1}, \\
+  (g^\vee)^\vee &= g, \\
+  y(\beta,g^\vee,\vartheta) &= -y(\beta,g,\vartheta).
+\end{align}
+\end{theorem}
+\begin{proof}
+By substitution,
+\begin{equation}
+  \chi(\beta,g^\vee,\vartheta)
+  =\chi_0\left(\frac{1}{\chi_0 g}\right)^2
+  =\frac{1}{\chi_0 g^2}
+  =\chi(\beta,g,\vartheta)^{-1}.
+\end{equation}
+Applying the same transformation twice gives
+\begin{equation}
+  (g^\vee)^\vee=\frac{1}{\chi_0 g^\vee}
+  =\frac{1}{\chi_0}\,\chi_0 g
+  =g.
+\end{equation}
+Taking logarithms yields \(y\mapsto -y\).
+\end{proof}
+
+\begin{proposition}[Asymptotic exchange]
+\label{prop:asymptotic_exchange}
+Let \(Q\) be admissible in the sense of Definition~\ref{def:admissible_class}, and suppose the
+\(\chi\)-dependent building blocks \(\phi_j\) have weak/strong asymptotic expansions at
+\(\chi\to 0\) and \(\chi\to\infty\). Then the strong-\(\chi\) asymptotic expansion of \(Q\) at
+\((\beta,g,\vartheta)\) is obtained by evaluating the weak-\(\chi\) expansion at the dual
+representative \((\beta,g^\vee,\vartheta)\), and conversely.
+\end{proposition}
+\begin{proof}
+By Theorem~\ref{thm:strong_weak_involution},
+\(\chi(\beta,g^\vee,\vartheta)=\chi(\beta,g,\vartheta)^{-1}\). Therefore any weak expansion
+\(\phi_j(\chi)\sim \sum_n a_{j,n}\chi^n\) at \(g^\vee\) becomes
+\(\sum_n a_{j,n}\chi(\beta,g,\vartheta)^{-n}\), which is a strong expansion at \(g\). The reverse
+direction is identical.
+\end{proof}
+
+\paragraph{Interpretation boundary.}
+The proposition transfers asymptotic control between representatives. It is not a claim that
+\(Q(\beta,g,\vartheta)=Q(\beta,g^\vee,\vartheta)\) pointwise.

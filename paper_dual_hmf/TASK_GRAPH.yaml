@@ -1,0 +1,198 @@
+version: 1
+project: paper_dual_hmf
+updated_utc: "2026-02-27T01:31:38Z"
+tasks:
+  - id: PDHMF-001
+    title: Scaffold project and manuscript stubs
+    owner: codex
+    status: done
+    deps: []
+    inputs:
+      - user_approved_plan_theory_first
+    outputs:
+      - paper_dual_hmf/README.md
+      - paper_dual_hmf/manuscript/tex/main.tex
+      - paper_dual_hmf/manuscript/tex/sections/*.tex
+      - paper_dual_hmf/WORKLOG.md
+      - paper_dual_hmf/TASK_GRAPH.yaml
+      - paper_dual_hmf/HANDOFF.md
+      - paper_dual_hmf/notes/source_map.md
+      - paper_dual_hmf/notes/equation_registry.md
+    acceptance:
+      - folder_structure_exists
+      - section_order_matches_theory_first_architecture
+      - no_existing_manuscript_files_modified
+    updated_utc: "2026-02-27T00:30:00Z"
+
+  - id: PDHMF-002
+    title: Lock formal statements for core theory section set (02-05)
+    owner: unassigned
+    status: done
+    deps:
+      - PDHMF-001
+    inputs:
+      - paper_dual_hmf/notes/equation_registry.md
+      - manuscript/tex_clean/sections/12_branch_alignment_derivation_codex.tex
+      - manuscript/tex_clean/sections/13_branch_bifurcation_involutive.tex
+      - manuscript/tex_clean/sections/14_tilt_sign_branch_mfg_alignment.tex
+    outputs:
+      - paper_dual_hmf/manuscript/tex/sections/02_general_duality_framework.tex
+      - paper_dual_hmf/manuscript/tex/sections/03_strong_weak_involution.tex
+      - paper_dual_hmf/manuscript/tex/sections/04_orientation_gauge_and_affine_reflection.tex
+      - paper_dual_hmf/manuscript/tex/sections/05_composed_duality_and_constraints.tex
+    acceptance:
+      - theorem_lemma_proposition_headers_completed
+      - interpretation_vs_proven_claims_explicit
+    updated_utc: "2026-02-27T00:34:24Z"
+
+  - id: PDHMF-003
+    title: Write spin-boson Example 1 section as post-theory instantiation
+    owner: unassigned
+    status: done
+    deps:
+      - PDHMF-002
+    inputs:
+      - paper_dual_hmf/manuscript/tex/sections/06_spin_boson_first_example.tex
+      - manuscript/tex_clean/sections/05_results_v2.tex
+      - manuscript/tex_clean/sections/10b_appendix_qubit_derivation.tex
+      - manuscript/tex_clean/sections/12_branch_alignment_derivation_codex.tex
+    outputs:
+      - paper_dual_hmf/manuscript/tex/sections/06_spin_boson_first_example.tex
+    acceptance:
+      - spin_boson_presented_as_example_not_centre
+      - easy_g_to_infty_route_via_e_to_S_made_explicit
+      - hard_beta_limit_mapped_via_dual_representative
+    updated_utc: "2026-02-27T00:34:24Z"
+
+  - id: PDHMF-004
+    title: Build minimal theory-led validation figure protocol
+    owner: unassigned
+    status: done
+    deps:
+      - PDHMF-002
+    inputs:
+      - simulations/production/make_crossover_involutive_figure.py
+      - simulations/production/plot_branch_bifurcation_involutive_manuscript.py
+    outputs:
+      - paper_dual_hmf/manuscript/figures/hmf_dual_map_core.pdf
+      - paper_dual_hmf/manuscript/figures/hmf_dual_map_core.png
+      - paper_dual_hmf/manuscript/tex/sections/07_numerical_validation_protocol.tex
+    acceptance:
+      - core_plot_uses_y_log_chi_and_chi_eq_1
+      - representative_map_g_to_gvee_visible
+      - strong_branch_vs_dual_weak_branch_check_documented
+    updated_utc: "2026-02-27T00:46:35Z"
+
+  - id: PDHMF-005
+    title: Compile and manuscript acceptance pass
+    owner: unassigned
+    status: done
+    deps:
+      - PDHMF-003
+      - PDHMF-004
+    inputs:
+      - paper_dual_hmf/manuscript/tex/main.tex
+    outputs:
+      - paper_dual_hmf/manuscript/tex/main.pdf
+      - compile_log
+    acceptance:
+      - clean_compile
+      - theorem_or_interpretation_tagging_complete
+      - notation_consistency_pass_complete
+    updated_utc: "2026-02-27T00:46:35Z"
+
+  - id: PDHMF-006
+    title: Claim-citation audit for theory core (Sections 01-05)
+    owner: unassigned
+    status: pending
+    deps:
+      - PDHMF-005
+    inputs:
+      - paper_dual_hmf/manuscript/tex/sections/01_introduction.tex
+      - paper_dual_hmf/manuscript/tex/sections/02_general_duality_framework.tex
+      - paper_dual_hmf/manuscript/tex/sections/03_strong_weak_involution.tex
+      - paper_dual_hmf/manuscript/tex/sections/04_orientation_gauge_and_affine_reflection.tex
+      - paper_dual_hmf/manuscript/tex/sections/05_composed_duality_and_constraints.tex
+      - literature/references_new.bib
+    outputs:
+      - updated_theory_section_citations
+      - claim_support_audit_notes
+    acceptance:
+      - each_nontrivial_claim_is_proved_or_cited_or_labeled_interpretation
+      - no_unsupported_background_assertions_in_intro
+    updated_utc: "2026-02-27T00:49:06Z"
+
+  - id: PDHMF-007
+    title: Nature-level narrative polish pass
+    owner: unassigned
+    status: in_progress
+    deps:
+      - PDHMF-006
+    inputs:
+      - paper_dual_hmf/manuscript/tex/main.tex
+      - paper_dual_hmf/manuscript/tex/sections/*.tex
+    outputs:
+      - tightened_abstract_intro_discussion_flow
+      - notation_and_terminology_consistency_pass
+    acceptance:
+      - abstract_problem_solution_impact_arc_is_sharp
+      - section_transitions_read_as_single_argument_chain
+      - spin_boson_remains_example_not_center
+    updated_utc: "2026-02-27T01:31:38Z"
+
+  - id: PDHMF-008
+    title: Figure-caption polish and reproducibility note
+    owner: unassigned
+    status: done
+    deps:
+      - PDHMF-006
+    inputs:
+      - paper_dual_hmf/manuscript/figures/hmf_dual_map_core.pdf
+      - paper_dual_hmf/manuscript/tex/sections/07_numerical_validation_protocol.tex
+      - paper_dual_hmf/validation/make_core_dual_map_figure.py
+    outputs:
+      - publication_quality_caption_and_labels
+      - short_reproducibility_paragraph
+    acceptance:
+      - caption_stands_alone_without_main_text
+      - figure_directly_supports_named_theory_claim
+      - figure_generation_command_documented
+    updated_utc: "2026-02-27T01:11:32Z"
+
+  - id: PDHMF-009
+    title: Final submission-readiness gate
+    owner: unassigned
+    status: pending
+    deps:
+      - PDHMF-007
+      - PDHMF-008
+    inputs:
+      - paper_dual_hmf/manuscript/tex/main.tex
+      - paper_dual_hmf/WORKLOG.md
+      - paper_dual_hmf/notes/equation_registry.md
+    outputs:
+      - paper_dual_hmf/manuscript/tex/main.pdf
+      - final_quality_gate_summary
+    acceptance:
+      - compile_chain_clean_no_undefined_refs_or_citations
+      - all_main_claims_traceable_to_proof_or_citation
+      - no_placeholder_text_or_open_questions_in_main
+    updated_utc: "2026-02-27T00:49:06Z"
+
+  - id: PDHMF-010
+    title: Add onboarding visual/context layer for unfamiliar readers
+    owner: unassigned
+    status: pending
+    deps:
+      - PDHMF-007
+      - PDHMF-008
+    inputs:
+      - paper_dual_hmf/manuscript/tex/sections/05b_normal_duality_geometrization.tex
+      - paper_dual_hmf/manuscript/tex/main.tex
+    outputs:
+      - normal_duality_geometric_construction_figure
+      - representative_symbol_table
+    acceptance:
+      - normal_duality_construction_readable_without_code_context
+      - symbols_chi_y_gvee_beff_defined_in_one_reference_block
+    updated_utc: "2026-02-27T01:11:32Z"

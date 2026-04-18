@@ -1,0 +1,73 @@
+\section{Composed Duality Action and Observable Constraints}
+\label{sec:composed_duality}
+
+\paragraph{Composed representative action.}
+Define
+\begin{equation}
+  \mathcal{D}_{\mathrm{comp}} := \mathcal{G} \circ \mathcal{D}_{\mathrm{sw}}.
+\end{equation}
+
+\begin{proposition}[Composed-action structure]
+\label{prop:composed_action}
+The maps \(\mathcal{D}_{\mathrm{sw}}\) and \(\mathcal{G}\) are both involutions on representative
+labels. Their action on the radial sector is always commuting:
+\begin{equation}
+  (\mathcal{G}\circ\mathcal{D}_{\mathrm{sw}})\chi
+  =(\mathcal{D}_{\mathrm{sw}}\circ\mathcal{G})\chi
+  =\chi^{-1}.
+\end{equation}
+On oriented sectors, commutation holds whenever the dual map preserves orientation parity
+\(u^\vee(-u)=-u^\vee(u)\). In that case, the generated discrete group is \(Z_2\times Z_2\).
+\end{proposition}
+\begin{proof}
+Involution of \(\mathcal{D}_{\mathrm{sw}}\) follows from Theorem~\ref{thm:strong_weak_involution},
+and involution of \(\mathcal{G}\) is immediate from sign flip. The radial statement follows because
+\(\mathcal{G}\) acts trivially on \(\chi\). Parity preservation is the sufficient condition for commuting
+action on \(u\).
+\end{proof}
+
+\paragraph{Constraint on representative fits.}
+Suppose a saturated-regime radius is parameterised as \(r=r(\beff)\). Orientation pairing then
+imposes
+\begin{equation}
+  r' = r(2\beta - \beff).
+\end{equation}
+This gives a non-trivial consistency relation for any empirical \(\beff\)-collapse.
+
+\begin{corollary}[Ratio constraint]
+\label{cor:ratio_constraint}
+\begin{equation}
+  R(\beta,\theta) := \frac{r(2\beta-\beff)}{r(\beff)}.
+\end{equation}
+At the symmetry point \(\Theta=0\) (equivalently \(\beff=0\)), the paired representatives are
+\((0,2\beta)\), and \(R\) provides a sharp local diagnostic of representative consistency.
+\end{corollary}
+
+\paragraph{Temperature-driven branch exchange.}
+The dual map also yields a direct statement about high-\(T\)/low-\(T\) control transfer when
+\(\chi_0\) has monotone endpoint scaling.
+
+\begin{corollary}[Classical-quantum exchange of control]
+\label{cor:classical_quantum_exchange}
+Assume one-channel scaling \(\chi(\beta,g,\theta)=g^2\chi_0(\beta,\theta)\) with \(g>0\), and
+suppose
+\begin{equation}
+  \chi_0(\beta,\theta)\to 0 \quad (\beta\to 0),
+  \qquad
+  \chi_0(\beta,\theta)\to \infty \quad (\beta\to\infty).
+\end{equation}
+Then, at fixed \(g\),
+\begin{align}
+  \beta\to 0 &: \chi(\beta,g,\theta)\to 0, \qquad g^\vee(\beta,\theta;g)\to\infty, \\
+  \beta\to\infty &: \chi(\beta,g,\theta)\to\infty, \qquad g^\vee(\beta,\theta;g)\to 0.
+\end{align}
+Hence low-temperature strong-\(\chi\) asymptotics at \(g\) are transferred to weak-\(\chi\)
+asymptotics at \(g^\vee\), while high-temperature weak-\(\chi\) asymptotics map to a
+strong-coupling dual representative.
+\end{corollary}
+\begin{proof}
+From Theorem~\ref{thm:strong_weak_involution},
+\(g^\vee(\beta,\theta;g)=1/(\chi_0(\beta,\theta)g)\) and
+\(\chi(\beta,g^\vee,\theta)=\chi(\beta,g,\theta)^{-1}\). The endpoint limits follow by
+substitution of the assumed \(\chi_0\) scaling.
+\end{proof}

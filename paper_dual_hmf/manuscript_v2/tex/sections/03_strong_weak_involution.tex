@@ -1,0 +1,64 @@
+\section{Strong-Weak Representative Involution}
+\label{sec:strong_weak_involution}
+
+\paragraph{Physical idea.}
+In many closed mean-force parameterizations, one scalar controls the crossover between two asymptotic
+languages: a weak-influence expansion in powers of \(\chi\), and a strong-influence expansion in
+powers of \(1/\chi\).
+The key duality is therefore a reflection of the crossover coordinate,
+\begin{equation}
+  y=\log\chi \longmapsto -y,
+\end{equation}
+which is equivalent to
+\begin{equation}
+  \chi\longmapsto \chi^{-1}.
+\end{equation}
+
+\paragraph{Representative map at fixed \(\beta\).}
+For one-channel scaling,
+\begin{equation}
+  \chi(\beta,g,\vartheta)=g^2\chi_0(\beta,\vartheta),
+\end{equation}
+define
+\begin{equation}
+  g_\star(\beta,\vartheta):=\chi_0(\beta,\vartheta)^{-1/2},
+  \qquad
+  g^\vee:=\frac{g_\star^2}{g}=\frac{1}{\chi_0 g}.
+\end{equation}
+Then
+\begin{equation}
+  \chi(\beta,g^\vee,\vartheta)=\chi(\beta,g,\vartheta)^{-1},
+  \qquad
+  (g^\vee)^\vee=g.
+\end{equation}
+So each point has a partner across the self-dual contour \(\chi=1\).
+
+\paragraph{Control transfer, not state equality.}
+The dual map does \emph{not} claim
+\(Q(\beta,g,\vartheta)=Q(\beta,g^\vee,\vartheta)\) pointwise.
+Instead, it states that the hard strong-branch expansion at \((\beta,g)\) can be reconstructed from
+the weak-branch expansion of the same functional family at \((\beta,g^\vee)\).
+This is a computational statement about asymptotic control.
+
+\paragraph{Concrete example.}
+For
+\begin{equation}
+  \gamma(\chi)=\frac{\tanh\chi}{\chi},
+\end{equation}
+one has
+\begin{align}
+  \gamma(\chi) &\sim 1-\frac{\chi^2}{3}+O(\chi^4), && \chi\to0, \\
+  \gamma(\chi) &\sim \frac{1}{\chi}, && \chi\to\infty.
+\end{align}
+Under \(\chi\mapsto\chi^{-1}\), the weak expansion variable at the dual representative is exactly
+the strong expansion variable of the original representative.
+
+\paragraph{Geometric reading.}
+In \((\beta,g)\)-space, \(\chi=1\) is the self-dual manifold.
+The map \(g\leftrightarrow g^\vee\) at fixed \(\beta\) is a reflection across this manifold in the
+coordinate \(y=\log\chi\).
+The normal-duality construction later in the paper generalizes this to simultaneous
+\((\beta,g)\)-motion along local normals.
+
+\paragraph{Formal statement.}
+A theorem-level formulation (including admissibility conditions and proof) is given in the Appendix.
